@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="header">
+    <h2>Top Products</h2>
+    <app-card-actions></app-card-actions>
+  </div>
+  <div class="body">
+    <div id="chart-top-products" class="chartist">
+      <div echarts [options]="stackedBarChart" [autoResize]="true" class="fix-h-292"></div>
+    </div>
+  </div>
+</div>

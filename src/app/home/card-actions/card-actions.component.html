@@ -1,0 +1,10 @@
+<ul class="header-dropdown" ngbDropdown>
+  <li class="dropdown">
+    <a href="javascript:void(0);" class="dropdown-toggle" role="button" ngbDropdownToggle></a>
+    <ul class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+      <li *ngFor="let action of actions">
+        <a [routerLink]="[action.url]">{{ action.key }}</a>
+      </li>
+    </ul>
+  </li>
+</ul>

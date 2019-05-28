@@ -1,0 +1,124 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-brand">
+      <a [routerLink]="['/admin']"><img src="assets/images/dgpay-logo.png" alt="Logo" class="img-responsive logo"/></a>
+    </div>
+    <div class="navbar-right">
+      <div id="navbar-menu">
+        <ul class="nav navbar-nav">
+          <li class="dropdown" ngbDropdown>
+            <a class="dropdown-toggle icon-menu" ngbDropdownToggle>
+              <i class="icon-bell"></i>
+              <span class="notification-dot"></span>
+            </a>
+            <ul class="dropdown-menu notifications" ngbDropdownMenu>
+              <li class="header"><strong>You have 4 new Notifications</strong></li>
+              <li>
+                <a href="javascript:void(0);">
+                  <div class="media">
+                    <div class="media-left">
+                      <i class="icon-info text-warning"></i>
+                    </div>
+                    <div class="media-body">
+                      <p class="text">Campaign <strong>Holiday Sale</strong> is nearly reach budget limit.</p>
+                      <span class="timestamp">10:00 AM Today</span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">
+                  <div class="media">
+                    <div class="media-left">
+                      <i class="icon-like text-success"></i>
+                    </div>
+                    <div class="media-body">
+                      <p class="text">Your New Campaign <strong>Holiday Sale</strong> is approved.</p>
+                      <span class="timestamp">11:30 AM Today</span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">
+                  <div class="media">
+                    <div class="media-left">
+                      <i class="icon-pie-chart text-info"></i>
+                    </div>
+                    <div class="media-body">
+                      <p class="text">Website visits from Twitter is 27% higher than last week.</p>
+                      <span class="timestamp">04:00 PM Today</span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">
+                  <div class="media">
+                    <div class="media-left">
+                      <i class="icon-info text-danger"></i>
+                    </div>
+                    <div class="media-body">
+                      <p class="text">Error on website analytics configurations</p>
+                      <span class="timestamp">Yesterday</span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="footer"><a href="javascript:void(0);" class="more">See all notifications</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" ngbDropdown>
+            <a class="dropdown-toggle icon-menu" ngbDropdownToggle><i class="icon-equalizer"></i></a>
+            <ul class="dropdown-menu user-menu menu-icon" ngbDropdownMenu style="background: #000">
+              <li class="menu-heading">ACCOUNT SETTINGS</li>
+              <li>
+                <a href="javascript:void(0);"><i class="icon-note"></i> <span>Basic</span></a>
+              </li>
+              <li>
+                <a href="javascript:void(0);"><i class="icon-equalizer"></i> <span>Preferences</span></a>
+              </li>
+              <li>
+                <a href="javascript:void(0);"><i class="icon-lock"></i> <span>Privacy</span></a>
+              </li>
+              <li>
+                <a href="javascript:void(0);"><i class="icon-bell"></i> <span>Notifications</span></a>
+              </li>
+              <li class="menu-heading">BILLING</li>
+              <li>
+                <a href="javascript:void(0);"><i class="icon-credit-card"></i> <span>Payments</span></a>
+              </li>
+              <li>
+                <a href="javascript:void(0);"><i class="icon-printer"></i> <span>Invoices</span></a>
+              </li>
+              <li>
+                <a href="javascript:void(0);"><i class="icon-refresh"></i> <span>Renewals</span></a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="icon-menu"><i class="icon-login"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="d-flex justify-content-center flex-column h-100 bg-cover auth">
+  <div class="container">
+    <div class="row">
+      <div class="col mx-auto">
+            <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+  <footer class="auth-footer">
+    <div class="container">
+      <div class="row d-flex justify-content-between">
+        <p>Swerve - <a [routerLink]="['/privacy']">Privacy</a></p>
+        <p><a [routerLink]="['/']">Home</a></p>
+      </div>
+    </div>
+  </footer>
+</div>

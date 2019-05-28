@@ -1,0 +1,63 @@
+<!--<div class="container-fluid">-->
+<!--  <div class="jumbotron text-center">-->
+<!--    <h1>-->
+<!--      <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />-->
+<!--      <span translate>Hello world !</span>-->
+<!--    </h1>-->
+<!--    <app-loader [isLoading]="isLoading"></app-loader>-->
+<!--    <q [hidden]="isLoading">{{ quote }}</q>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="container-fluid">
+  <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
+  <div class="row clearfix">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <app-detail-tiles
+        [title]="'Disbursements'"
+        [value]="earnings"
+        [details]="'19% compared to last week'"
+        [chartOptions]="earningOptions"
+      ></app-detail-tiles>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <app-detail-tiles
+        [title]="'Repayments'"
+        [value]="sales"
+        [details]="'25% compared to last week'"
+        [chartOptions]="salesOptions"
+      ></app-detail-tiles>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <app-detail-tiles
+        [title]="'Total Loans'"
+        [value]="visits.toLocaleString()"
+        [details]="'19% compared to last week'"
+        [chartOptions]="visitsAreaOptions"
+      ></app-detail-tiles>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <app-detail-tiles
+        [title]="'Total Repayments'"
+        [value]="likes.toLocaleString()"
+        [details]="'19% compared to last week'"
+        [chartOptions]="LikesOptions"
+      ></app-detail-tiles>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-lg-6 col-md-12">
+      <app-top-products></app-top-products>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <app-referrals></app-referrals>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <app-total-revenue></app-total-revenue>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-lg-12">
+      <app-activities></app-activities>
+    </div>
+  </div>
+</div>

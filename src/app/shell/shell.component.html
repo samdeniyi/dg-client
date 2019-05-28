@@ -1,0 +1,31 @@
+<!--<app-header></app-header>-->
+<!--<router-outlet></router-outlet>-->
+
+<!-- Page Loader -->
+<div class="body {{ smallScreenMenu }}">
+  <!--<div class="body {{themeClass}} {{smallScreenMenu}}">-->
+
+  <app-page-loader *ngIf="!isStopLoading"></app-page-loader>
+
+  <div id="wrapper" *ngIf="isStopLoading">
+    <!-- Overlay For Sidebars -->
+
+    <app-header
+      [showNotifMenu]="showNotifMenu"
+      [showToggleMenu]="showToggleMenu"
+      (toggleSettingDropMenuEvent)="toggleSettingDropMenu()"
+      (toggleNotificationDropMenuEvent)="toggleNotificationDropMenu()"
+    ></app-header>
+
+    <app-sidebar
+      [sidebarVisible]="sidebarService.sidebarVisible"
+      [navTab]="navTab"
+      [currentActiveMenu]="currentActiveMenu"
+      [currentActiveSubMenu]="currentActiveSubMenu"
+      (activeInactiveMenuEvent)="activeInactiveMenu($event)"
+    ></app-sidebar>
+    <div id="main-content" [ngClass]="{ 'layout-fullwidth': !sidebarService.sidebarVisible }">
+      <router-outlet (activate)="getActiveRoutes()"></router-outlet>
+    </div>
+  </div>
+</div>

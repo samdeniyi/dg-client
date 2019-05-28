@@ -1,0 +1,132 @@
+
+/deep/.auth {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.8)
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  a {
+    color: #212529;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      color: #212529;
+    }
+  }
+
+  .container {
+    position: relative;
+  }
+
+  .logo {
+    width: 100px;
+    margin: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-text {
+    color: #ADB5BD;
+  }
+
+  .card {
+    border-radius: 20px;
+
+    .card-body {
+      padding: 2.5rem 3rem;
+    }
+  }
+
+  label {
+    font-size: 13px;
+  }
+
+  .withIcon {
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 50px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 12px;
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(3, 122, 255, 0.25);
+    }
+
+    .fa,
+    .far,
+    .icon {
+      font-size: 18px;
+      margin-right: 10px;
+      color: #CED4DA;
+    }
+
+    .icon {
+      font-size: 25px;
+    }
+
+    .right-icon {
+      margin-left: 10px;
+      margin-right: 0px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    input {
+      background: transparent;
+      border: none;
+      width: 100%;
+      padding: 0;
+      color: #6C757D;
+      font-size: 13px;
+
+      &:focus {
+        outline: 0;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .auth-btn {
+    border-radius: 50px;
+    padding: 8px 50px;
+    font-size: 14px;
+    background: #56b24e;
+    border-color: #56b24e;
+    color: #fff;
+
+    &:hover,
+    &:active {
+      background: #4b9642;
+    }
+  }
+
+  .form-check {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+
+    .form-check-input {
+      margin-top: 0rem;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    align-items: center;
+  }
+
+  footer.auth-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    font-size: 14px;
+  }
+}

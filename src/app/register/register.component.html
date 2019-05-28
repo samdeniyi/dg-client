@@ -1,0 +1,90 @@
+<div id="wrapper">
+  <div class="vertical-align-wrap">
+    <div class="vertical-align-middle auth-main">
+      <div class="auth-box">
+        <div class="top">
+          <img src="assets/images/logo-light.png" alt="DGPay" />
+        </div>
+        <div class="card">
+          <div class="header">
+            <p class="lead">Login to your account</p>
+          </div>
+          <!--          <ng-container>-->
+          <!--            <app-alert-message [options]="alertMessage"></app-alert-message>-->
+          <!--          </ng-container>-->
+          <div class="body">
+            <form class="form-auth-small" (ngSubmit)="onSubmit()" [formGroup]="regForm" novalidate>
+              <div class="form-group">
+                <label for="signin-email" class="control-label sr-only">Firstname</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="signin-firstname"
+                  formControlName="firstName"
+                  placeholder="Full Name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="signin-email" class="control-label sr-only">Lastname</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="signin-fullname"
+                  formControlName="lastName"
+                  placeholder="Full Name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="signin-email" class="control-label sr-only">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="signin-email"
+                  formControlName="email"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="signin-email" class="control-label sr-only">Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="signin-phone-number"
+                  formControlName="phoneNumber"
+                  placeholder="Phone Number"
+                />
+              </div>
+              <div class="form-group">
+                <label for="signin-password" class="control-label sr-only">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="signin-password"
+                  formControlName="password"
+                  placeholder="Password"
+                />
+              </div>
+              <div class="form-group">
+                <label for="signin-password" class="control-label sr-only">Confirm Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirm-signin-password"
+                  formControlName="confirmPassword"
+                  placeholder="Confirm Password"
+                />
+              </div>
+              <!--              <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>-->
+              <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!regForm.valid">
+                Register
+              </button>
+              <div class="bottom">
+                <span>have an account? <a [routerLink]="['/login']">Login</a></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
+  <div class="row clearfix">
+    <div class="col-lg-4 col-md-12">
+      <div class="card">
+        <div class="header">
+          <h2>Loan Detail</h2>
+        </div>
+        <div class="body">
+          <ul class="list-unstyled list-referrals">
+            <li>
+              <p><span class="text-muted">Name</span><span class="value float-right">{{loanDetails.product['name']}}</span></p>
+              <div class="progress progress-xs progress-transparent custom-color-blue">
+                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
+              </div>
+            </li>
+            <li>
+              <p><span class="text-muted">minLoanAmount</span><span class="value float-right">₦{{loanDetails.product['minLoanAmount']}}</span></p>
+              <div class="progress progress-xs progress-transparent custom-color-blue">
+                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
+              </div>
+            </li>
+            <li>
+              <p><span class="text-muted">maxLoanAmount</span><span class="value float-right">₦{{loanDetails.product['maxLoanAmount']}}</span></p>
+              <div class="progress progress-xs progress-transparent custom-color-blue">
+                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
+              </div>
+            </li>
+            <li>
+              <p><span class="text-muted">minTenor</span><span class="value float-right">{{loanDetails.product['minTenor']}} days</span></p>
+              <div class="progress progress-xs progress-transparent custom-color-blue">
+                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
+              </div>
+            </li>
+            <li>
+              <p><span class="text-muted">maxTenor</span><span class="value float-right">{{loanDetails.product['maxTenor']}} days</span></p>
+              <div class="progress progress-xs progress-transparent custom-color-blue">
+                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
+              </div>
+            </li>
+            <li>
+              <p><span class="text-muted">interestRate</span><span class="value float-right">{{loanDetails.product['interestRate']}}% <small style="font-size: 12px">( per month )</small></span></p>
+              <div class="progress progress-xs progress-transparent custom-color-blue">
+                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
+              </div>
+            </li>
+            <li>
+              <p><span class="text-muted">rateType</span><span class="value float-right">{{loanDetails.product['rateType']}}</span></p>
+              <div class="progress progress-xs progress-transparent custom-color-blue">
+                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+      <div class="card">
+        <div class="header">
+          <h2>Fill the form below to apply</h2>
+        </div>
+        <div class="body">
+          <form class="form-auth-small">
+            <div class="form-group" *ngFor="let f of loanDetails.productFormFields; let i = index">
+              <label class="control-label text-capitalize">{{f.formFieldName}}</label>
+              <input type="{{f.inputTypeName}}"  class="form-control"  placeholder=""/>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">
+              APPLY
+            </button>
+          </form>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>

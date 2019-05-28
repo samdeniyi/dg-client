@@ -1,0 +1,186 @@
+<div class="container-fluid">
+  <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
+  <div class="row clearfix">
+    <div class="col-lg-10 col-md-12">
+      <div class="card">
+        <div class="header">
+          <h2>
+            Set Loan scoring parameters
+            <!--          <small>Takes the basic nav from above and adds the <code class="highlighter-rouge">.nav-tabs</code> class to generate a tabbed interface. Use them to create tabbable regions with our <a href="#javascript-behavior">tab JavaScript plugin</a>.</small>-->
+          </h2>
+        </div>
+        <div class="body">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                data-toggle="tab"
+                href="javascript:void(0);"
+                (click)="tabChange('loanDetails')"
+                [ngClass]="{ active: 'loanDetails' == activeTab || activeTab == '' }"
+              >
+                <span>Loan Details</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                data-toggle="tab"
+                href="javascript:void(0);"
+                [ngClass]="{ active: 'requiredFields' == activeTab, disabled: !showRequiredFields }"
+              >
+                <span>Required Fields</span>
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content" *ngIf="activeTab === 'loanDetails' || activeTab == ''">
+            <div class="tab-pane" [ngClass]="{ 'active show': 'loanDetails' == activeTab || activeTab == '' }">
+              <h6>Set loan product details</h6>
+              <form [formGroup]="loanDetailForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Product Name</label>
+                      <input class="form-control" name="text" formControlName="name" />
+                      <ul
+                        class="parsley-errors-list filled"
+                        [hidden]="loanDetailForm.controls.name.valid || loanDetailForm.controls.name.untouched"
+                      >
+                        <li class="parsley-required"><small>This value is required.</small></li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label>Product Description</label>
+                      <input class="form-control" name="text" formControlName="description" />
+                      <ul
+                        class="parsley-errors-list filled"
+                        [hidden]="
+                          loanDetailForm.controls.description.valid || loanDetailForm.controls.description.untouched
+                        "
+                      >
+                        <li class="parsley-required"><small>This value is required.</small></li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label>Minimum Loan Amount <small>value must be greater than 0</small></label>
+                      <input class="form-control" name="email" formControlName="minLoanAmount" />
+                      <ul
+                        class="parsley-errors-list filled"
+                        [hidden]="
+                          loanDetailForm.controls.minLoanAmount.valid || loanDetailForm.controls.minLoanAmount.untouched
+                        "
+                      >
+                        <li class="parsley-required"><small>This value is required.</small></li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label>Maximum Loan Amount</label>
+                      <input class="form-control" name="number" formControlName="maxLoanAmount" />
+                      <ul
+                        class="parsley-errors-list filled"
+                        [hidden]="
+                          loanDetailForm.controls.maxLoanAmount.valid || loanDetailForm.controls.maxLoanAmount.untouched
+                        "
+                      >
+                        <li class="parsley-required"><small>This value is required.</small></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Minimum Tenor <small>in days</small></label>
+                      <input class="form-control" name="number" formControlName="minTenor" />
+                      <ul
+                        class="parsley-errors-list filled"
+                        [hidden]="loanDetailForm.controls.minTenor.valid || loanDetailForm.controls.minTenor.untouched"
+                      >
+                        <li class="parsley-required"><small>This value is required.</small></li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label>Maximum Tenor <small>in days</small></label>
+                      <input class="form-control" name="number" formControlName="maxTenor" />
+                      <ul
+                        class="parsley-errors-list filled"
+                        [hidden]="loanDetailForm.controls.maxTenor.valid || loanDetailForm.controls.maxTenor.untouched"
+                      >
+                        <li class="parsley-required"><small>This value is required.</small></li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label>Interest Rate</label>
+                      <input class="form-control" name="number" formControlName="interestRate" />
+                      <ul
+                        class="parsley-errors-list filled"
+                        [hidden]="
+                          loanDetailForm.controls.interestRate.valid || loanDetailForm.controls.interestRate.untouched
+                        "
+                      >
+                        <li class="parsley-required"><small>This value is required.</small></li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label>Select Repayment frequency</label>
+                      <select class="form-control" name="number" formControlName="rateType">
+                        <option value="1">Monthly</option>
+                        <option value="1">Bi-monthly</option>
+                        <option value="1">Weekly</option>
+                        <option value="1">Annually</option>
+                      </select>
+                      <ul
+                        class="parsley-errors-list filled"
+                        [hidden]="loanDetailForm.controls.rateType.valid || loanDetailForm.controls.rateType.untouched"
+                      >
+                        <li class="parsley-required"><small>This value is required.</small></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary" [disabled]="!loanDetailForm.valid">Next</button>
+                <app-loader></app-loader>
+                <!--            <button type="submit" class="btn btn-primary" [disabled]="!loanDetailForm.valid">Send</button>-->
+              </form>
+            </div>
+          </div>
+          <div class="tab-content" *ngIf="activeTab === 'requiredFields'">
+            <div class="tab-pane" [ngClass]="{ 'active show': 'requiredFields' == activeTab }">
+              <h6>requiredFields</h6>
+              <div class="accordion custom" id="accordion1">
+                <ng-container *ngFor="let f of requiredFieldsObj | groupBy: 'formFieldCategoryName'; let i = index">
+                  <!--                <p>{{f['value']}}</p>-->
+                  <div>
+                    <div class="card-header" id="collapse{{ i }}">
+                      <h5 class="mb-0">
+                        <button
+                          class="btn btn-link collapsed"
+                          type="button"
+                          (click)="toggleCollepseGeneral('collapse' + i)"
+                        >
+                          {{ i + 1 }} - {{ f['key'] }}
+                        </button>
+                      </h5>
+                    </div>
+                    <div class="collapse" [ngClass]="{ show: collepse == 'collapse' + i }">
+                      <div class="card-body">
+                        <div class="input-group mb-3" *ngFor="let d of f['value']; let j = index">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">
+                              <input type="checkbox" name="" (click)="addFormField($event, d)" />
+                            </div>
+                          </div>
+                          <input type="text" class="form-control" value="{{ d.name }}" disabled readonly />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <button class="btn btn-secondary btn-sm mt-2" (click)="createProduct()">Create Product</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

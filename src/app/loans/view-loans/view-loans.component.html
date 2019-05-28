@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
+  <div class="row clearfix" *ngIf="allProducts">
+  <div class="col-lg-3 cool-md-6 col-sm-12" *ngFor="let p of allProducts.reverse(); let i = index">
+    <div class="card">
+      <ul class="pricing body">
+        <li><h2>{{p.name}}</h2></li>
+        <li>{{p.description}}</li>
+        <br> loan amount between <strong>₦{{p.minLoanAmount}}</strong> to <strong>₦{{p.maxLoanAmount}}</strong>
+        <br>tenor between <strong>{{p.minTenor}}</strong> to <strong>{{p.maxTenor}}</strong> days
+        <li>
+          <h3>{{p.interestRate}}%</h3>
+          <span>per day</span>
+        </li>
+        <li><button class="btn btn-outline-secondary" (click)="onApply(p.id)">Apply Now</button></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>

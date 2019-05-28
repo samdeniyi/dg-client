@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
+  <div class="row clearfix">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="header">
+          <h2>Users List</h2>
+        </div>
+        <div class="body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-6">
+                  <!--                  <div class="shadow p-3 mb-5 bg-white rounded">Search user</div>-->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="body table-responsive" *ngIf="userObj">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>FIRST NAME</th>
+                      <th>LAST NAME</th>
+                      <th>EMAIL</th>
+                      <th>PHONE NUMBER</th>
+                      <th>ROLE</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let u of userObj; let i = index">
+                      <th scope="row">{{ i + 1 }}</th>
+                      <td>{{ u.firstName }}</td>
+                      <td>{{ u.lastName }}</td>
+                      <td>{{ u.email }}</td>
+                      <td>{{ u.phoneNumber }}</td>
+                      <td>{{ u.roleName }}</td>
+                      <td>
+                        <i class="icon icon-eye text-gray-dark" style="color: #0a0;"></i> |
+                        <i class="icon icon-trash" style="color: #ff4500"></i> |
+                        <i class="icon icon-pencil" style="color: #0d69af"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngIf="!userObj">
+                <p>Loading...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

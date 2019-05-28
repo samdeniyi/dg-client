@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="header">
+    <h2>Total Revenue</h2>
+    <app-card-actions></app-card-actions>
+  </div>
+  <div class="body text-center">
+    <h4 class="margin-0">Total Earnings</h4>
+    <h6 class="m-b-0">245,124</h6>
+    <div echarts [options]="doghnutChart" [autoResize]="true" class="echart-doughnut mr-auto ml-auto"></div>
+    <div echarts [options]="earningsBarChart" [autoResize]="true" style="height: 80px;"></div>
+    <h6 class="m-b-0">Weekly Earnings</h6>
+  </div>
+</div>
