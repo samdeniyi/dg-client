@@ -9,6 +9,7 @@ import {AuthenticationService, ILoginContext} from '@app/core/authentication/aut
 import {CredentialsService} from '@app/core/authentication/credentials.service';
 import {untilDestroyed} from '@app/core/until-destroyed';
 import {Logger} from '@app/core/logger.service';
+import {ToastrService} from 'ngx-toastr';
 const log = new Logger('Login');
 
 export interface IResponseContext {
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   error: string | undefined;
   loginForm: FormGroup;
   isLoading = false;
+  disableBtn = false;
 
   constructor(
     private router: Router,
@@ -34,7 +36,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private i18nService: I18nService,
     private authenticationService: AuthenticationService,
-    private credentialsService: CredentialsService
+    private credentialsService: CredentialsService,
+    private toastr: ToastrService
   ) {
     this.createForm();
   }
@@ -62,10 +65,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
           } else {
             log.debug(`Login error: ${res.message}`);
+            this.toastr.error(res.message);
           }
         },
         error => {
           log.debug(`Login error: ${error}`);
+          this.toastr.error(error.message);
           this.error = error;
         }
       );

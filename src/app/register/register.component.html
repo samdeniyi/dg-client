@@ -75,9 +75,10 @@
                 />
               </div>
               <!--              <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>-->
-              <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!regForm.valid">
+              <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!regForm.valid" *ngIf="!isLoading">
                 Register
               </button>
+              <button class="btn btn-primary btn-lg btn-block" [disabled]="true" *ngIf="isLoading"> <i class="fa fa-spinner fa-spin" style="margin-right: 5px"></i> please wait...</button>
               <div class="bottom">
                 <span>have an account? <a [routerLink]="['/login']">Login</a></span>
               </div>

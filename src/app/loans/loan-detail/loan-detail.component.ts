@@ -123,6 +123,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
 
     onSubmitRequiredField() {
       if (this.requiredFieldForm.valid) {
+          this.isLoading = true;
           const payload: ICreateLoan = {
               loan: this.buildLoanObj(),
               loanFormFields: this.buildRequiredFieldObj()
@@ -146,6 +147,10 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
               },
               (err: any) => {
                   log.error(err);
+                  this.toastr.error(err.message, 'ERROR!',{
+                      closeButton: true,
+                      positionClass: 'toast-top-right'
+                  });
               }
           );
       }
@@ -169,7 +174,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
       return {
           productName: this.loanDetails.product['name'],
         loanAmount: this.loanDetailForm.value.loanAmount,
-        loanType: null,
+        loanType: 1,
         tenor: this.loanDetailForm.value.tenor,
         approvalStatus: false,
         isDisbursed: false,

@@ -1544,6 +1544,9 @@ ul.choose-skin li,
 .p-10 {
   padding: 10px !important;
 }
+.l-darkblue {
+  background: linear-gradient(45deg, #103fdc, #1517dc) !important;
+}
 .l-green {
   background: linear-gradient(45deg, #9ce89d, #cdfa7e) !important;
 }
@@ -2019,7 +2022,7 @@ html.fullscreen-bg #wrapper {
 }
 .navbar-nav .icon-menu i {
   font-size: 18px;
-  color: #666;
+  color: #fff;
 }
 .navbar-nav .icon-menu::after {
   display: none;
@@ -2033,7 +2036,7 @@ html.fullscreen-bg #wrapper {
   position: absolute;
   top: 12px;
   right: 7px;
-  background-color: #17191c;
+  background-color: #ff9e02;
 }
 .navbar-nav .dropdown-menu {
   -moz-box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.2);
@@ -2276,9 +2279,10 @@ html.fullscreen-bg #wrapper {
   float: left;
   margin-top: 61px;
   position: fixed;
-  left: 5px;
-  background-color: #f4f7f6;
+  /*left: 5px;*/
+  background-color: #ffffff;
   z-index: 9;
+  box-shadow: -5px 1px 15px 0 #898989;
 }
 @media screen and (max-width: 1200px) {
   #left-sidebar {

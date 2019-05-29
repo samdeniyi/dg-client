@@ -1,58 +1,150 @@
-<!--<div class="container-fluid">-->
-<!--  <div class="jumbotron text-center">-->
-<!--    <h1>-->
-<!--      <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />-->
-<!--      <span translate>Hello world !</span>-->
-<!--    </h1>-->
-<!--    <app-loader [isLoading]="isLoading"></app-loader>-->
-<!--    <q [hidden]="isLoading">{{ quote }}</q>-->
-<!--  </div>-->
-<!--</div>-->
 <div class="container-fluid">
   <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
   <div class="row clearfix">
-    <div class="col-lg-3 col-md-6 col-sm-6">
-      <app-detail-tiles
-        [title]="'Disbursements'"
-        [value]="earnings"
-        [details]="'19% compared to last week'"
-        [chartOptions]="earningOptions"
-      ></app-detail-tiles>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+      <div class="card weather2 l-turquoise">
+        <div class="body city-selected">
+          <div class="row">
+            <div class="col-12">
+              <div class="city"> Available loan count</div>
+            </div>
+            <div class="info col-7">
+              <div class="temp">
+                <h2>34</h2>
+              </div>
+              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">View all</button></div>
+            </div>
+            <div class="icon col-5 mt-5 text-right">
+              <i class="fa fa-cart-plus"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-6">
-      <app-detail-tiles
-        [title]="'Repayments'"
-        [value]="sales"
-        [details]="'25% compared to last week'"
-        [chartOptions]="salesOptions"
-      ></app-detail-tiles>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+      <div class="card weather2 l-amber">
+        <div class="body city-selected">
+          <div class="row">
+            <div class="col-12">
+              <div class="city">Pending Repayment</div>
+            </div>
+            <div class="info col-7">
+              <div class="temp mt-4 mb-4">
+                <h3>₦609,939</h3>
+              </div>
+              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Initiate re-payment</button></div>
+            </div>
+            <div class="icon col-5 mt-5 text-right">
+              <i class="fa fa-credit-card"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-6">
-      <app-detail-tiles
-        [title]="'Total Loans'"
-        [value]="visits.toLocaleString()"
-        [details]="'19% compared to last week'"
-        [chartOptions]="visitsAreaOptions"
-      ></app-detail-tiles>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6">
-      <app-detail-tiles
-        [title]="'Total Repayments'"
-        [value]="likes.toLocaleString()"
-        [details]="'19% compared to last week'"
-        [chartOptions]="LikesOptions"
-      ></app-detail-tiles>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+      <div class="card weather2 l-blue">
+        <div class="body city-selected">
+          <div class="row">
+            <div class="col-12">
+              <div class="city">Pending Loan Approval</div>
+            </div>
+            <div class="info col-7">
+              <div class="temp mt-4 mb-4">
+                <h3>₦609,939</h3>
+              </div>
+              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">View</button></div>
+            </div>
+            <div class="icon col-5 mt-5 text-right">
+              <i class="fa fa-cart-arrow-down"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row clearfix">
-    <div class="col-lg-6 col-md-12">
-      <app-top-products></app-top-products>
+    <div class="col-lg-8 col-md-12">
+      <div class="card product_item_list product-order-list">
+        <div class="header">
+          <h2>Recent Payment</h2>
+        </div>
+        <div class="body">
+          <div class="table-responsive">
+            <table class="table table-hover m-b-0">
+              <thead class="thead-light">
+              <tr>
+                <th>Date</th>
+                <th data-breakpoints="sm xs">Transaction ID</th>
+                <th>Transaction Type</th>
+                <th data-breakpoints="xs">Amount</th>
+                <th data-breakpoints="xs md">Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>28-05-2019</td>
+                <td>291ER67UY989</td>
+                <td>Loan Disbursement</td>
+                <td>₦16,000.00</td>
+                <td><span class="badge badge-success bg-success text-white">Paid</span></td>
+              </tr>
+              <tr>
+                <td>28-05-2019</td>
+                <td>291ER67UY989</td>
+                <td>Loan Disbursement</td>
+                <td>₦16,000.00</td>
+                <td><span class="badge badge-success bg-success text-white">Paid</span></td>
+              </tr>
+              <tr>
+                <td>28-05-2019</td>
+                <td>291ER67UY989</td>
+                <td>Loan Repayment</td>
+                <td>₦16,000.00</td>
+                <td><span class="badge badge-danger bg-danger text-white">Failed</span></td>
+              </tr>
+              <tr>
+                <td>28-05-2019</td>
+                <td>291ER67UY989</td>
+                <td>Loan Disbursement</td>
+                <td>₦16,000.00</td>
+                <td><span class="badge badge-success bg-success text-white">Paid</span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-      <app-referrals></app-referrals>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <app-total-revenue></app-total-revenue>
+    <div class="col-lg-4 col-md-6">
+      <div class="card weather4">
+        <div class="body">
+          <div class="row">
+            <div class="col-2">
+              <i class="fa fa-link text-primary"></i>
+            </div>
+            <div class="col-10 text-right">
+              <h3 class="">Refer a friend </h3>
+              <span>And earn commissions</span>
+              <p></p>
+              <a href="#"><i class="fa fa-copy" style="font-size: 12px"></i> Copy link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="header">
+          <h2>My Loan Stats</h2>
+        </div>
+        <div class="body">
+          <ul class=" list-unstyled basic-list">
+            <li><i class="icon-book-open m-r-5"></i> Total loan processed <span class="badge badge-primary">21</span>
+            </li>
+            <li><i class="icon-list m-r-5"></i> Total repayment count <span class="badge-purple badge">50</span></li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="row clearfix">

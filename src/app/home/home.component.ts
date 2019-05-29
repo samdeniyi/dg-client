@@ -44,7 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public interval: any = {};
 
-  constructor(private quoteService: QuoteService, private cdr: ChangeDetectorRef, private toastr: ToastrService) {
+  constructor(private quoteService: QuoteService, private cdr: ChangeDetectorRef, private toastr: ToastrService,
+              private router: Router) {
     this.earningOptions = this.loadLineAreaChartOptions([1, 4, 1, 3, 7, 1], '#f79647', '#fac091');
     this.salesOptions = this.loadLineAreaChartOptions([1, 4, 2, 3, 6, 2], '#604a7b', '#a092b0');
     this.visitsAreaOptions = this.loadLineAreaChartOptions([1, 4, 2, 3, 1, 5], '#4aacc5', '#92cddc');
@@ -228,5 +229,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     return options;
+  }
+
+  goLoansList(): void{
+    this.router.navigate(['/loans/view']);
   }
 }

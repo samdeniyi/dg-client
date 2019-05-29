@@ -107,8 +107,11 @@
                           </div>
                           <button class="btn btn-outline-secondary btn-sm align-item-end"  (click)="tabChange('loanDetails')"><i class="fa fa-arrow-left"></i> Back</button>
 
-                          <button type="submit" class="btn btn-success btn-sm text-right" [disabled]="!requiredFieldForm.valid">
+                          <button type="submit" class="btn btn-success btn-sm text-right" [disabled]="!requiredFieldForm.valid" *ngIf="!isLoading">
                               APPLY
+                          </button>
+                          <button type="submit" class="btn btn-success btn-sm text-right" [disabled]="true" *ngIf="isLoading">
+                              <i class="fa fa-spin fa-spinner"></i> Please wait ...
                           </button>
                       </form>
                   </div>
