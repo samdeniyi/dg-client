@@ -54,4 +54,8 @@ export class SidebarComponent implements OnInit {
   logout() {
     this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
+
+  toggleSideMenu() {
+    this.themeService.showHideMenu();
+  }
 }

@@ -1,20 +1,110 @@
 <div class="container-fluid">
   <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
   <div class="row clearfix" *ngIf="allProducts">
-  <div class="col-lg-3 cool-md-6 col-sm-12" *ngFor="let p of allProducts.reverse(); let i = index">
-    <div class="card">
-      <ul class="pricing body">
-        <li><h2>{{p.name}}</h2></li>
-        <li>{{p.description}}</li>
-        <br> loan amount between <strong>₦{{p.minLoanAmount}}</strong> to <strong>₦{{p.maxLoanAmount}}</strong>
-        <br>tenor between <strong>{{p.minTenor}}</strong> to <strong>{{p.maxTenor}}</strong> days
-        <li>
-          <h3>{{p.interestRate}}%</h3>
-          <span>per day</span>
-        </li>
-        <li><button class="btn btn-outline-secondary" (click)="onApply(p.id)">Apply Now</button></li>
-      </ul>
-    </div>
-  </div>
+<!--  <div class="col-lg-3 cool-md-6 col-sm-12" *ngFor="let p of allProducts.reverse(); let i = index">-->
+<!--    <div class="card">-->
+<!--      <ul class="pricing body">-->
+<!--        <li><h2>{{p.name}}</h2></li>-->
+<!--        <li>{{p.description}}</li>-->
+<!--        <br> loan amount between <strong>₦{{p.minLoanAmount}}</strong> to <strong>₦{{p.maxLoanAmount}}</strong>-->
+<!--        <br>tenor between <strong>{{p.minTenor}}</strong> to <strong>{{p.maxTenor}}</strong> days-->
+<!--        <li>-->
+<!--          <h3>{{p.interestRate}}%</h3>-->
+<!--          <span>per day</span>-->
+<!--        </li>-->
+<!--        <li><button class="btn btn-outline-secondary" (click)="onApply(p.id)">Apply Now</button></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+
+      <div class="col-lg-4 cool-md-6 col-sm-12" *ngFor="let p of allProducts.reverse(); let i = index">
+          <div class="card weather2 weather5">
+              <div class="body city-selected">
+                  <div class="row">
+                      <div class="col-12">
+                          <div class="city">{{p.name}}</div>
+                          <hr>
+                      </div>
+                      <div class="info col-12">
+                          <span>{{p.description}}</span>
+                      </div>
+                  </div>
+              </div>
+              <table class="table table-striped m-b-0">
+                  <tbody>
+                  <tr>
+                      <td>Minimum Loan Amount</td>
+                      <td class="font-medium">{{p.minLoanAmount | currency: '₦'}}</td>
+                  </tr>
+                  <tr>
+                      <td>Maximum Loan Amount</td>
+                      <td class="font-medium">{{p.maxLoanAmount | currency: '₦'}}</td>
+                  </tr>
+                  <tr>
+                      <td>Minimum Tenor</td>
+                      <td class="font-medium">{{p.minTenor}}</td>
+                  </tr>
+                  <tr>
+                      <td>Maximum Tenor</td>
+                      <td class="font-medium">{{p.maxTenor}}</td>
+                  </tr>
+                  <tr>
+                      <td>Tenor Type</td>
+                      <td class="font-medium">Monthly</td>
+                  </tr>
+                  </tbody>
+              </table>
+              <div class="widget">
+                  <div class="weatherInfo">
+                      <div class="temperature"><span>{{p.interestRate}}%</span></div>
+                      <div class="description">
+                          <div class="weatherCondition">Interest</div>
+                          <div class="place">Per Month</div>
+                      </div>
+                  </div>
+                  <button class="date bg-success" (click)="onApply(p.id)">Apply</button>
+              </div>
+              <!--              <div class="carousel slide" data-ride="carousel">-->
+<!--                  <div class="carousel-inner" role="listbox">-->
+<!--                      <div class="carousel-item text-center">-->
+<!--                          <div class="col-12">-->
+<!--                              <ul class="row days-list list-unstyled">-->
+<!--                                  <li class="day col-4">-->
+<!--                                      <p>Monday</p>-->
+<!--                                      <i class="wi wi-day-hail"></i>-->
+<!--                                  </li>-->
+<!--                                  <li class="day col-4">-->
+<!--                                      <p>Tuesday</p>-->
+<!--                                      <i class="wi wi-day-lightning"></i>-->
+<!--                                  </li>-->
+<!--                                  <li class="day col-4">-->
+<!--                                      <p>Wednesday</p>-->
+<!--                                      <i class="wi wi-day-storm-showers"></i>-->
+<!--                                  </li>-->
+<!--                              </ul>-->
+<!--                          </div>-->
+<!--                      </div>-->
+<!--&lt;!&ndash;                      <div class="carousel-item text-center active">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <div class="col-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                              <ul class="row days-list list-unstyled">&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <li class="day col-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <p>Thursday</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <i class="wi wi-day-hail"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <li class="day col-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <p>Friday</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <i class="wi wi-showers"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <li class="day col-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <p>Saturday</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <i class="wi wi-day-sunny"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                              </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--                  </div>-->
+<!--              </div>-->
+          </div>
+      </div>
 </div>
 </div>

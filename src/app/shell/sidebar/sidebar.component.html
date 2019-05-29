@@ -50,6 +50,7 @@
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
               [ngClass]="{ active: currentActiveMenu == 'admin' }"
+              (click)="toggleSideMenu()"
             >
               <a class="" (click)="activeInactiveMenu('admin')" [routerLink]="['/']"
                 ><i class="icon-home"></i> <span>Dashboard</span></a
@@ -64,11 +65,11 @@
                 ><i class="icon-grid"></i> <span>Manage Loan</span></a
               >
               <ul *ngIf="currentActiveMenu == 'product'">
-                <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                  <a [routerLink]="['/loans/view']">Apply for loan</a>
+                <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
+                  <a [routerLink]="['/loans/view']" (click)="toggleSideMenu()">Apply for loan</a>
                 </li>
                 <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                  <a [routerLink]="['/loans/myloans']">My Loans</a>
+                  <a [routerLink]="['/loans/myloans']" (click)="toggleSideMenu()">My Loans</a>
                 </li>
               </ul>
             </li>

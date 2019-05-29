@@ -15,13 +15,13 @@
               </div>
             </li>
             <li>
-              <p><span class="text-muted">minLoanAmount</span><span class="value float-right">₦{{loanDetails.product['minLoanAmount']}}</span></p>
+              <p><span class="text-muted">minLoanAmount</span><span class="value float-right">{{loanDetails.product['minLoanAmount'] | currency: '₦'}}</span></p>
               <div class="progress progress-xs progress-transparent custom-color-blue">
                 <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
               </div>
             </li>
             <li>
-              <p><span class="text-muted">maxLoanAmount</span><span class="value float-right">₦{{loanDetails.product['maxLoanAmount']}}</span></p>
+              <p><span class="text-muted">maxLoanAmount</span><span class="value float-right">{{loanDetails.product['maxLoanAmount'] | currency: '₦'}}</span></p>
               <div class="progress progress-xs progress-transparent custom-color-blue">
                 <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
               </div>
@@ -44,12 +44,12 @@
                 <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
               </div>
             </li>
-            <li>
-              <p><span class="text-muted">rateType</span><span class="value float-right">{{loanDetails.product['rateType']}}</span></p>
-              <div class="progress progress-xs progress-transparent custom-color-blue">
-                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
-              </div>
-            </li>
+<!--            <li>-->
+<!--              <p><span class="text-muted">rateType</span><span class="value float-right">{{loanDetails.product['rateType']}}</span></p>-->
+<!--              <div class="progress progress-xs progress-transparent custom-color-blue">-->
+<!--                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>-->
+<!--              </div>-->
+<!--            </li>-->
           </ul>
         </div>
       </div>

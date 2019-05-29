@@ -6307,7 +6307,7 @@ ul.choose-skin li span,
 }
 .weather5 .weatherInfo {
   flex: 0 0 70%;
-  height: 40%;
+  /*height: 40%;*/
   background: #17191c;
   display: flex;
   align-items: center;
