@@ -6,13 +6,15 @@ import { ViewLoansComponent } from './view-loans/view-loans.component';
 import { ListLoansComponent } from './list-loans/list-loans.component';
 import {SharedModule} from '@app/shared';
 import { LoanDetailComponent } from './loan-detail/loan-detail.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [ViewLoansComponent, ListLoansComponent, LoanDetailComponent],
   imports: [
     CommonModule,
     LoansRoutingModule,
-      SharedModule
+      SharedModule,
+      ReactiveFormsModule
   ]
 })
 export class LoansModule { }

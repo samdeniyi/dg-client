@@ -1,13 +1,13 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="loanDetails">
   <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
   <div class="row clearfix">
     <div class="col-lg-4 col-md-12">
       <div class="card">
         <div class="header">
-          <h2>Loan Detail</h2>
+          <h2>Loan Specifications</h2>
         </div>
         <div class="body">
-          <ul class="list-unstyled list-referrals">
+          <ul class="list-unstyled list-referrals" *ngIf="loanDetails">
             <li>
               <p><span class="text-muted">Name</span><span class="value float-right">{{loanDetails.product['name']}}</span></p>
               <div class="progress progress-xs progress-transparent custom-color-blue">
@@ -59,17 +59,61 @@
         <div class="header">
           <h2>Fill the form below to apply</h2>
         </div>
-        <div class="body">
-          <form class="form-auth-small">
-            <div class="form-group" *ngFor="let f of loanDetails.productFormFields; let i = index">
-              <label class="control-label text-capitalize">{{f.formFieldName}}</label>
-              <input type="{{f.inputTypeName}}"  class="form-control"  placeholder=""/>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm">
-              APPLY
-            </button>
-          </form>
-        </div>
+          <div class="body">
+              <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                      <a
+                              class="nav-link"
+                              data-toggle="tab"
+                              href="javascript:void(0);"
+                              (click)="tabChange('loanDetails')"
+                              [ngClass]="{ active: 'loanDetails' == activeTab || activeTab == '' }"
+                      >
+                          <span>Loan Details</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a
+                              class="nav-link"
+                              data-toggle="tab"
+                              href="javascript:void(0);"
+                              [ngClass]="{ active: 'requiredFields' == activeTab, disabled: !showRequiredFields }"
+                      >
+                          <span>Required Fields</span>
+                      </a>
+                  </li>
+              </ul>
+              <div class="tab-content" *ngIf="activeTab === 'loanDetails' || activeTab == ''">
+                  <div class="tab-pane" [ngClass]="{ 'active show': 'loanDetails' == activeTab || activeTab == '' }">
+                      <form class="form-auth-small" [formGroup]="loanDetailForm" (ngSubmit)="onSubmit()">
+                          <div class="form-group">
+                              <label class="control-label text-capitalize">Loan Amount <small>(₦{{loanDetails.product['minLoanAmount']}} - ₦{{loanDetails.product['maxLoanAmount']}})</small></label>
+                              <input type="number"  class="form-control"  placeholder="" formControlName="loanAmount"/>
+                          </div>
+                          <div class="form-group">
+                              <label class="control-label text-capitalize">Loan Tenor <small>({{loanDetails.product['minTenor']}} days - {{loanDetails.product['maxTenor']}} days)</small></label>
+                              <input type="number"  class="form-control"  placeholder="" formControlName="tenor"/>
+                          </div>
+                          <button type="submit" [disabled]="!loanDetailForm.valid" class="btn btn-outline-secondary btn-sm">Next <i class="fa fa-arrow-right"></i></button>
+                      </form>
+                  </div>
+              </div>
+              <div class="tab-content" *ngIf="activeTab === 'requiredFields'">
+                  <div class="tab-pane" [ngClass]="{ 'active show': 'requiredFields' == activeTab }">
+                      <form class="form-auth-small" [formGroup]="requiredFieldForm" (ngSubmit)="onSubmitRequiredField()">
+                          <div class="form-group" *ngFor="let f of loanDetails.productFormFields; let i = index">
+                              <label class="control-label text-capitalize">{{f.formFieldName}}</label>
+                              <input type="{{f.inputTypeName}}"  class="form-control"  placeholder="" formControlName="{{f.formFieldName}}" (blur)="onBlurRequiredField($event, f, i)"/>
+                          </div>
+                          <button class="btn btn-outline-secondary btn-sm align-item-end"  (click)="tabChange('loanDetails')"><i class="fa fa-arrow-left"></i> Back</button>
+
+                          <button type="submit" class="btn btn-success btn-sm text-right" [disabled]="!requiredFieldForm.valid">
+                              APPLY
+                          </button>
+                      </form>
+                  </div>
+              </div>
+          </div>
       </div>
   </div>
   </div>
