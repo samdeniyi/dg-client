@@ -39,6 +39,9 @@ export interface ILoanFormFields {
        formFieldName: string;
        formFieldValue: string;
        tenantId: string;
+       createdBy: string;
+       loanId: number;
+       id: number;
 }
 
 export interface ILoan {

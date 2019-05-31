@@ -164,7 +164,10 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
                     formFieldId: m.formFieldId,
                     formFieldName: m.formFieldName,
                     formFieldValue: m.fieldValue,
-                    tenantId: m.tenantId
+                    tenantId: m.tenantId,
+                    createdBy: null,
+                    loanId: null,
+                    id: null
                 }
             );
         }
@@ -172,7 +175,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
     }
     buildLoanObj(): ILoan {
       return {
-          productName: this.loanDetails.product['name'],
+        productName: this.loanDetails.product['name'],
         loanAmount: this.loanDetailForm.value.loanAmount,
         loanType: 1,
         tenor: this.loanDetailForm.value.tenor,
