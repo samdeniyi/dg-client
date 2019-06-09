@@ -61,16 +61,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         (res: any) => {
           if (res.responseCode === '00') {
             log.debug(`${res.responseData} successfully logged in`);
-            this.credentialsService.setCredentials(res.responseData, true);
+            this.credentialsService.setCredentials({...res.responseData, email: this.loginForm.value.username }, true);
             this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
           } else {
-            log.debug(`Login error: ${res.message}`);
             this.toastr.error(res.message);
           }
         },
         error => {
           log.debug(`Login error: ${error}`);
-          this.toastr.error(error.message);
+          this.toastr.error('ERROR!!!', error.message);
           this.error = error;
         }
       );

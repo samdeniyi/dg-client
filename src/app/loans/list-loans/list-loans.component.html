@@ -1,3 +1,57 @@
-<p>
-  list-loans works!
-</p>
+<div class="container-fluid">
+  <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
+  <div class="row clearfix">
+    <div class="col-lg-10 col-md-12">
+      <div class="card">
+        <div class="header">
+          <h2>Loan List</h2>
+        </div>
+        <div class="body">
+          <div class="table-responsive">
+            <table class="table table-hover m-b-0">
+              <thead class="thead-light">
+              <tr>
+                <th>#</th>
+                <th data-breakpoints="sm xs">Product Name</th>
+                <th data-breakpoints="sm xs">Loan Amount</th>
+<!--                <th data-breakpoints="sm xs">Tenor</th>-->
+                <th>Approval Status</th>
+                <th data-breakpoints="xs">Disbursed Status</th>
+                <th data-breakpoints="xs md">Liquidated Status</th>
+                <th data-breakpoints="xs md">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let l of myLoanList.reverse(); let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{l.productName}}</td>
+                <td>{{l.loanAmount | currency:'₦'}}</td>
+<!--                <td>{{l.tenor}}</td>-->
+<!--                <td>{{l.approvalStatus}}</td>-->
+<!--                <td>{{l.isDisbursed}}</td>-->
+<!--                <td>{{l.isLiquidated}}</td>-->
+                <td>
+                  <span class="badge badge-success bg-success text-white" *ngIf="l.approvalStatus == 1"><i class="fa fa-check-circle"></i></span>
+                  <span class="badge badge-danger bg-danger text-white" *ngIf="l.approvalStatus == 0"><i class="fa fa-times-circle"></i></span>
+                </td>
+                <td>
+                  <span class="badge badge-success bg-success text-white" *ngIf="l.isDisbursed == true"><i class="fa fa-check-circle"></i></span>
+                  <span class="badge badge-danger bg-danger text-white" *ngIf="l.isDisbursed == false"><i class="fa fa-times-circle"></i></span>
+                </td>
+                <td>
+                  <span class="badge badge-success bg-success text-white" *ngIf="l.isLiquidated == true "><i class="fa fa-check-circle"></i></span>
+                  <span class="badge badge-danger bg-danger text-white" *ngIf="l.isLiquidated == false"><i class="fa fa-times-circle"></i></span>
+                </td>
+                <td>
+                  <span class="badge badge-dark"> <i class="fa fa-eye"></i> View</span>
+                  <span class="badge badge-info" *ngIf="l.isLiquidated == false" (click)="onLiquidated(l.id)"> <i class="fa fa-check"></i> Liquidate Loan</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

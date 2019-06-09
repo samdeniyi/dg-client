@@ -19,6 +19,14 @@ const routes: Routes = [
     path: 'clients',
     loadChildren: './clients-interface/clients-interface.module#ClientsInterfaceModule'
   },
+  {
+    path: 'forgot-password',
+    loadChildren: './forget-password/forget-password.module#ForgetPasswordModule'
+  },
+  {
+    path: 'resetpassword',
+    loadChildren: './reset-password/reset-password.module#ResetPasswordModule'
+  },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

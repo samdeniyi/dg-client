@@ -46,32 +46,43 @@
       <div class="tab-pane" id="menu" [ngClass]="{ active: navTab == 'menu' || !navTab }">
         <nav id="left-sidebar-nav" class="sidebar-nav">
           <ul id="main-menu" class="metismenu">
-            <li
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              [ngClass]="{ active: currentActiveMenu == 'admin' }"
-              (click)="toggleSideMenu()"
-            >
-              <a class="" (click)="activeInactiveMenu('admin')" [routerLink]="['/']"
-                ><i class="icon-home"></i> <span>Dashboard</span></a
-              >
+<!--            <li-->
+<!--              routerLinkActive="active"-->
+<!--              [routerLinkActiveOptions]="{ exact: true }"-->
+<!--              [ngClass]="{ active: currentActiveMenu == 'admin' }"-->
+<!--            >-->
+<!--              <a class="" (click)="activeInactiveMenu('admin')" [routerLink]="['/']"-->
+<!--                ><i class="icon-home"></i> <span>Dashboard</span></a-->
+<!--              >-->
+<!--            </li>-->
+<!--            <li-->
+<!--              routerLinkActive="active"-->
+<!--              [routerLinkActiveOptions]="{ exact: true }"-->
+<!--              [ngClass]="{ active: currentActiveMenu == 'product' }"-->
+<!--            >-->
+<!--              <a class="has-arrow" (click)="activeInactiveMenu('product')"-->
+<!--                ><i class="icon-grid"></i> <span>Manage Loan</span></a-->
+<!--              >-->
+<!--              <ul *ngIf="currentActiveMenu == 'product'">-->
+<!--                <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >-->
+<!--                  <a [routerLink]="['/loans/view']">Apply for loan</a>-->
+<!--                </li>-->
+<!--                <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
+<!--                  <a [routerLink]="['/loans/myloans']">My Loans</a>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </li>-->
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+               <a [routerLink]="['/']"><i class="icon-home"></i> <span>Dashboard</span></a>
             </li>
-            <li
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              [ngClass]="{ active: currentActiveMenu == 'product' }"
-            >
-              <a class="has-arrow" (click)="activeInactiveMenu('product')"
-                ><i class="icon-grid"></i> <span>Manage Loan</span></a
-              >
-              <ul *ngIf="currentActiveMenu == 'product'">
-                <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
-                  <a [routerLink]="['/loans/view']" (click)="toggleSideMenu()">Apply for loan</a>
-                </li>
-                <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                  <a [routerLink]="['/loans/myloans']" (click)="toggleSideMenu()">My Loans</a>
-                </li>
-              </ul>
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <a [routerLink]="['/loans/details/23']"> <i class="icon-graph"></i> <span>Apply for loan</span></a>
+            </li>
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <a [routerLink]="['/loans/myloans']"> <i class="icon-grid"></i> <span>My Loans</span></a>
+            </li>
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <a [routerLink]="['/loans/schedules']"> <i class="icon-pie-chart"></i> <span>Repayment Schedule</span></a>
             </li>
             <hr />
           </ul>

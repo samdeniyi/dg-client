@@ -1,46 +1,44 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ToastrService} from 'ngx-toastr';
 import {LoansService} from '@app/loans/loans.service';
 import {finalize} from 'rxjs/operators';
 import {untilDestroyed} from '@app/core/until-destroyed';
+import {ToastrService} from 'ngx-toastr';
 import {Logger} from '@app/core/logger.service';
 
-const log = new Logger('loan list');
+const log = new Logger('repayment schedule');
 
 @Component({
-  selector: 'app-list-loans',
-  templateUrl: './list-loans.component.html',
-  styleUrls: ['./list-loans.component.scss']
+  selector: 'app-repayment-schedule',
+  templateUrl: './repayment-schedule.component.html',
+  styleUrls: ['./repayment-schedule.component.scss']
 })
-export class ListLoansComponent implements OnInit, OnDestroy {
-  myLoanList: any;
+export class RepaymentScheduleComponent implements OnInit, OnDestroy {
+  title = 'My Repayment schedules';
   isLoading = false;
-
-
-  title = 'My loans';
   breadcrumbItem = [
     {
       title: 'Loans',
       cssClass: ''
     },
     {
-      title: 'my loans',
+      title: 'my repayment schedules',
       cssClass: 'active'
     }
   ];
+  repaymentList: any;
 
-  constructor(private toastr: ToastrService, private loanService: LoansService) { }
+  constructor(private loanService: LoansService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.getMyLoans();
+    this.repaymentsSchedule();
   }
 
   ngOnDestroy(): void {
   }
 
-  getMyLoans() {
-    const myloans$ = this.loanService.myloans();
-    myloans$.pipe(
+  repaymentsSchedule(id: number = 48) {
+    const pSchedule$ = this.loanService.getRepaymentschedules(id);
+    pSchedule$.pipe(
         finalize(() => {
           this.isLoading = false;
         }),
@@ -48,7 +46,11 @@ export class ListLoansComponent implements OnInit, OnDestroy {
     ).subscribe(
         (res: any) => {
           if (res.responseCode === '00') {
-            this.myLoanList = res.responseData;
+            this.repaymentList = res.responseData;
+            this.toastr.success(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
           } else {
             this.toastr.error(res.message, undefined, {
               closeButton: true,
@@ -64,10 +66,6 @@ export class ListLoansComponent implements OnInit, OnDestroy {
           });
         }
     );
-  }
-
-  onLiquidated(id: number){
-
   }
 
 }

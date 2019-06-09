@@ -2,63 +2,59 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {BaseService} from '@app/core/base.service';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '@env/environment';
 
 const routes = {
   getAllProducts: 'Product/GetAllProducts',
   productById: 'Product/getproductbyid/',
-  createLoan: 'Loan/createloan'
+  createLoan: 'Loan/createloan',
+  myLoans: 'Loan/getuserloans',
+  repaymentSchedule: 'Repayment/repaymentschedule/',
+  accountLookup: 'Loan/accountlookup',
+  bvnLookup: 'Loan/bvnlookup'
 };
 
-//loan": {
-//    productId": 0,
-//        productName":string",
-//         "loanAmount": 0,
-//         "loanType": 1,
-//         "tenor": 0,
-//         "approvalStatus": 1,
-//         "isDisbursed": true,
-//         "isLiquidated": true,
-//         "id": 0,
-//         "tenantId": "string"
-// },
-// "loanFormFields": [
-//     {
-//         "loanId": 0,
-//         "formFieldId": 0,
-//         "formFieldName": "string",
-//         "formFieldValue": "string",
-//         "createdDate": "2019-05-28T21:45:37.830Z",
-//         "createdBy": "string",
-//         "id": 0,
-//         "tenantId": "string"
-//     }
-// ]
 
 export interface ILoanFormFields {
        formFieldId: number;
-       formFieldName: string;
        formFieldValue: string;
-       tenantId: string;
-       createdBy: string;
-       loanId: number;
-       id: number;
 }
 
 export interface ILoan {
+        productId: number;
        productName: string;
        loanAmount: number;
-       loanType: number;
        tenor: number;
        approvalStatus: boolean;
        isDisbursed: boolean;
        isLiquidated: boolean;
-       id: number;
-       tenantId: string;
 }
+
+export interface IAccountDetail {
+    accountNumber: string;
+    accountName: string;
+    bvn: number;
+    bankCode: number;
+    isPrimary: true;
+    tenantId: string;
+}
+
+export interface IAuthorisationTransaction {
+    message: string;
+    reference: string;
+    status: string;
+    trans: string;
+    transaction: string;
+    trxref: string;
+    amount: number;
+}
+
 
 export interface ICreateLoan {
     loan: ILoan;
     loanFormFields: Array<ILoanFormFields>;
+    accountDetail: IAccountDetail;
+    authorisationTransaction: IAuthorisationTransaction;
 }
 
 @Injectable({
@@ -88,6 +84,27 @@ export class LoansService extends BaseService<any> {
 
   loanApplication(payload: ICreateLoan): Observable<any> {
       return this.sendPost(this.baseUrl(routes.createLoan), payload);
+  }
+
+  myloans(): Observable<any>{
+      return this.sendGet(this.baseUrl(routes.myLoans), true);
+  }
+
+  getPaystackBankList(): Observable<any> {
+      return this.sendGet(environment.payStackBaseUrl + 'bank', true);
+  }
+
+  getRepaymentschedules(id: number): Observable<any> {
+      return this.sendGet(this.baseUrl(routes.repaymentSchedule + id), true);
+  }
+
+  validateAccountNumber(accountNumber: number, bankCode: number): Observable<any> {
+      return this.sendGet(this.baseUrl(`${routes.accountLookup}?bankCode=${bankCode}
+      &accountNumber=${accountNumber}`), true);
+  }
+
+  validateBvnNumber(bvntNumber: number): Observable<any> {
+      return this.sendGet(this.baseUrl(`${routes.bvnLookup}?bvn=${bvntNumber}`), true);
   }
 
 }

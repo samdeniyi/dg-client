@@ -1,7 +1,7 @@
 <div class="container-fluid" *ngIf="loanDetails">
   <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
   <div class="row clearfix">
-    <div class="col-lg-4 col-md-12">
+    <div class="col-lg-4 col-md-12 d-none">
       <div class="card">
         <div class="header">
           <h2>Loan Specifications</h2>
@@ -27,23 +27,23 @@
               </div>
             </li>
             <li>
-              <p><span class="text-muted">minTenor</span><span class="value float-right">{{loanDetails.product['minTenor']}} days</span></p>
+              <p><span class="text-muted">minTenor</span><span class="value float-right">{{loanDetails.product['minTenor']}} {{tenorInWords}}</span></p>
               <div class="progress progress-xs progress-transparent custom-color-blue">
                 <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
               </div>
             </li>
             <li>
-              <p><span class="text-muted">maxTenor</span><span class="value float-right">{{loanDetails.product['maxTenor']}} days</span></p>
+              <p><span class="text-muted">maxTenor</span><span class="value float-right">{{loanDetails.product['maxTenor']}} {{tenorInWords}}</span></p>
               <div class="progress progress-xs progress-transparent custom-color-blue">
                 <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
               </div>
             </li>
-            <li>
-              <p><span class="text-muted">interestRate</span><span class="value float-right">{{loanDetails.product['interestRate']}}% <small style="font-size: 12px">( per month )</small></span></p>
-              <div class="progress progress-xs progress-transparent custom-color-blue">
-                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>
-              </div>
-            </li>
+<!--            <li>-->
+<!--              <p><span class="text-muted">interestRate</span><span class="value float-right">{{loanDetails.product['interestRate']}}% <small style="font-size: 12px">( per month )</small></span></p>-->
+<!--              <div class="progress progress-xs progress-transparent custom-color-blue">-->
+<!--                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>-->
+<!--              </div>-->
+<!--            </li>-->
 <!--            <li>-->
 <!--              <p><span class="text-muted">rateType</span><span class="value float-right">{{loanDetails.product['rateType']}}</span></p>-->
 <!--              <div class="progress progress-xs progress-transparent custom-color-blue">-->
@@ -82,19 +82,33 @@
                           <span>Required Fields</span>
                       </a>
                   </li>
+                  <li class="nav-item">
+                      <a
+                              class="nav-link"
+                              data-toggle="tab"
+                              href="javascript:void(0);"
+                              [ngClass]="{ active: 'accountDetail' == activeTab, disabled: !showAccountDetail }"
+                      >
+                          <span>Account Details</span>
+                      </a>
+                  </li>
               </ul>
               <div class="tab-content" *ngIf="activeTab === 'loanDetails' || activeTab == ''">
                   <div class="tab-pane" [ngClass]="{ 'active show': 'loanDetails' == activeTab || activeTab == '' }">
                       <form class="form-auth-small" [formGroup]="loanDetailForm" (ngSubmit)="onSubmit()">
                           <div class="form-group">
                               <label class="control-label text-capitalize">Loan Amount <small>(₦{{loanDetails.product['minLoanAmount']}} - ₦{{loanDetails.product['maxLoanAmount']}})</small></label>
-                              <input type="number"  class="form-control"  placeholder="" formControlName="loanAmount"/>
+                              <input type="number"  class="form-control"  placeholder="" formControlName="loanAmount" (blur)="setPrincipal($event)"/>
                           </div>
                           <div class="form-group">
-                              <label class="control-label text-capitalize">Loan Tenor <small>({{loanDetails.product['minTenor']}} days - {{loanDetails.product['maxTenor']}} days)</small></label>
-                              <input type="number"  class="form-control"  placeholder="" formControlName="tenor"/>
+                              <label class="control-label text-capitalize">Loan Tenor <small>({{loanDetails.product['minTenor']}} {{tenorInWords}} - {{loanDetails.product['maxTenor']}} {{tenorInWords}})</small></label>
+                              <input type="number"  class="form-control"  placeholder="" formControlName="tenor" (blur)="calculateRepaymentTotal($event)"/>
                           </div>
-                          <button type="submit" [disabled]="!loanDetailForm.valid" class="btn btn-outline-secondary btn-sm">Next <i class="fa fa-arrow-right"></i></button>
+                          <div class="row">
+                              <div class=" col-md-4"> <button type="submit" [disabled]="!loanDetailForm.valid" class="btn btn-outline-secondary btn-sm">Next <i class="fa fa-arrow-right"></i></button>   </div>
+                              <div class="text-right align-content-end col-md-8"><small class="text-danger mt-4" style="font-size: 0.93rem;">{{borrowerMsg}}</small></div>
+                          </div>
+
                       </form>
                   </div>
               </div>
@@ -107,13 +121,67 @@
                           </div>
                           <button class="btn btn-outline-secondary btn-sm align-item-end"  (click)="tabChange('loanDetails')"><i class="fa fa-arrow-left"></i> Back</button>
 
-                          <button type="submit" class="btn btn-success btn-sm text-right" [disabled]="!requiredFieldForm.valid" *ngIf="!isLoading">
-                              APPLY
-                          </button>
-                          <button type="submit" class="btn btn-success btn-sm text-right" [disabled]="true" *ngIf="isLoading">
-                              <i class="fa fa-spin fa-spinner"></i> Please wait ...
+                          <button type="submit" class="btn btn-success btn-sm text-right" [disabled]="!requiredFieldForm.valid">
+                              Next
                           </button>
                       </form>
+                  </div>
+              </div>
+              <div class="tab-content" *ngIf="activeTab === 'accountDetail'">
+                  <div class="tab-pane" [ngClass]="{ 'active show': 'accountDetail' == activeTab }">
+                      <div>
+                          <form class="form-auth-small" [formGroup]="accountForm" (ngSubmit)="onSubmitAccountForm()">
+                              <div class="form-group">
+                                  <label class="control-label text-capitalize">Select Bank <small class="text-danger">*</small></label>
+                                  <select class="form-control" formControlName="bankCode">
+                                      <option *ngFor="let b of pBankList" value="{{b.code}}">{{b.name}}</option>
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                  <label class="control-label text-capitalize">Account Number <small class="text-danger">*</small></label>
+                                  <div class="input-group">
+                                      <div class="custom-file">
+                                          <input type="number"  class="form-control"  formControlName="accountNumber" #accountNumberHtml/>
+                                      </div>
+                                      <div class="input-group-append">
+                                          <button class="btn btn-outline-secondary" type="button" (click)="bankAccountLookup(accountNumberHtml.value)">Get Account Name</button>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="form-group" *ngIf="accountName">
+                                  <label class="control-label text-capitalize">Account Name</label>
+                                  <span class="form-control">{{accountName}}</span>
+                              </div>
+                              <div class="form-group" *ngIf="loanDetails.product['isBVNRequired'] == true">
+                                  <label class="control-label text-capitalize">BVN <small class="text-danger">*</small></label>
+                                  <div class="input-group">
+                                      <div class="custom-file">
+                                          <input type="number"  class="form-control" #bvnHtml/>
+                                      </div>
+                                      <div class="input-group-append">
+                                          <button class="btn btn-outline-secondary" type="button" (click)="bvnLookup(bvnHtml.value)">Validate BVN</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </form>
+                          <hr>
+                      </div>
+                      <div *ngIf="(isValidAcc && isValidBvn)">
+                          <p>To complete you loan application, you have to validate your debt card, <span class="text-danger">Please note a debt of 50 Naira will be deducted on the card,<br/>
+                          This charge will be reversed after 5 working days</span></p>
+                          <button
+                                  class="btn btn-info mt-3 mb-3"
+                                  angular4-paystack
+                                  [channels]="['card']"
+                                  [key]="publicKey" [email]="userEmail"
+                                  [amount]="initailDebt" [ref]="tRef" (close)="paymentCancel()" (callback)="paymentDone($event)"
+                                  [class]="'btn btn-primary btn-lg'" [disabled]="!accountForm.valid"
+                          >Validate your card With Paystack</button>
+                      </div>
+                      <div *ngIf="!isValidAcc">
+                          {{accValidationErr}}
+                      </div>
+                      <button type="submit" class="btn btn-outline-secondary btn-sm align-item-end"  (click)="tabChange('requiredFields')"><i class="fa fa-arrow-left"></i> Back</button>
                   </div>
               </div>
           </div>
@@ -121,3 +189,4 @@
   </div>
   </div>
 </div>
+<app-loader [isLoading]="isLoading"></app-loader>

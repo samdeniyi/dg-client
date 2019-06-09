@@ -6,13 +6,15 @@
         <div class="body city-selected">
           <div class="row">
             <div class="col-12">
-              <div class="city"> Available loan count</div>
+              <div class="city">Current Loan Balance </div>
             </div>
             <div class="info col-7">
-              <div class="temp">
-                <h2>34</h2>
+              <div class="temp mt-4 mb-4">
+                <h3>₦609,939</h3>
               </div>
-              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">View all</button></div>
+<!--              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Apply now</button></div>-->
+              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Liquidate
+                now</button></div>
             </div>
             <div class="icon col-5 mt-5 text-right">
               <i class="fa fa-cart-plus"></i>
@@ -26,13 +28,13 @@
         <div class="body city-selected">
           <div class="row">
             <div class="col-12">
-              <div class="city">Pending Repayment</div>
+              <div class="city">Repayment Overdue</div>
             </div>
             <div class="info col-7">
               <div class="temp mt-4 mb-4">
                 <h3>₦609,939</h3>
               </div>
-              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Initiate re-payment</button></div>
+              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" >Make payment</button></div>
             </div>
             <div class="icon col-5 mt-5 text-right">
               <i class="fa fa-credit-card"></i>
@@ -46,13 +48,13 @@
         <div class="body city-selected">
           <div class="row">
             <div class="col-12">
-              <div class="city">Pending Loan Approval</div>
+              <div class="city">Next payment amount</div>
             </div>
             <div class="info col-7">
               <div class="temp mt-4 mb-4">
                 <h3>₦609,939</h3>
               </div>
-              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">View</button></div>
+              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;">Pay Now</button></div>
             </div>
             <div class="icon col-5 mt-5 text-right">
               <i class="fa fa-cart-arrow-down"></i>
@@ -66,7 +68,7 @@
     <div class="col-lg-8 col-md-12">
       <div class="card product_item_list product-order-list">
         <div class="header">
-          <h2>Recent Payment</h2>
+          <h2>Recent Transaction</h2>
         </div>
         <div class="body">
           <div class="table-responsive">
@@ -138,9 +140,9 @@
         </div>
         <div class="body">
           <ul class=" list-unstyled basic-list">
-            <li><i class="icon-book-open m-r-5"></i> Total loan processed <span class="badge badge-primary">21</span>
+            <li><i class="icon-book-open m-r-5"></i> Total loan granted <span class="badge badge-primary">21</span>
             </li>
-            <li><i class="icon-list m-r-5"></i> Total repayment count <span class="badge-purple badge">50</span></li>
+            <li><i class="icon-list m-r-5"></i> Total repayment <span class="badge-purple badge">50</span></li>
           </ul>
         </div>
       </div>

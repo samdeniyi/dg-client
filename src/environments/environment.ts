@@ -16,7 +16,11 @@ export const environment = {
   version: env.npm_package_version + '-dev',
   serverUrl: 'http://mbappeloan-env.qsenfnm3ng.us-east-2.elasticbeanstalk.com/api/',
   defaultLanguage: 'en-US',
-  supportedLanguages: ['en-US', 'fr-FR']
+  supportedLanguages: ['en-US', 'fr-FR'],
+  showLogo: false,
+  payStackBaseUrl: 'https://api.paystack.co/',
+  publicKey: 'pk_test_e338dfb13a1bc3e711759520fb73202a5491b0ba',
+  initailDebt: '5000'
 };
 
 /*
@@ -27,3 +31,5 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+

@@ -232,6 +232,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   goLoansList(): void{
-    this.router.navigate(['/loans/view']);
+    this.router.navigate(['/loans/details/23']);
   }
 }
