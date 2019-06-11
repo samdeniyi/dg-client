@@ -11,7 +11,8 @@ const routes = {
   myLoans: 'Loan/getuserloans',
   repaymentSchedule: 'Repayment/repaymentschedule/',
   accountLookup: 'Loan/accountlookup',
-  bvnLookup: 'Loan/bvnlookup'
+  bvnLookup: 'Loan/bvnlookup',
+    liquidateloan: 'Loan/liquidateloan/'
 };
 
 
@@ -105,6 +106,10 @@ export class LoansService extends BaseService<any> {
 
   validateBvnNumber(bvntNumber: number): Observable<any> {
       return this.sendGet(this.baseUrl(`${routes.bvnLookup}?bvn=${bvntNumber}`), true);
+  }
+
+  liquidateLoan(id: number): Observable<any> {
+      return this.sendPost(this.baseUrl(routes.liquidateloan + id), {});
   }
 
 }

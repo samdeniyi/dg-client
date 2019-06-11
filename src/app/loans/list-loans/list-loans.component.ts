@@ -66,8 +66,37 @@ export class ListLoansComponent implements OnInit, OnDestroy {
     );
   }
 
-  onLiquidated(id: number){
+  onLiquidated(id: number) {
+        const liquidateloan$ =  this.loanService.liquidateLoan(id);
+        liquidateloan$.pipe(
+            finalize(() => {
+                this.isLoading = false;
+            }),
+            untilDestroyed(this)
+        ).subscribe(
+            (res: any) => {
+                if (res.responseCode === '00') {
+                    log.info(res.responseData);
+                    this.toastr.success(res.message, undefined, {
+                        closeButton: true,
+                        positionClass: 'toast-top-right'
+                    });
+                } else {
+                    this.toastr.error(res.message, undefined, {
+                        closeButton: true,
+                        positionClass: 'toast-top-right'
+                    });
+                }
+            },
+            (err: any) => {
+                log.error(err);
+                this.toastr.error(err.message, 'ERROR!', {
+                    closeButton: true,
+                    positionClass: 'toast-top-right'
+                });
+            }
+        );
+    }
 
-  }
 
 }

@@ -192,10 +192,11 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
           ).subscribe(
               (res: any) => {
                   if (res.responseCode === '00') {
-                      this.toastr.success('Loan request saved successfully', undefined, {
+                      this.toastr.success(res.message, undefined, {
                           closeButton: true,
                           positionClass: 'toast-top-right'
                       });
+                      this.router.navigate(['/loans/myloans']);
                   } else {
                       this.toastr.error(res.message, undefined, {
                           closeButton: true,
