@@ -64,7 +64,13 @@ $green-600: #43a047 !default;
     }
   }
 
-  .fc .fc-view-container .fc-view.fc-basic-view > table > thead tr th.fc-widget-header {
+  .fc
+    .fc-view-container
+    .fc-view.fc-basic-view
+    > table
+    > thead
+    tr
+    th.fc-widget-header {
     background: $green-500;
     border-color: $green-500;
     color: $white;

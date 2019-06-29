@@ -16,9 +16,18 @@ export class BlockHeaderComponent implements OnInit {
   @Input() title = '';
   @Input() breadcrumbItem: any;
 
-  constructor(private sidebarService: SidebarService, private cdr: ChangeDetectorRef) {
-    this.visitorsOptions = this.loadLineChartOptions([3, 5, 1, 6, 5, 4, 8, 3], '#49c5b6');
-    this.visitsOptions = this.loadLineChartOptions([4, 6, 3, 2, 5, 6, 5, 4], '#f4516c');
+  constructor(
+    private sidebarService: SidebarService,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.visitorsOptions = this.loadLineChartOptions(
+      [3, 5, 1, 6, 5, 4, 8, 3],
+      '#49c5b6'
+    );
+    this.visitsOptions = this.loadLineChartOptions(
+      [4, 6, 3, 2, 5, 6, 5, 4],
+      '#f4516c'
+    );
   }
 
   ngOnInit() {

@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { ResetPasswordRoutingModule } from './reset-password-routing.module';
 import { ResetPasswordComponent } from './reset-password.component';
-import {ReactiveFormsModule} from '@angular/forms';
-import {SharedModule} from '@app/shared';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@app/shared';
 
 @NgModule({
   declarations: [ResetPasswordComponent],
   imports: [
     CommonModule,
     ResetPasswordRoutingModule,
-      ReactiveFormsModule,
-      SharedModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
-export class ResetPasswordModule { }
+export class ResetPasswordModule {}

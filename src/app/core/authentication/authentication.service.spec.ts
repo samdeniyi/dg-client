@@ -10,7 +10,10 @@ describe('AuthenticationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: CredentialsService, useClass: MockCredentialsService }, AuthenticationService]
+      providers: [
+        { provide: CredentialsService, useClass: MockCredentialsService },
+        AuthenticationService
+      ]
     });
 
     authenticationService = TestBed.get(AuthenticationService);
@@ -49,8 +52,12 @@ describe('AuthenticationService', () => {
       request.subscribe(() => {
         expect(credentialsService.isAuthenticated()).toBe(true);
         expect(credentialsService.credentials).not.toBeNull();
-        expect((<Credentials>credentialsService.credentials).token).toBeDefined();
-        expect((<Credentials>credentialsService.credentials).token).not.toBeNull();
+        expect(
+          (<Credentials>credentialsService.credentials).token
+        ).toBeDefined();
+        expect(
+          (<Credentials>credentialsService.credentials).token
+        ).not.toBeNull();
       });
     }));
 
@@ -65,7 +72,10 @@ describe('AuthenticationService', () => {
       // Assert
       request.subscribe(() => {
         expect(credentialsService.setCredentials).toHaveBeenCalled();
-        expect((<jasmine.Spy>credentialsService.setCredentials).calls.mostRecent().args[1]).toBe(undefined);
+        expect(
+          (<jasmine.Spy>credentialsService.setCredentials).calls.mostRecent()
+            .args[1]
+        ).toBe(undefined);
       });
     }));
 
@@ -81,7 +91,10 @@ describe('AuthenticationService', () => {
       // Assert
       request.subscribe(() => {
         expect(credentialsService.setCredentials).toHaveBeenCalled();
-        expect((<jasmine.Spy>credentialsService.setCredentials).calls.mostRecent().args[1]).toBe(true);
+        expect(
+          (<jasmine.Spy>credentialsService.setCredentials).calls.mostRecent()
+            .args[1]
+        ).toBe(true);
       });
     }));
   });

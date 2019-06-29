@@ -1,11 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IRegister, IRegResponse, RegisterService } from '@app/register/register.service';
-import { FormBuilder, FormGroup, RequiredValidator, Validator, Validators } from '@angular/forms';
-import { EAlertMessageIcon, EAlertMessageType, IAlertMessage } from '@app/shared/alert-message/alert-message.component';
+import {
+  IRegister,
+  IRegResponse,
+  RegisterService
+} from '@app/register/register.service';
+import {
+  FormBuilder,
+  FormGroup,
+  RequiredValidator,
+  Validator,
+  Validators
+} from '@angular/forms';
+import {
+  EAlertMessageIcon,
+  EAlertMessageType,
+  IAlertMessage
+} from '@app/shared/alert-message/alert-message.component';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
-import {Logger} from '@app/core/logger.service';
-import {untilDestroyed} from '@app/core/until-destroyed';
+import { Logger } from '@app/core/logger.service';
+import { untilDestroyed } from '@app/core/until-destroyed';
 
 const log = new Logger('Register');
 
@@ -19,7 +33,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public alertMessage: IAlertMessage;
   isLoading = false;
 
-  constructor(private regService: RegisterService, private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private regService: RegisterService,
+    private fb: FormBuilder,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.createRegForm();
@@ -30,7 +48,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.isLoading = true;
     if (this.regForm.valid) {
-      const resgister$ = this.regService.userRegistration(this.buildPayload(this.regForm.value));
+      const resgister$ = this.regService.userRegistration(
+        this.buildPayload(this.regForm.value)
+      );
       resgister$
         .pipe(
           finalize(() => {

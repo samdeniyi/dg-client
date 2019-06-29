@@ -10,8 +10,8 @@ import { finalize } from 'rxjs/operators';
 import { forEach } from '@angular/router/src/utils/collection';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import {Logger} from '@app/core/logger.service';
-import {untilDestroyed} from '@app/core/until-destroyed';
+import { Logger } from '@app/core/logger.service';
+import { untilDestroyed } from '@app/core/until-destroyed';
 
 const log = new Logger('Create product');
 
@@ -148,7 +148,9 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
   createProduct() {
     log.info('create product', this.buildCreateProductPayload());
-    const createProduct$ = this.productService.createLoanProduct(this.buildCreateProductPayload());
+    const createProduct$ = this.productService.createLoanProduct(
+      this.buildCreateProductPayload()
+    );
     createProduct$
       .pipe(
         finalize(() => {

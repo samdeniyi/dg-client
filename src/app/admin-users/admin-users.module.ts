@@ -10,6 +10,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AddUserComponent, ListUsersComponent, ViewUserComponent],
-  imports: [CommonModule, SharedModule, ReactiveFormsModule, AdminUsersRoutingModule]
+  imports: [
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    AdminUsersRoutingModule
+  ]
 })
 export class AdminUsersModule {}

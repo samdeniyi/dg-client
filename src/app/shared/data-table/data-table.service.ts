@@ -3,7 +3,10 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
-import { SortableDirective, SortDirection } from '@app/shared/directives/sortable.directive';
+import {
+  SortableDirective,
+  SortDirection
+} from '@app/shared/directives/sortable.directive';
 
 export interface Country {
   id: number;
@@ -123,7 +126,11 @@ function compare(v1: any, v2: any) {
   return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 }
 
-function sort(countries: Country[], column: string, direction: string): Country[] {
+function sort(
+  countries: Country[],
+  column: string,
+  direction: string
+): Country[] {
   if (direction === '') {
     return countries;
   } else {
@@ -216,17 +223,28 @@ export class DataTableService {
   }
 
   private _search(): Observable<SearchResult> {
-    const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
+    const {
+      sortColumn,
+      sortDirection,
+      pageSize,
+      page,
+      searchTerm
+    } = this._state;
 
     // 1. sort
     let countries = sort(COUNTRIES, sortColumn, sortDirection);
 
     // 2. filter
-    countries = countries.filter(country => matches(country, searchTerm, this.pipe));
+    countries = countries.filter(country =>
+      matches(country, searchTerm, this.pipe)
+    );
     const total = countries.length;
 
     // 3. paginate
-    countries = countries.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+    countries = countries.slice(
+      (page - 1) * pageSize,
+      (page - 1) * pageSize + pageSize
+    );
     return of({ countries, total });
   }
 }

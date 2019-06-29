@@ -63,7 +63,13 @@ $blush-600: #e25985 !default;
     }
   }
 
-  .fc .fc-view-container .fc-view.fc-basic-view > table > thead tr th.fc-widget-header {
+  .fc
+    .fc-view-container
+    .fc-view.fc-basic-view
+    > table
+    > thead
+    tr
+    th.fc-widget-header {
     background: $blush-500;
     border-color: $blush-500;
     color: $white;

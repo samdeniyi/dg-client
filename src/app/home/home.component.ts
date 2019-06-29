@@ -34,22 +34,53 @@ export class HomeComponent implements OnInit, OnDestroy {
   public dataManagedBarChart: EChartOption = {};
 
   public earningOptionsSeries: Array<number> = [1, 4, 1, 3, 7, 1];
-  public earnings: string = '₦' + (this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
+  public earnings: string =
+    '₦' +
+    (
+      this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000
+    ).toLocaleString();
   public salesOptionsSeries: Array<number> = [1, 4, 2, 3, 6, 2];
-  public sales: string = '₦' + (this.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000).toLocaleString();
+  public sales: string =
+    '₦' +
+    (
+      this.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000
+    ).toLocaleString();
   public visitsAreaOptionsSeries: Array<number> = [1, 4, 2, 3, 1, 5];
-  public visits: number = this.visitsAreaOptionsSeries.reduce((a, b) => a + b, 0);
+  public visits: number = this.visitsAreaOptionsSeries.reduce(
+    (a, b) => a + b,
+    0
+  );
   public LikesOptionsSeries: Array<number> = [1, 3, 5, 1, 4, 2];
   public likes: number = this.LikesOptionsSeries.reduce((a, b) => a + b, 0);
 
   public interval: any = {};
 
-  constructor(private quoteService: QuoteService, private cdr: ChangeDetectorRef, private toastr: ToastrService,
-              private router: Router) {
-    this.earningOptions = this.loadLineAreaChartOptions([1, 4, 1, 3, 7, 1], '#f79647', '#fac091');
-    this.salesOptions = this.loadLineAreaChartOptions([1, 4, 2, 3, 6, 2], '#604a7b', '#a092b0');
-    this.visitsAreaOptions = this.loadLineAreaChartOptions([1, 4, 2, 3, 1, 5], '#4aacc5', '#92cddc');
-    this.LikesOptions = this.loadLineAreaChartOptions([1, 3, 5, 1, 4, 2], '#4f81bc', '#95b3d7');
+  constructor(
+    private quoteService: QuoteService,
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService,
+    private router: Router
+  ) {
+    this.earningOptions = this.loadLineAreaChartOptions(
+      [1, 4, 1, 3, 7, 1],
+      '#f79647',
+      '#fac091'
+    );
+    this.salesOptions = this.loadLineAreaChartOptions(
+      [1, 4, 2, 3, 6, 2],
+      '#604a7b',
+      '#a092b0'
+    );
+    this.visitsAreaOptions = this.loadLineAreaChartOptions(
+      [1, 4, 2, 3, 1, 5],
+      '#4aacc5',
+      '#92cddc'
+    );
+    this.LikesOptions = this.loadLineAreaChartOptions(
+      [1, 3, 5, 1, 4, 2],
+      '#4f81bc',
+      '#95b3d7'
+    );
     this.dataManagedBarChart = this.getDataManagedChartOptions();
   }
 
@@ -95,8 +126,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         rand = 1;
       }
       that.earningOptionsSeries.push(rand);
-      that.earningOptions = that.loadLineAreaChartOptions(that.earningOptionsSeries, '#f79647', '#fac091');
-      that.earnings = '₦' + (that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
+      that.earningOptions = that.loadLineAreaChartOptions(
+        that.earningOptionsSeries,
+        '#f79647',
+        '#fac091'
+      );
+      that.earnings =
+        '₦' +
+        (
+          that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000
+        ).toLocaleString();
 
       that.salesOptionsSeries.shift();
       rand = Math.floor(Math.random() * 11);
@@ -104,8 +143,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         rand = 1;
       }
       that.salesOptionsSeries.push(rand);
-      that.salesOptions = that.loadLineAreaChartOptions(that.salesOptionsSeries, '#604a7b', '#a092b0');
-      that.sales = '₦' + (that.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000).toLocaleString();
+      that.salesOptions = that.loadLineAreaChartOptions(
+        that.salesOptionsSeries,
+        '#604a7b',
+        '#a092b0'
+      );
+      that.sales =
+        '₦' +
+        (
+          that.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000
+        ).toLocaleString();
 
       that.visitsAreaOptionsSeries.shift();
       rand = Math.floor(Math.random() * 11);
@@ -114,7 +161,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
       that.visitsAreaOptionsSeries.push(rand);
       that.visits += rand;
-      that.visitsAreaOptions = that.loadLineAreaChartOptions(that.visitsAreaOptionsSeries, '#4aacc5', '#92cddc');
+      that.visitsAreaOptions = that.loadLineAreaChartOptions(
+        that.visitsAreaOptionsSeries,
+        '#4aacc5',
+        '#92cddc'
+      );
 
       that.LikesOptionsSeries.shift();
       rand = Math.floor(Math.random() * 11);
@@ -123,7 +174,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
       that.LikesOptionsSeries.push(rand);
       that.likes += rand;
-      that.LikesOptions = that.loadLineAreaChartOptions(that.LikesOptionsSeries, '#4f81bc', '#95b3d7');
+      that.LikesOptions = that.loadLineAreaChartOptions(
+        that.LikesOptionsSeries,
+        '#4f81bc',
+        '#95b3d7'
+      );
       that.cdr.markForCheck();
     }, 3000);
   }
@@ -231,7 +286,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     return options;
   }
 
-  goLoansList(): void{
+  goLoansList(): void {
     this.router.navigate(['/loans/details/23']);
   }
 }

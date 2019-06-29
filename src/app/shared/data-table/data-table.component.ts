@@ -1,8 +1,14 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Country, DataTableService } from '@app/shared/data-table/data-table.service';
-import { SortableDirective, SortEvent } from '@app/shared/directives/sortable.directive';
+import {
+  Country,
+  DataTableService
+} from '@app/shared/data-table/data-table.service';
+import {
+  SortableDirective,
+  SortEvent
+} from '@app/shared/directives/sortable.directive';
 
 @Component({
   selector: 'app-data-table',

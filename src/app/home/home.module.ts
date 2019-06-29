@@ -16,7 +16,14 @@ import { ActivitiesComponent } from './activities/activities.component';
 import { CoreModule } from '@app/core/core.module';
 
 @NgModule({
-  imports: [CommonModule, TranslateModule, CoreModule, SharedModule, HomeRoutingModule, NgxEchartsModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    CoreModule,
+    SharedModule,
+    HomeRoutingModule,
+    NgxEchartsModule
+  ],
   declarations: [
     HomeComponent,
     DetailTilesComponent,

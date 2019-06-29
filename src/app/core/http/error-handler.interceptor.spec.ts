@@ -1,5 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 
 import { ErrorHandlerInterceptor } from './error-handler.interceptor';
@@ -38,14 +41,19 @@ describe('ErrorHandlerInterceptor', () => {
     // Arrange
     // Note: here we spy on private method since target is customization here,
     // but you should replace it by actual behavior in your app
-    spyOn(ErrorHandlerInterceptor.prototype as any, 'errorHandler').and.callThrough();
+    spyOn(
+      ErrorHandlerInterceptor.prototype as any,
+      'errorHandler'
+    ).and.callThrough();
 
     // Act
     http.get('/toto').subscribe(
       () => fail('should error'),
       () => {
         // Assert
-        expect(ErrorHandlerInterceptor.prototype['errorHandler']).toHaveBeenCalled();
+        expect(
+          ErrorHandlerInterceptor.prototype['errorHandler']
+        ).toHaveBeenCalled();
       }
     );
 

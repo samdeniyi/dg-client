@@ -13,9 +13,16 @@
           <!--            <app-alert-message [options]="alertMessage"></app-alert-message>-->
           <!--          </ng-container>-->
           <div class="body">
-            <form class="form-auth-small" (ngSubmit)="onSubmit()" [formGroup]="regForm" novalidate>
+            <form
+              class="form-auth-small"
+              (ngSubmit)="onSubmit()"
+              [formGroup]="regForm"
+              novalidate
+            >
               <div class="form-group">
-                <label for="signin-email" class="control-label sr-only">Firstname</label>
+                <label for="signin-email" class="control-label sr-only"
+                  >Firstname</label
+                >
                 <input
                   type="email"
                   class="form-control"
@@ -25,7 +32,9 @@
                 />
               </div>
               <div class="form-group">
-                <label for="signin-email" class="control-label sr-only">Lastname</label>
+                <label for="signin-email" class="control-label sr-only"
+                  >Lastname</label
+                >
                 <input
                   type="email"
                   class="form-control"
@@ -35,7 +44,9 @@
                 />
               </div>
               <div class="form-group">
-                <label for="signin-email" class="control-label sr-only">Email</label>
+                <label for="signin-email" class="control-label sr-only"
+                  >Email</label
+                >
                 <input
                   type="email"
                   class="form-control"
@@ -45,7 +56,9 @@
                 />
               </div>
               <div class="form-group">
-                <label for="signin-email" class="control-label sr-only">Phone Number</label>
+                <label for="signin-email" class="control-label sr-only"
+                  >Phone Number</label
+                >
                 <input
                   type="tel"
                   class="form-control"
@@ -55,7 +68,9 @@
                 />
               </div>
               <div class="form-group">
-                <label for="signin-password" class="control-label sr-only">Password</label>
+                <label for="signin-password" class="control-label sr-only"
+                  >Password</label
+                >
                 <input
                   type="password"
                   class="form-control"
@@ -65,7 +80,9 @@
                 />
               </div>
               <div class="form-group">
-                <label for="signin-password" class="control-label sr-only">Confirm Password</label>
+                <label for="signin-password" class="control-label sr-only"
+                  >Confirm Password</label
+                >
                 <input
                   type="password"
                   class="form-control"
@@ -75,12 +92,26 @@
                 />
               </div>
               <!--              <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>-->
-              <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!regForm.valid" *ngIf="!isLoading">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg btn-block"
+                [disabled]="!regForm.valid"
+                *ngIf="!isLoading"
+              >
                 Register
               </button>
-              <button class="btn btn-primary btn-lg btn-block" [disabled]="true" *ngIf="isLoading"> <i class="fa fa-spinner fa-spin" style="margin-right: 5px"></i> please wait...</button>
+              <button
+                class="btn btn-primary btn-lg btn-block"
+                [disabled]="true"
+                *ngIf="isLoading"
+              >
+                <i class="fa fa-spinner fa-spin" style="margin-right: 5px"></i>
+                please wait...
+              </button>
               <div class="bottom">
-                <span>have an account? <a [routerLink]="['/login']">Login</a></span>
+                <span
+                  >have an account? <a [routerLink]="['/login']">Login</a></span
+                >
               </div>
             </form>
           </div>

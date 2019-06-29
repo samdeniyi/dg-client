@@ -3,8 +3,8 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { VerifyEmailService } from '@app/verify-email/verify-email.service';
 import { finalize } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import {Logger} from '@app/core/logger.service';
-import {untilDestroyed} from '@app/core/until-destroyed';
+import { Logger } from '@app/core/logger.service';
+import { untilDestroyed } from '@app/core/until-destroyed';
 
 const log = new Logger('Verify Email');
 
@@ -36,7 +36,10 @@ export class VerifyEmailComponent implements OnInit, OnDestroy {
 
   verifyUserEmail() {
     this.isLoading = true;
-    const verify = this.verifyEmailService.confirmEmail(this.userId, this.verificationCode);
+    const verify = this.verifyEmailService.confirmEmail(
+      this.userId,
+      this.verificationCode
+    );
     verify
       .pipe(
         finalize(() => {

@@ -14,7 +14,13 @@ import { FormsModule } from '@angular/forms';
 import { GroupByPipe } from './pipes/group-by.pipe';
 
 @NgModule({
-  imports: [CommonModule, NgxEchartsModule, RouterModule, NgbModule, FormsModule],
+  imports: [
+    CommonModule,
+    NgxEchartsModule,
+    RouterModule,
+    NgbModule,
+    FormsModule
+  ],
   declarations: [
     LoaderComponent,
     AlertMessageComponent,

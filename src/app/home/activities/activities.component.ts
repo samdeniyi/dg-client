@@ -12,7 +12,7 @@ export class ActivitiesComponent implements OnInit {
       {
         class: 'green',
         date: '20-04-2018 - Today',
-        header: "Login in",
+        header: 'Login in',
         user: 'Elisse Joson',
         location: 'San Francisco, CA',
         message:

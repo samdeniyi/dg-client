@@ -34,14 +34,19 @@ const untilDestroyedSymbol = Symbol('untilDestroyed');
  * }
  * ```
  */
-export function untilDestroyed(instance: Object, destroyMethodName: string = 'ngOnDestroy') {
+export function untilDestroyed(
+  instance: Object,
+  destroyMethodName: string = 'ngOnDestroy'
+) {
   return <T>(source: Observable<T>) => {
     const originalDestroy = instance[destroyMethodName];
     const hasDestroyFunction = typeof originalDestroy === 'function';
 
     if (!hasDestroyFunction) {
       throw new Error(
-        `${instance.constructor.name} is using untilDestroyed but doesn't implement ${destroyMethodName}`
+        `${
+          instance.constructor.name
+        } is using untilDestroyed but doesn't implement ${destroyMethodName}`
       );
     }
 

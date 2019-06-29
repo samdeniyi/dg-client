@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AdminUsersService, IAdminUser } from '@app/admin-users/admin-users.service';
+import {
+  AdminUsersService,
+  IAdminUser
+} from '@app/admin-users/admin-users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {Logger} from '@app/core/logger.service';
+import { Logger } from '@app/core/logger.service';
 
 const log = new Logger('Admin-user/add-user');
 
@@ -68,19 +71,24 @@ export class AddUserComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.userForm.valid) {
-      this.usersService.createAdminUser(this.buildCreateUserPayload(this.userForm.value)).subscribe(
-        (res: any) => {
-          log.info(res);
-          this.toastr.success(res.message, undefined, {
-            closeButton: true,
-            positionClass: 'toast-top-right'
-          });
-          this.router.navigate([this.route.snapshot.queryParams.redirect || '/admin-users/view'], { replaceUrl: true });
-        },
-        (err: any) => {
-          log.error(err);
-        }
-      );
+      this.usersService
+        .createAdminUser(this.buildCreateUserPayload(this.userForm.value))
+        .subscribe(
+          (res: any) => {
+            log.info(res);
+            this.toastr.success(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+            this.router.navigate(
+              [this.route.snapshot.queryParams.redirect || '/admin-users/view'],
+              { replaceUrl: true }
+            );
+          },
+          (err: any) => {
+            log.error(err);
+          }
+        );
     } else {
       log.debug(this.userForm.value);
     }

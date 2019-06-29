@@ -17,11 +17,13 @@ const routes: Routes = [
   },
   {
     path: 'clients',
-    loadChildren: './clients-interface/clients-interface.module#ClientsInterfaceModule'
+    loadChildren:
+      './clients-interface/clients-interface.module#ClientsInterfaceModule'
   },
   {
     path: 'forgot-password',
-    loadChildren: './forget-password/forget-password.module#ForgetPasswordModule'
+    loadChildren:
+      './forget-password/forget-password.module#ForgetPasswordModule'
   },
   {
     path: 'resetpassword',

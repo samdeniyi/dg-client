@@ -4,9 +4,12 @@ import { VerifyEmailService } from '@app/verify-email/verify-email.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { ISetPassword, SetpasswordService } from '@app/setpassword/setpassword.service';
-import {Logger} from '@app/core/logger.service';
-import {untilDestroyed} from '@app/core/until-destroyed';
+import {
+  ISetPassword,
+  SetpasswordService
+} from '@app/setpassword/setpassword.service';
+import { Logger } from '@app/core/logger.service';
+import { untilDestroyed } from '@app/core/until-destroyed';
 
 const log = new Logger('SetPassword');
 
@@ -48,7 +51,9 @@ export class SetpasswordComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.setPasswordForm.valid) {
       this.isLoading = true;
-      const setPassword = this.userService.setUserPassword(this.buildSetPasswordPayload(this.setPasswordForm.value));
+      const setPassword = this.userService.setUserPassword(
+        this.buildSetPasswordPayload(this.setPasswordForm.value)
+      );
       setPassword
         .pipe(
           finalize(() => {

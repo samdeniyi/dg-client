@@ -7,6 +7,11 @@ import { SharedModule } from '@app/shared';
 
 @NgModule({
   declarations: [RegisterComponent],
-  imports: [CommonModule, SharedModule, ReactiveFormsModule, RegisterRoutingModule]
+  imports: [
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    RegisterRoutingModule
+  ]
 })
 export class RegisterModule {}

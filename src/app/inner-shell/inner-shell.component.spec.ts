@@ -8,9 +8,8 @@ describe('InnerShellComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InnerShellComponent ]
-    })
-    .compileComponents();
+      declarations: [InnerShellComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

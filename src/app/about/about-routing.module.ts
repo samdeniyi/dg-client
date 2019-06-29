@@ -3,10 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { Shell } from '@app/shell/shell.service';
 import { AboutComponent } from './about.component';
-import {extract} from '@app/core/i18n.service';
+import { extract } from '@app/core/i18n.service';
 
 const routes: Routes = [
-  Shell.childRoutes([{ path: 'about', component: AboutComponent, data: { title: extract('About') } }])
+  Shell.childRoutes([
+    {
+      path: 'about',
+      component: AboutComponent,
+      data: { title: extract('About') }
+    }
+  ])
 ];
 
 @NgModule({

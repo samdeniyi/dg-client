@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoanProductsService } from '@app/loan-products/loan-products.service';
 import { finalize } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import {Logger} from '@app/core/logger.service';
-import {untilDestroyed} from '@app/core/until-destroyed';
+import { Logger } from '@app/core/logger.service';
+import { untilDestroyed } from '@app/core/until-destroyed';
 
 const log = new Logger('List Product');
 
@@ -26,7 +26,10 @@ export class ListProductsComponent implements OnInit, OnDestroy {
   ];
   public title = 'Create Loan Product';
   public productListObj: any;
-  constructor(private productService: LoanProductsService, private toastr: ToastrService) {}
+  constructor(
+    private productService: LoanProductsService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getCreatedLoanProducts();

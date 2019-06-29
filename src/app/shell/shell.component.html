@@ -24,7 +24,10 @@
       [currentActiveSubMenu]="currentActiveSubMenu"
       (activeInactiveMenuEvent)="activeInactiveMenu($event)"
     ></app-sidebar>
-    <div id="main-content" [ngClass]="{ 'layout-fullwidth': !sidebarService.sidebarVisible }">
+    <div
+      id="main-content"
+      [ngClass]="{ 'layout-fullwidth': !sidebarService.sidebarVisible }"
+    >
       <router-outlet (activate)="getActiveRoutes()"></router-outlet>
     </div>
   </div>

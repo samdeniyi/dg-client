@@ -21,7 +21,10 @@ const routes = {
  */
 @Injectable()
 export class AuthenticationService extends BaseService<ILoginContext> {
-  constructor(private credentialsService: CredentialsService, private http: HttpClient) {
+  constructor(
+    private credentialsService: CredentialsService,
+    private http: HttpClient
+  ) {
     super(http);
   }
 

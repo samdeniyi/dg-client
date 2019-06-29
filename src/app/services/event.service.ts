@@ -9,7 +9,8 @@ import 'rxjs/add/observable/of';
 export class EventService {
   public getEvents(): Observable<any> {
     const dateObj = new Date();
-    const yearMonth = dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
+    const yearMonth =
+      dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
     let data: any = [
       {
         title: 'All Day Event',

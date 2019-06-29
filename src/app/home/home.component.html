@@ -1,20 +1,31 @@
 <div class="container-fluid">
-  <app-block-header [title]="title" [breadcrumbItem]="breadcrumbItem"></app-block-header>
+  <app-block-header
+    [title]="title"
+    [breadcrumbItem]="breadcrumbItem"
+  ></app-block-header>
   <div class="row clearfix">
     <div class="col-lg-4 col-md-6 col-sm-6">
       <div class="card weather2 l-turquoise">
         <div class="body city-selected">
           <div class="row">
             <div class="col-12">
-              <div class="city">Current Loan Balance </div>
+              <div class="city">Current Loan Balance</div>
             </div>
             <div class="info col-7">
               <div class="temp mt-4 mb-4">
                 <h3>₦609,939</h3>
               </div>
-<!--              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Apply now</button></div>-->
-              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Liquidate
-                now</button></div>
+              <!--              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Apply now</button></div>-->
+              <div class="night">
+                <button
+                  type="button"
+                  class="btn btn-default mr-1"
+                  style="border-radius: 30px;"
+                  (click)="goLoansList()"
+                >
+                  Liquidate now
+                </button>
+              </div>
             </div>
             <div class="icon col-5 mt-5 text-right">
               <i class="fa fa-cart-plus"></i>
@@ -34,7 +45,15 @@
               <div class="temp mt-4 mb-4">
                 <h3>₦609,939</h3>
               </div>
-              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" >Make payment</button></div>
+              <div class="night">
+                <button
+                  type="button"
+                  class="btn btn-default mr-1"
+                  style="border-radius: 30px;"
+                >
+                  Make payment
+                </button>
+              </div>
             </div>
             <div class="icon col-5 mt-5 text-right">
               <i class="fa fa-credit-card"></i>
@@ -54,7 +73,15 @@
               <div class="temp mt-4 mb-4">
                 <h3>₦609,939</h3>
               </div>
-              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;">Pay Now</button></div>
+              <div class="night">
+                <button
+                  type="button"
+                  class="btn btn-default mr-1"
+                  style="border-radius: 30px;"
+                >
+                  Pay Now
+                </button>
+              </div>
             </div>
             <div class="icon col-5 mt-5 text-right">
               <i class="fa fa-cart-arrow-down"></i>
@@ -74,43 +101,59 @@
           <div class="table-responsive">
             <table class="table table-hover m-b-0">
               <thead class="thead-light">
-              <tr>
-                <th>Date</th>
-                <th data-breakpoints="sm xs">Transaction ID</th>
-                <th>Transaction Type</th>
-                <th data-breakpoints="xs">Amount</th>
-                <th data-breakpoints="xs md">Status</th>
-              </tr>
+                <tr>
+                  <th>Date</th>
+                  <th data-breakpoints="sm xs">Transaction ID</th>
+                  <th>Transaction Type</th>
+                  <th data-breakpoints="xs">Amount</th>
+                  <th data-breakpoints="xs md">Status</th>
+                </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>28-05-2019</td>
-                <td>291ER67UY989</td>
-                <td>Loan Disbursement</td>
-                <td>₦16,000.00</td>
-                <td><span class="badge badge-success bg-success text-white">Paid</span></td>
-              </tr>
-              <tr>
-                <td>28-05-2019</td>
-                <td>291ER67UY989</td>
-                <td>Loan Disbursement</td>
-                <td>₦16,000.00</td>
-                <td><span class="badge badge-success bg-success text-white">Paid</span></td>
-              </tr>
-              <tr>
-                <td>28-05-2019</td>
-                <td>291ER67UY989</td>
-                <td>Loan Repayment</td>
-                <td>₦16,000.00</td>
-                <td><span class="badge badge-danger bg-danger text-white">Failed</span></td>
-              </tr>
-              <tr>
-                <td>28-05-2019</td>
-                <td>291ER67UY989</td>
-                <td>Loan Disbursement</td>
-                <td>₦16,000.00</td>
-                <td><span class="badge badge-success bg-success text-white">Paid</span></td>
-              </tr>
+                <tr>
+                  <td>28-05-2019</td>
+                  <td>291ER67UY989</td>
+                  <td>Loan Disbursement</td>
+                  <td>₦16,000.00</td>
+                  <td>
+                    <span class="badge badge-success bg-success text-white"
+                      >Paid</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>28-05-2019</td>
+                  <td>291ER67UY989</td>
+                  <td>Loan Disbursement</td>
+                  <td>₦16,000.00</td>
+                  <td>
+                    <span class="badge badge-success bg-success text-white"
+                      >Paid</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>28-05-2019</td>
+                  <td>291ER67UY989</td>
+                  <td>Loan Repayment</td>
+                  <td>₦16,000.00</td>
+                  <td>
+                    <span class="badge badge-danger bg-danger text-white"
+                      >Failed</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>28-05-2019</td>
+                  <td>291ER67UY989</td>
+                  <td>Loan Disbursement</td>
+                  <td>₦16,000.00</td>
+                  <td>
+                    <span class="badge badge-success bg-success text-white"
+                      >Paid</span
+                    >
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -125,10 +168,12 @@
               <i class="fa fa-link text-primary"></i>
             </div>
             <div class="col-10 text-right">
-              <h3 class="">Refer a friend </h3>
+              <h3 class="">Refer a friend</h3>
               <span>And earn commissions</span>
               <p></p>
-              <a href="#"><i class="fa fa-copy" style="font-size: 12px"></i> Copy link</a>
+              <a href="#"
+                ><i class="fa fa-copy" style="font-size: 12px"></i> Copy link</a
+              >
             </div>
           </div>
         </div>
@@ -140,13 +185,17 @@
         </div>
         <div class="body">
           <ul class=" list-unstyled basic-list">
-            <li><i class="icon-book-open m-r-5"></i> Total loan granted <span class="badge badge-primary">21</span>
+            <li>
+              <i class="icon-book-open m-r-5"></i> Total loan granted
+              <span class="badge badge-primary">21</span>
             </li>
-            <li><i class="icon-list m-r-5"></i> Total repayment <span class="badge-purple badge">50</span></li>
+            <li>
+              <i class="icon-list m-r-5"></i> Total repayment
+              <span class="badge-purple badge">50</span>
+            </li>
           </ul>
         </div>
       </div>
-
     </div>
   </div>
   <div class="row clearfix">

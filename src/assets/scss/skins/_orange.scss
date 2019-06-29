@@ -64,7 +64,13 @@ $orange-600: #fb8c00 !default;
     }
   }
 
-  .fc .fc-view-container .fc-view.fc-basic-view > table > thead tr th.fc-widget-header {
+  .fc
+    .fc-view-container
+    .fc-view.fc-basic-view
+    > table
+    > thead
+    tr
+    th.fc-widget-header {
     background: $orange-500;
     border-color: $orange-500;
     color: $white;

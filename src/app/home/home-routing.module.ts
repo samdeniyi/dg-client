@@ -8,7 +8,11 @@ import { extract } from '@app/core/i18n.service';
 const routes: Routes = [
   Shell.childRoutes([
     { path: '', redirectTo: '/admin', pathMatch: 'full' },
-    { path: 'admin', component: HomeComponent, data: { title: extract('Home') } }
+    {
+      path: 'admin',
+      component: HomeComponent,
+      data: { title: extract('Home') }
+    }
   ])
 ];
 

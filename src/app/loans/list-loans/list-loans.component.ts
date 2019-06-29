@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ToastrService} from 'ngx-toastr';
-import {LoansService} from '@app/loans/loans.service';
-import {finalize} from 'rxjs/operators';
-import {untilDestroyed} from '@app/core/until-destroyed';
-import {Logger} from '@app/core/logger.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { LoansService } from '@app/loans/loans.service';
+import { finalize } from 'rxjs/operators';
+import { untilDestroyed } from '@app/core/until-destroyed';
+import { Logger } from '@app/core/logger.service';
 
 const log = new Logger('loan list');
 
@@ -15,7 +15,6 @@ const log = new Logger('loan list');
 export class ListLoansComponent implements OnInit, OnDestroy {
   myLoanList: any;
   isLoading = false;
-
 
   title = 'My loans';
   breadcrumbItem = [
@@ -29,23 +28,27 @@ export class ListLoansComponent implements OnInit, OnDestroy {
     }
   ];
 
-  constructor(private toastr: ToastrService, private loanService: LoansService) { }
+  constructor(
+    private toastr: ToastrService,
+    private loanService: LoansService
+  ) {}
 
   ngOnInit() {
     this.getMyLoans();
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   getMyLoans() {
     const myloans$ = this.loanService.myloans();
-    myloans$.pipe(
+    myloans$
+      .pipe(
         finalize(() => {
           this.isLoading = false;
         }),
         untilDestroyed(this)
-    ).subscribe(
+      )
+      .subscribe(
         (res: any) => {
           if (res.responseCode === '00') {
             this.myLoanList = res.responseData;
@@ -63,40 +66,40 @@ export class ListLoansComponent implements OnInit, OnDestroy {
             positionClass: 'toast-top-right'
           });
         }
-    );
+      );
   }
 
   onLiquidated(id: number) {
-        const liquidateloan$ =  this.loanService.liquidateLoan(id);
-        liquidateloan$.pipe(
-            finalize(() => {
-                this.isLoading = false;
-            }),
-            untilDestroyed(this)
-        ).subscribe(
-            (res: any) => {
-                if (res.responseCode === '00') {
-                    log.info(res.responseData);
-                    this.toastr.success(res.message, undefined, {
-                        closeButton: true,
-                        positionClass: 'toast-top-right'
-                    });
-                } else {
-                    this.toastr.error(res.message, undefined, {
-                        closeButton: true,
-                        positionClass: 'toast-top-right'
-                    });
-                }
-            },
-            (err: any) => {
-                log.error(err);
-                this.toastr.error(err.message, 'ERROR!', {
-                    closeButton: true,
-                    positionClass: 'toast-top-right'
-                });
-            }
-        );
-    }
-
-
+    const liquidateloan$ = this.loanService.liquidateLoan(id);
+    liquidateloan$
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.responseCode === '00') {
+            log.info(res.responseData);
+            this.toastr.success(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          } else {
+            this.toastr.error(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          }
+        },
+        (err: any) => {
+          log.error(err);
+          this.toastr.error(err.message, 'ERROR!', {
+            closeButton: true,
+            positionClass: 'toast-top-right'
+          });
+        }
+      );
+  }
 }

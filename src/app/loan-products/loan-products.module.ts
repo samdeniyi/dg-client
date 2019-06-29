@@ -9,7 +9,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared';
 
 @NgModule({
-  declarations: [LoanProductsComponent, CreateProductComponent, ListProductsComponent],
-  imports: [CommonModule, LoanProductsRoutingModule, ReactiveFormsModule, SharedModule]
+  declarations: [
+    LoanProductsComponent,
+    CreateProductComponent,
+    ListProductsComponent
+  ],
+  imports: [
+    CommonModule,
+    LoanProductsRoutingModule,
+    ReactiveFormsModule,
+    SharedModule
+  ]
 })
 export class LoanProductsModule {}

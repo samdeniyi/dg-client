@@ -14,16 +14,22 @@ export class GroupByPipe implements PipeTransform {
       return null;
     }
 
-    const groupedCollection = collection.reduce((previous: any, current: any) => {
-      if (!previous[current[property]]) {
-        previous[current[property]] = [current];
-      } else {
-        previous[current[property]].push(current);
-      }
-      return previous;
-    }, {});
+    const groupedCollection = collection.reduce(
+      (previous: any, current: any) => {
+        if (!previous[current[property]]) {
+          previous[current[property]] = [current];
+        } else {
+          previous[current[property]].push(current);
+        }
+        return previous;
+      },
+      {}
+    );
 
     // this will return an array of objects, each object containing a group of objects
-    return Object.keys(groupedCollection).map(key => ({ key, value: groupedCollection[key] }));
+    return Object.keys(groupedCollection).map(key => ({
+      key,
+      value: groupedCollection[key]
+    }));
   }
 }

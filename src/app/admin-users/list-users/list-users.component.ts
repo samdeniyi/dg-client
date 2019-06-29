@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminUsersService } from '@app/admin-users/admin-users.service';
 import { finalize } from 'rxjs/operators';
-import {untilDestroyed} from '@app/core/until-destroyed';
+import { untilDestroyed } from '@app/core/until-destroyed';
 
 @Component({
   selector: 'app-list-users',

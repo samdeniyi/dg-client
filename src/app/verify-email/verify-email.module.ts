@@ -7,6 +7,11 @@ import { VerifyEmailRoutingModule } from '@app/verify-email/verify-email-routing
 
 @NgModule({
   declarations: [VerifyEmailComponent],
-  imports: [CommonModule, SharedModule, ReactiveFormsModule, VerifyEmailRoutingModule]
+  imports: [
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    VerifyEmailRoutingModule
+  ]
 })
 export class VerifyEmailModule {}

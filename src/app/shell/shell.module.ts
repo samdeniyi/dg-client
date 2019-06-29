@@ -10,10 +10,13 @@ import { PageLoaderComponent } from './page-loader/page-loader.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
-    imports: [CommonModule, TranslateModule, NgbModule, RouterModule],
-    exports: [
-        HeaderComponent
-    ],
-    declarations: [HeaderComponent, ShellComponent, PageLoaderComponent, SidebarComponent]
+  imports: [CommonModule, TranslateModule, NgbModule, RouterModule],
+  exports: [HeaderComponent],
+  declarations: [
+    HeaderComponent,
+    ShellComponent,
+    PageLoaderComponent,
+    SidebarComponent
+  ]
 })
 export class ShellModule {}

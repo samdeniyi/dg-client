@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ThemeService } from '@app/services/theme.service';
 import { Log } from '@angular/core/testing/src/logger';
 import { Router } from '@angular/router';
-import {Logger} from '@app/core/logger.service';
-import {CredentialsService} from '@app/core/authentication/credentials.service';
-import {AuthenticationService} from '@app/core/authentication/authentication.service';
+import { Logger } from '@app/core/logger.service';
+import { CredentialsService } from '@app/core/authentication/credentials.service';
+import { AuthenticationService } from '@app/core/authentication/authentication.service';
 
 const log = new Logger('Sidebar');
 
@@ -52,7 +52,9 @@ export class SidebarComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+    this.authenticationService
+      .logout()
+      .subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
 
   toggleSideMenu() {

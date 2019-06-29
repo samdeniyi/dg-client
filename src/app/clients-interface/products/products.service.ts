@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {BaseService} from '@app/core/base.service';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { BaseService } from '@app/core/base.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 const routes = {
   getAllProducts: 'Product/GetAllProducts',
@@ -11,8 +11,7 @@ const routes = {
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService extends BaseService<any>{
-
+export class ProductsService extends BaseService<any> {
   allProducts: any;
   product: any;
   isLoading = false;

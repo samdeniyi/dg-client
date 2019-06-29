@@ -4,12 +4,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import {I18nService} from '@app/core/i18n.service';
-import {AuthenticationService, ILoginContext} from '@app/core/authentication/authentication.service';
-import {CredentialsService} from '@app/core/authentication/credentials.service';
-import {untilDestroyed} from '@app/core/until-destroyed';
-import {Logger} from '@app/core/logger.service';
-import {ToastrService} from 'ngx-toastr';
+import { I18nService } from '@app/core/i18n.service';
+import {
+  AuthenticationService,
+  ILoginContext
+} from '@app/core/authentication/authentication.service';
+import { CredentialsService } from '@app/core/authentication/credentials.service';
+import { untilDestroyed } from '@app/core/until-destroyed';
+import { Logger } from '@app/core/logger.service';
+import { ToastrService } from 'ngx-toastr';
 const log = new Logger('Login');
 
 export interface IResponseContext {
@@ -48,7 +51,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.isLoading = true;
-    const login$ = this.authenticationService.login(this.buildLoginPayload(this.loginForm.value));
+    const login$ = this.authenticationService.login(
+      this.buildLoginPayload(this.loginForm.value)
+    );
     login$
       .pipe(
         finalize(() => {
@@ -61,8 +66,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         (res: any) => {
           if (res.responseCode === '00') {
             log.debug(`${res.responseData} successfully logged in`);
-            this.credentialsService.setCredentials({...res.responseData, email: this.loginForm.value.username }, true);
-            this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
+            this.credentialsService.setCredentials(
+              { ...res.responseData, email: this.loginForm.value.username },
+              true
+            );
+            this.router.navigate(
+              [this.route.snapshot.queryParams.redirect || '/'],
+              { replaceUrl: true }
+            );
           } else {
             this.toastr.error(res.message);
           }

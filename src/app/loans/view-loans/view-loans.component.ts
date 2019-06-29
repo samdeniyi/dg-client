@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ToastrService} from 'ngx-toastr';
-import {finalize} from 'rxjs/operators';
-import {untilDestroyed} from '@app/core/until-destroyed';
-import {Logger} from '@app/core/logger.service';
-import {LoansService} from '@app/loans/loans.service';
-import {Router} from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
+import { untilDestroyed } from '@app/core/until-destroyed';
+import { Logger } from '@app/core/logger.service';
+import { LoansService } from '@app/loans/loans.service';
+import { Router } from '@angular/router';
 
 const log = new Logger('View loans');
 
@@ -30,26 +30,29 @@ export class ViewLoansComponent implements OnInit, OnDestroy {
   product: any;
   isLoading = false;
 
-
-  constructor(private toastr: ToastrService, private loanService: LoansService,
-              private router: Router) { }
+  constructor(
+    private toastr: ToastrService,
+    private loanService: LoansService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getAllProducts();
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   getAllProducts() {
     const allProduct$ = this.loanService.getProducts();
     this.isLoading = true;
-    allProduct$.pipe(
+    allProduct$
+      .pipe(
         finalize(() => {
           this.isLoading = false;
         }),
         untilDestroyed(this)
-    ).subscribe(
+      )
+      .subscribe(
         (res: any) => {
           if (res.responseCode === '00') {
             this.allProducts = res.responseData;
@@ -63,23 +66,25 @@ export class ViewLoansComponent implements OnInit, OnDestroy {
         err => {
           log.error(`userRegistration error: ${err}`);
         }
-    );
+      );
   }
   onApply(id: any) {
     log.info(id);
     this.isLoading = true;
     const getProductDetail = this.loanService.getProductById(id);
-    getProductDetail.pipe(
+    getProductDetail
+      .pipe(
         finalize(() => {
           this.isLoading = false;
         }),
         untilDestroyed(this)
-    ).subscribe(
+      )
+      .subscribe(
         (res: any) => {
           if (res.responseCode === '00') {
             this.product = res.responseData;
             this.loanService.changeSelLoanObj(this.product);
-              this.router.navigate(['/loans/details', id]);
+            this.router.navigate(['/loans/details', id]);
           } else {
             this.toastr.error(res.message, undefined, {
               closeButton: true,
@@ -90,7 +95,6 @@ export class ViewLoansComponent implements OnInit, OnDestroy {
         (err: any) => {
           log.error(`userRegistration error: ${err}`);
         }
-    );
+      );
   }
-
 }

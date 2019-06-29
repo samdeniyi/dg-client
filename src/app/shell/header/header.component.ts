@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeService } from '@app/services/theme.service';
-import {AuthenticationService} from '@app/core/authentication/authentication.service';
-import {CredentialsService} from '@app/core/authentication/credentials.service';
-import {I18nService} from '@app/core/i18n.service';
+import { AuthenticationService } from '@app/core/authentication/authentication.service';
+import { CredentialsService } from '@app/core/authentication/credentials.service';
+import { I18nService } from '@app/core/i18n.service';
 
 @Component({
   selector: 'app-header',
@@ -43,7 +43,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+    this.authenticationService
+      .logout()
+      .subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
 
   get currentLanguage(): string {

@@ -20,12 +20,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerifyEmailModule } from '@app/verify-email/verify-email.module';
 import { SetpasswordModule } from '@app/setpassword/setpassword.module';
 import { CoreModule } from '@app/core/core.module';
-import {LoansModule} from '@app/loans/loans.module';
+import { LoansModule } from '@app/loans/loans.module';
 
 @NgModule({
   imports: [
     BrowserModule,
-    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('./ngsw-worker.js', {
+      enabled: environment.production
+    }),
     FormsModule,
     HttpClientModule,
     TranslateModule.forRoot(),
@@ -38,7 +40,7 @@ import {LoansModule} from '@app/loans/loans.module';
     HomeModule,
     AboutModule,
     LoginModule,
-      LoansModule,
+    LoansModule,
     RegisterModule,
     VerifyEmailModule,
     SetpasswordModule,
