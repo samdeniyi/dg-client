@@ -13,7 +13,7 @@
             </div>
             <div class="info col-7">
               <div class="temp mt-4 mb-4">
-                <h3>₦609,939</h3>
+                <h3>₦{{ summary?.currentLoanBalance }}</h3>
               </div>
               <!--              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Apply now</button></div>-->
               <div class="night">
@@ -43,7 +43,7 @@
             </div>
             <div class="info col-7">
               <div class="temp mt-4 mb-4">
-                <h3>₦609,939</h3>
+                <h3>₦{{ summary?.repaymentOverdue }}</h3>
               </div>
               <div class="night">
                 <button
@@ -71,7 +71,7 @@
             </div>
             <div class="info col-7">
               <div class="temp mt-4 mb-4">
-                <h3>₦609,939</h3>
+                <h3>₦{{ summary?.nextPaymentAmount }}</h3>
               </div>
               <div class="night">
                 <button
@@ -98,7 +98,7 @@
           <h2>Recent Transaction</h2>
         </div>
         <div class="body">
-          <div class="table-responsive">
+          <div class="table-responsive" *ngIf="recentTransactions?.length > 0">
             <table class="table table-hover m-b-0">
               <thead class="thead-light">
                 <tr>
@@ -157,6 +157,9 @@
               </tbody>
             </table>
           </div>
+          <h2 class="sub-title" *ngIf="recentTransactions?.length === 0">
+            No Recent Transactions
+          </h2>
         </div>
       </div>
     </div>
@@ -187,11 +190,13 @@
           <ul class=" list-unstyled basic-list">
             <li>
               <i class="icon-book-open m-r-5"></i> Total loan granted
-              <span class="badge badge-primary">21</span>
+              <span class="badge badge-primary">{{ summary?.totalLoan }}</span>
             </li>
             <li>
               <i class="icon-list m-r-5"></i> Total repayment
-              <span class="badge-purple badge">50</span>
+              <span class="badge-purple badge">{{
+                summary?.totalRepayment
+              }}</span>
             </li>
           </ul>
         </div>

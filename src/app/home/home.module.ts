@@ -14,6 +14,7 @@ import { ReferralsComponent } from './referrals/referrals.component';
 import { TotalRevenueComponent } from './total-revenue/total-revenue.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { CoreModule } from '@app/core/core.module';
+import { HomeService } from './home.service';
 
 @NgModule({
   imports: [
@@ -33,6 +34,6 @@ import { CoreModule } from '@app/core/core.module';
     TotalRevenueComponent,
     ActivitiesComponent
   ],
-  providers: [QuoteService]
+  providers: [QuoteService, HomeService]
 })
 export class HomeModule {}

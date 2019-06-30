@@ -3,9 +3,14 @@ declare var require: any;
 
 import { QuoteService } from './quote.service';
 import EChartOption = echarts.EChartOption;
+
 import { ToastrService } from 'ngx-toastr';
+
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Logger } from '@app/core/logger.service';
+
+import { HomeService } from './home.service';
 
 const log = new Logger('home');
 
@@ -17,20 +22,29 @@ const log = new Logger('home');
 export class HomeComponent implements OnInit, OnDestroy {
   quote: string | undefined;
   isLoading = false;
+  summary: any;
+  recentTransactions: any;
 
   public sidebarVisible = true;
   public title = 'Dashboard';
+
   public breadcrumbItem: any = [
     {
       title: 'Dashboard',
       cssClass: 'active'
     }
   ];
+
   public earningOptions: EChartOption = {};
+
   public salesOptions: EChartOption = {};
+
   public visitsAreaOptions: EChartOption = {};
+
   public LikesOptions: EChartOption = {};
+
   public stackedBarChart: EChartOption = {};
+
   public dataManagedBarChart: EChartOption = {};
 
   public earningOptionsSeries: Array<number> = [1, 4, 1, 3, 7, 1];
@@ -59,7 +73,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private quoteService: QuoteService,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private homeService: HomeService
   ) {
     this.earningOptions = this.loadLineAreaChartOptions(
       [1, 4, 1, 3, 7, 1],
@@ -98,10 +113,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     //   });
 
     const that = this;
-    setTimeout(function() {
-      that.showToastr();
-    }, 1000);
+
+    setTimeout(
+      function() {
+        that.showToastr();
+      },
+
+      1000
+    );
     this.chartIntervals();
+
+    this.getSummary();
   }
 
   ngOnDestroy() {
@@ -119,68 +141,81 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   chartIntervals() {
     const that = this;
-    this.interval = setInterval(function() {
-      that.earningOptionsSeries.shift();
-      let rand = Math.floor(Math.random() * 11);
-      if (!rand) {
-        rand = 1;
-      }
-      that.earningOptionsSeries.push(rand);
-      that.earningOptions = that.loadLineAreaChartOptions(
-        that.earningOptionsSeries,
-        '#f79647',
-        '#fac091'
-      );
-      that.earnings =
-        '₦' +
-        (
-          that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000
-        ).toLocaleString();
 
-      that.salesOptionsSeries.shift();
-      rand = Math.floor(Math.random() * 11);
-      if (!rand) {
-        rand = 1;
-      }
-      that.salesOptionsSeries.push(rand);
-      that.salesOptions = that.loadLineAreaChartOptions(
-        that.salesOptionsSeries,
-        '#604a7b',
-        '#a092b0'
-      );
-      that.sales =
-        '₦' +
-        (
-          that.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000
-        ).toLocaleString();
+    this.interval = setInterval(
+      function() {
+        that.earningOptionsSeries.shift();
+        let rand = Math.floor(Math.random() * 11);
 
-      that.visitsAreaOptionsSeries.shift();
-      rand = Math.floor(Math.random() * 11);
-      if (!rand) {
-        rand = 1;
-      }
-      that.visitsAreaOptionsSeries.push(rand);
-      that.visits += rand;
-      that.visitsAreaOptions = that.loadLineAreaChartOptions(
-        that.visitsAreaOptionsSeries,
-        '#4aacc5',
-        '#92cddc'
-      );
+        if (!rand) {
+          rand = 1;
+        }
 
-      that.LikesOptionsSeries.shift();
-      rand = Math.floor(Math.random() * 11);
-      if (!rand) {
-        rand = 1;
-      }
-      that.LikesOptionsSeries.push(rand);
-      that.likes += rand;
-      that.LikesOptions = that.loadLineAreaChartOptions(
-        that.LikesOptionsSeries,
-        '#4f81bc',
-        '#95b3d7'
-      );
-      that.cdr.markForCheck();
-    }, 3000);
+        that.earningOptionsSeries.push(rand);
+        that.earningOptions = that.loadLineAreaChartOptions(
+          that.earningOptionsSeries,
+          '#f79647',
+          '#fac091'
+        );
+        that.earnings =
+          '₦' +
+          (
+            that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000
+          ).toLocaleString();
+
+        that.salesOptionsSeries.shift();
+        rand = Math.floor(Math.random() * 11);
+
+        if (!rand) {
+          rand = 1;
+        }
+
+        that.salesOptionsSeries.push(rand);
+        that.salesOptions = that.loadLineAreaChartOptions(
+          that.salesOptionsSeries,
+          '#604a7b',
+          '#a092b0'
+        );
+        that.sales =
+          '₦' +
+          (
+            that.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000
+          ).toLocaleString();
+
+        that.visitsAreaOptionsSeries.shift();
+        rand = Math.floor(Math.random() * 11);
+
+        if (!rand) {
+          rand = 1;
+        }
+
+        that.visitsAreaOptionsSeries.push(rand);
+        that.visits += rand;
+        that.visitsAreaOptions = that.loadLineAreaChartOptions(
+          that.visitsAreaOptionsSeries,
+          '#4aacc5',
+          '#92cddc'
+        );
+
+        that.LikesOptionsSeries.shift();
+        rand = Math.floor(Math.random() * 11);
+
+        if (!rand) {
+          rand = 1;
+        }
+
+        that.LikesOptionsSeries.push(rand);
+        that.likes += rand;
+        that.LikesOptions = that.loadLineAreaChartOptions(
+          that.LikesOptionsSeries,
+          '#4f81bc',
+          '#95b3d7'
+        );
+        that.cdr.markForCheck();
+      },
+
+      3000
+    );
   }
 
   loadLineAreaChartOptions(data: any, color: any, areaColor: any) {
@@ -198,11 +233,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         data: xAxisData,
         boundaryGap: false
       },
+
       yAxis: {
         type: 'value',
         show: false,
         min: 1
       },
+
       tooltip: {
         trigger: 'axis',
         formatter: function(params: any, ticket: any, callback: any) {
@@ -214,6 +251,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           );
         }
       },
+
       grid: {
         left: '0%',
         right: '0%',
@@ -221,6 +259,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         top: '0%',
         containLabel: false
       },
+
       series: [
         {
           data: data,
@@ -231,6 +270,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             color: color,
             width: 1
           },
+
           areaStyle: {
             color: areaColor
           }
@@ -244,11 +284,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       tooltip: {
         trigger: 'item'
       },
+
       grid: {
         borderWidth: 0,
         y: 80,
         y2: 60
       },
+
       xAxis: [
         {
           type: 'category',
@@ -269,8 +311,10 @@ export class HomeComponent implements OnInit, OnDestroy {
           itemStyle: {
             color: '#7460ee'
           },
+
           barWidth: '5px'
         },
+
         {
           type: 'bar',
           stack: 'Gedgets',
@@ -278,6 +322,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           itemStyle: {
             color: '#afc979'
           },
+
           barWidth: '5px'
         }
       ]
@@ -288,5 +333,39 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   goLoansList(): void {
     this.router.navigate(['/loans/details/23']);
+  }
+
+  getSummary() {
+    this.homeService.summary().subscribe(
+      res => {
+        if (res.responseCode === '00') {
+          console.log(res);
+          this.summary = res.responseData;
+        } else {
+          console.log(res);
+        }
+      },
+
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getRecentTransactions() {
+    this.homeService.recentTransactions().subscribe(
+      res => {
+        if (res.responseCode === '00') {
+          console.log(res);
+          this.recentTransactions = res.responseData;
+        } else {
+          console.log(res);
+        }
+      },
+
+      error => {
+        console.log(error);
+      }
+    );
   }
 }
