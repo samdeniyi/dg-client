@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Logger } from '@app/core/logger.service';
 import { CredentialsService } from '@app/core/authentication/credentials.service';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
+import {environment} from '@env/environment';
 
 const log = new Logger('Sidebar');
 
@@ -22,6 +23,7 @@ export class SidebarComponent implements OnInit {
   @Output() activeInactiveMenuEvent = new EventEmitter();
   public themeClass = 'theme-cyan';
   public loggedInUser: string;
+  featureLoan = environment.featureLoan;
 
   constructor(
     private themeService: ThemeService,

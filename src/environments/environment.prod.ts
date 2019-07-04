@@ -15,5 +15,6 @@ export const environment = {
   showLogo: true,
   payStackBaseUrl: 'https://api.paystack.co/',
   publicKey: 'pk_test_e338dfb13a1bc3e711759520fb73202a5491b0ba',
-  initailDebt: '5000'
+  initailDebt: '5000',
+  featureLoan: 2
 };
