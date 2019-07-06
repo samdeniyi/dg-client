@@ -12,7 +12,8 @@ const routes = {
   repaymentSchedule: 'Repayment/repaymentschedule/',
   accountLookup: 'Loan/accountlookup',
   bvnLookup: 'Loan/bvnlookup',
-  liquidateloan: 'Loan/liquidateloan/'
+  liquidateloan: 'Loan/liquidateloan/',
+  getuserloans: 'Loan/getuserloans'
 };
 
 export interface ILoanFormFields {
@@ -116,5 +117,12 @@ export class LoansService extends BaseService<any> {
 
   liquidateLoan(id: number): Observable<any> {
     return this.sendPost(this.baseUrl(routes.liquidateloan + id), {});
+  }
+
+
+  getUserLoans(){
+    //getuserloans
+    return this.sendGet(this.baseUrl(routes.getuserloans), true);
+
   }
 }

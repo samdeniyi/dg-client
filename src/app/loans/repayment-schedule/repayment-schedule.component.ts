@@ -25,7 +25,9 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
       cssClass: 'active'
     }
   ];
+  userLoanList: any;
   repaymentList: any;
+  loanAmount: any;
 
   constructor(
     private loanService: LoansService,
@@ -33,12 +35,12 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.repaymentsSchedule();
+    this.getUserLoan();
   }
 
   ngOnDestroy(): void {}
 
-  repaymentsSchedule(id: number = 48) {
+  repaymentsSchedule(id: number) {
     const pSchedule$ = this.loanService.getRepaymentschedules(id);
     pSchedule$
       .pipe(
@@ -51,6 +53,42 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
         (res: any) => {
           if (res.responseCode === '00') {
             this.repaymentList = res.responseData;
+            this.toastr.success(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          } else {
+            this.toastr.error(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          }
+        },
+        (err: any) => {
+          log.error(err);
+          this.toastr.error(err.message, 'ERROR!', {
+            closeButton: true,
+            positionClass: 'toast-top-right'
+          });
+        }
+      );
+  }
+  getUserLoan() {
+    const pLoans$ = this.loanService.getUserLoans();
+    pLoans$
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.responseCode === '00') {
+            this.userLoanList = res.responseData;
+            log.info(this.userLoanList);
+            this.repaymentsSchedule(this.userLoanList[0].id);
+            this.loanAmount = this.userLoanList[0].loanAmount;
             this.toastr.success(res.message, undefined, {
               closeButton: true,
               positionClass: 'toast-top-right'
