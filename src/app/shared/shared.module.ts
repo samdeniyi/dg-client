@@ -12,6 +12,8 @@ import { SortableDirective } from '@app/shared/directives/sortable.directive';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { GroupByPipe } from './pipes/group-by.pipe';
+import { PaystackComponent } from './paystack/paystack.component';
+import { Angular4PaystackModule } from 'angular4-paystack';
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ import { GroupByPipe } from './pipes/group-by.pipe';
     NgxEchartsModule,
     RouterModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    Angular4PaystackModule
   ],
   declarations: [
     LoaderComponent,
@@ -28,7 +31,8 @@ import { GroupByPipe } from './pipes/group-by.pipe';
     BlockHeaderComponent,
     DataTableComponent,
     SortableDirective,
-    GroupByPipe
+    GroupByPipe,
+    PaystackComponent
   ],
   exports: [
     LoaderComponent,
@@ -36,7 +40,8 @@ import { GroupByPipe } from './pipes/group-by.pipe';
     ActivityPostComponent,
     BlockHeaderComponent,
     DataTableComponent,
-    GroupByPipe
+    GroupByPipe,
+    PaystackComponent
   ]
 })
 export class SharedModule {}

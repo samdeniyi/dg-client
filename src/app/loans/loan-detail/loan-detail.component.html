@@ -343,7 +343,7 @@
                     This charge will be reversed after 5 working days</span
                   >
                 </p>
-                <button
+                <!-- <button
                   class="btn btn-info mt-3 mb-3"
                   angular4-paystack
                   [channels]="['card']"
@@ -357,7 +357,11 @@
                   [disabled]="!accountForm.valid"
                 >
                   Validate your card With Paystack
-                </button>
+                </button> -->
+                <app-paystack
+                  [isDisabled]="!accountForm.valid"
+                  (paymentDoneCallback)="paymentDone($event)"
+                ></app-paystack>
               </div>
               <div *ngIf="!isValidAcc">
                 {{ accValidationErr }}
@@ -375,5 +379,5 @@
       </div>
     </div>
   </div>
+  <app-loader [isLoading]="isLoading"></app-loader>
 </div>
-<app-loader [isLoading]="isLoading"></app-loader>
