@@ -1,0 +1,15 @@
+<button
+  class="btn btn-info mt-3 mb-3"
+  angular4-paystack
+  [channels]="['card']"
+  [key]="publicKey"
+  [email]="userEmail"
+  [amount]="initailDebt"
+  [ref]="tRef"
+  (close)="paymentCancel()"
+  (callback)="onPaymentDone()"
+  [class]="'btn btn-primary btn-lg'"
+  [disabled]="isDisabled"
+>
+  Validate your card With Paystack
+</button>

@@ -102,8 +102,11 @@ export class LoansService extends BaseService<any> {
     bankCode: number
   ): Observable<any> {
     return this.sendGet(
-      this.baseUrl(`${routes.accountLookup}?bankCode=${bankCode}
-      &accountNumber=${accountNumber}`),
+      this.baseUrl(
+        `${
+          routes.accountLookup
+        }?bankCode=${bankCode}&accountNumber=${accountNumber}`
+      ),
       true
     );
   }
