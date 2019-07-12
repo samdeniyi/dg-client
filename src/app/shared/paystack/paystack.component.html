@@ -7,7 +7,7 @@
   [amount]="amounts"
   [ref]="tRef"
   (close)="paymentCancel()"
-  (callback)="onPaymentDone()"
+  (callback)="onPaymentDone($event)"
   [class]="'btn btn-primary btn-lg'"
   [disabled]="isDisabled"
 >

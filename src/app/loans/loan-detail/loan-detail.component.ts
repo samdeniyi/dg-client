@@ -257,7 +257,8 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   paymentDone(ref: any) {
     const title = 'Payment successfull';
     console.log(this.title, ref);
-    this.paystackResponse = ref;
+    this.paystackResponse = ref.tRef;
+    console.log('this.paystackResponse', this.paystackResponse);
     this.toastr.success(title, '', {
       closeButton: true,
       positionClass: 'toast-top-right'
