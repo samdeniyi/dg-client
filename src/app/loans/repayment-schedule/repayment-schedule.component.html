@@ -18,7 +18,9 @@
                 </p>
               </div>
               <div class="col-6 text-right">
-                <h3 class="">₦ <span>{{loanAmount}}</span></h3>
+                <h3 class="">
+                  ₦ <span>{{ loanAmount }}</span>
+                </h3>
                 <span>Current loan balance</span>
               </div>
             </div>
@@ -27,6 +29,7 @@
       </div>
       <div class="col-lg-6 col-md-6">
         <div class="card weather2">
+          <app-loader [isLoading]="isLoading"></app-loader>
           <div class="body city-selected">
             <div class="row">
               <div class="col-12">
@@ -69,7 +72,12 @@
                   ></span>
                 </td>
                 <td class="font-medium">
-                  <span class="badge badge-success">Pay now</span>
+                  <button
+                    class="btn btn-sm btn-outline-success"
+                    (click)="payNow(p.loanId)"
+                  >
+                    Pay now
+                  </button>
                 </td>
               </tr>
             </tbody>

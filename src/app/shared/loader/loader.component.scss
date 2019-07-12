@@ -1,3 +1,7 @@
+:host {
+  z-index: 1000;
+}
+
 .lds-roller {
   display: flex;
   position: absolute;
@@ -8,7 +12,7 @@
   justify-content: center;
   align-items: center;
   font-size: 40px;
-  z-index: 2;
+  z-index: 2000;
 }
 
 .fa {

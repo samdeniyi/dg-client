@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PaystackComponent implements OnInit {
   @Input() isDisabled: any;
+  @Input() amounts: any;
   @Output() paymentDoneCallback = new EventEmitter<{ tRef: any }>();
   publicKey: any;
   userEmail: any;

@@ -9,3 +9,49 @@
 .container-fluid {
   position: relative;
 }
+
+.search-close {
+  border: unset;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  padding: 5px;
+
+  &:hover {
+    color: #777;
+  }
+}
+
+.modal {
+  .title {
+    font-size: 20px;
+    margin: 1rem;
+  }
+
+  .sub-title {
+    font-size: 18px;
+  }
+}
+
+.search {
+  &.small {
+    .modal-dialog {
+      max-width: 400px;
+      margin: 10rem auto;
+    }
+
+    .modal-content {
+      padding: 2rem;
+    }
+
+    .content {
+      display: block;
+      clear: both;
+      margin-top: 2rem;
+    }
+  }
+}
+
+button:focus {
+  outline: none;
+}

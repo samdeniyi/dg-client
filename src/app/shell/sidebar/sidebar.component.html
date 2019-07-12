@@ -21,11 +21,6 @@
         >
         <ul class="dropdown-menu dropdown-menu-right account" ngbDropdownMenu>
           <li>
-            <a [routerLink]="['/admin/pages/page-profile2']"
-              ><i class="icon-user"></i>My Profile</a
-            >
-          </li>
-          <li>
             <a [routerLink]="['/admin/app/app-inbox']"
               ><i class="icon-envelope-open"></i>Messages</a
             >
@@ -114,7 +109,7 @@
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
             >
-              <a [routerLink]="['/loans/details/'+featureLoan]">
+              <a [routerLink]="['/loans/details/' + featureLoan]">
                 <i class="icon-graph"></i> <span>Apply for loan</span></a
               >
             </li>
