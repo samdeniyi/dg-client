@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Logger } from '@app/core/logger.service';
 import { CredentialsService } from '@app/core/authentication/credentials.service';
 import { AuthenticationService } from '@app/core/authentication/authentication.service';
-import {environment} from '@env/environment';
+import { environment } from '@env/environment';
 
 const log = new Logger('Sidebar');
 

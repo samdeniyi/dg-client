@@ -118,14 +118,17 @@ export class LoansService extends BaseService<any> {
     );
   }
 
-  liquidateLoan(id: number): Observable<any> {
-    return this.sendPost(this.baseUrl(routes.liquidateloan + id), {});
+  liquidateLoan(loanId: any): Observable<any> {
+    const data = {
+      loanId: loanId,
+      repaymentScheduleId: 0,
+      repaymentType: 2
+    };
+    return this.sendPost(this.baseUrl(routes.liquidateloan), data);
   }
 
-
-  getUserLoans(){
+  getUserLoans() {
     //getuserloans
     return this.sendGet(this.baseUrl(routes.getuserloans), true);
-
   }
 }

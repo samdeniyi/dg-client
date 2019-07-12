@@ -4,6 +4,7 @@ import { finalize } from 'rxjs/operators';
 import { untilDestroyed } from '@app/core/until-destroyed';
 import { ToastrService } from 'ngx-toastr';
 import { Logger } from '@app/core/logger.service';
+import { RepaymentScheduleService } from './repayment-schedule.service';
 
 const log = new Logger('repayment schedule');
 
@@ -31,7 +32,8 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
 
   constructor(
     private loanService: LoansService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private repaymentScheduleService: RepaymentScheduleService
   ) {}
 
   ngOnInit() {
@@ -89,6 +91,40 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
             log.info(this.userLoanList);
             this.repaymentsSchedule(this.userLoanList[0].id);
             this.loanAmount = this.userLoanList[0].loanAmount;
+            this.toastr.success(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          } else {
+            this.toastr.error(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          }
+        },
+        (err: any) => {
+          log.error(err);
+          this.toastr.error(err.message, 'ERROR!', {
+            closeButton: true,
+            positionClass: 'toast-top-right'
+          });
+        }
+      );
+  }
+
+  payNow(id: any) {
+    this.repaymentScheduleService
+      .loanRepayment(id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.responseCode === '00') {
+            log.info(res.responseData);
             this.toastr.success(res.message, undefined, {
               closeButton: true,
               positionClass: 'toast-top-right'

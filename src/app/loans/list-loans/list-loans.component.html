@@ -25,7 +25,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let l of myLoanList.reverse(); let i = index">
+                <tr *ngFor="let l of myLoanList?.reverse(); let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ l.productName }}</td>
                   <td>{{ l.loanAmount | currency: '₦' }}</td>
@@ -70,16 +70,19 @@
                     ></span>
                   </td>
                   <td>
-                    <span class="badge badge-dark">
-                      <i class="fa fa-eye"></i> View</span
+                    <button
+                      class="btn btn-sm btn-outline-dark"
+                      (click)="onViewRowDetail(l, loanModal)"
                     >
-                    <span
-                      class="badge badge-info"
+                      <i class="fa fa-eye"></i> View
+                    </button>
+                    <button
+                      class="btn btn-sm btn-outline-primary"
                       *ngIf="l.isLiquidated == false"
                       (click)="onLiquidated(l.id)"
                     >
-                      <i class="fa fa-check"></i> Liquidate Loan</span
-                    >
+                      <i class="fa fa-check"></i> Liquidate Loan
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -90,3 +93,95 @@
     </div>
   </div>
 </div>
+
+<ng-template #loanModal let-c="close" let-d="dismiss">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="title text-center">
+          Loan Details For - {{ loanDetails.productName }}
+        </h2>
+        <div class="table-responsive mt-4">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Approval Status</th>
+                <th scope="col">Is Disbursed</th>
+                <th scope="col">Is Liquidated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span
+                    class="badge badge-pill"
+                    [ngClass]="
+                      loanDetails.approvalStatus == 1
+                        ? 'badge-success'
+                        : 'badge-warning'
+                    "
+                    >{{
+                      loanDetails.approvalStatus == 1
+                        ? 'Approved'
+                        : 'Not Approved'
+                    }}</span
+                  >
+                </td>
+
+                <td>
+                  <span
+                    class="badge badge-pill"
+                    [ngClass]="
+                      loanDetails.isDisbursed ? 'badge-success' : 'badge-danger'
+                    "
+                  >
+                    {{
+                      loanDetails.isDisbursed ? 'Is Disbursed' : 'Not Disbursed'
+                    }}
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="badge badge-pill"
+                    [ngClass]="
+                      loanDetails.isLiquidated
+                        ? 'badge-success'
+                        : 'badge-danger'
+                    "
+                  >
+                    {{
+                      loanDetails.isLiquidated
+                        ? 'Is Liquidated'
+                        : 'Not Liquidated'
+                    }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="content">
+          <div class="row">
+            <div class="col-lg-6">
+              Loan Amount
+              <p>{{ loanDetails.loanAmount | currency: '₦' }}</p>
+            </div>
+            <div class="col-lg-6">
+              Tenor
+              <p>{{ loanDetails.tenor }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="search-close"
+    aria-label="Close search form"
+    (click)="closeModel('Cross click')"
+  >
+    <i class="fi flaticon-close"></i>
+  </button>
+</ng-template>

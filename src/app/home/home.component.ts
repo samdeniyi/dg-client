@@ -11,6 +11,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Logger } from '@app/core/logger.service';
 
 import { HomeService } from './home.service';
+import { LoansService } from '@app/loans/loans.service';
+import { finalize } from 'rxjs/operators';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 const log = new Logger('home');
 
@@ -68,13 +71,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   public likes: number = this.LikesOptionsSeries.reduce((a, b) => a + b, 0);
 
   public interval: any = {};
+  private modalRef: NgbModalRef;
+  loanDetails: any;
 
   constructor(
     private quoteService: QuoteService,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
     private router: Router,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private loanService: LoansService,
+    private modalService: NgbModal
   ) {
     this.earningOptions = this.loadLineAreaChartOptions(
       [1, 4, 1, 3, 7, 1],
@@ -100,7 +107,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.isLoading = true;
+    // this.isLoading = true;
     // this.quoteService
     //   .getRandomQuote({ category: 'dev' })
     //   .pipe(
@@ -367,5 +374,66 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
+  }
+
+  onLiquidate() {
+    this.isLoading = true;
+
+    this.loanService
+      .liquidateLoan(this.loanDetails.id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.closeModal('');
+        })
+      )
+      .subscribe(
+        res => {
+          if (res.responseCode === '00') {
+            console.log(res);
+            this.toastr.success(res.message, 'Success!');
+          } else {
+            this.toastr.error(res.message, 'ERROR!');
+          }
+        },
+        error => {
+          console.log(error);
+          this.toastr.error(error.message, 'ERROR!');
+        }
+      );
+  }
+  liquidateNow(view: any) {
+    this.isLoading = true;
+
+    this.loanService
+      .getUserLoans()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(
+        res => {
+          this.loanDetails = res.responseData[0];
+          console.log(this.loanDetails);
+          this.toastr.success(res.message, 'Success!');
+
+          if (this.loanDetails) {
+            this.modalRef = this.modalService.open(view, {
+              windowClass: 'search small',
+              backdrop: true
+            });
+          }
+        },
+        error => {
+          console.log(error);
+          this.toastr.error(error.message, 'ERROR!');
+        }
+      );
+  }
+
+  closeModal(t: any) {
+    this.loanDetails = null;
+    this.modalRef.close();
   }
 }

@@ -4,6 +4,7 @@ import { LoansService } from '@app/loans/loans.service';
 import { finalize } from 'rxjs/operators';
 import { untilDestroyed } from '@app/core/until-destroyed';
 import { Logger } from '@app/core/logger.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 const log = new Logger('loan list');
 
@@ -28,9 +29,13 @@ export class ListLoansComponent implements OnInit, OnDestroy {
     }
   ];
 
+  loanDetails: any;
+  private modalRef: NgbModalRef;
+
   constructor(
     private toastr: ToastrService,
-    private loanService: LoansService
+    private loanService: LoansService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -101,5 +106,19 @@ export class ListLoansComponent implements OnInit, OnDestroy {
           });
         }
       );
+  }
+
+  onViewRowDetail(loan: any, view: any) {
+    this.loanDetails = loan;
+    console.log(this.loanDetails);
+    this.modalRef = this.modalService.open(view, {
+      windowClass: 'search detail',
+      backdrop: true
+    });
+  }
+
+  closeModel(t: any) {
+    this.loanDetails = null;
+    this.modalRef.close();
   }
 }
