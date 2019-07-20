@@ -12,9 +12,12 @@
               <div class="col-6">
                 <i class="fa fa-cart-plus"></i>
                 <p>
-                  <span class="badge badge-success bg-success text-white"
-                    >Liquidate Now</span
+                  <button
+                    class="btn btn-success btn-sm"
+                    (click)="liquidateNow(paymentModal)"
                   >
+                    Liquidate Now
+                  </button>
                 </p>
               </div>
               <div class="col-6 text-right">
@@ -74,7 +77,7 @@
                 <td class="font-medium">
                   <button
                     class="btn btn-sm btn-outline-success"
-                    (click)="payNow(p.loanId)"
+                    (click)="onPayNow(paymentModal, p)"
                   >
                     Pay now
                   </button>
@@ -110,3 +113,43 @@
     </div>
   </div>
 </div>
+
+<ng-template #paymentModal let-c="close" let-d="dismiss">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="title text-center">
+          Confirm
+        </h2>
+        <p>
+          Are you sure you want to Pay for {{ userLoanList[0].productName }}
+        </p>
+
+        <div class="content">
+          <button
+            class="btn btn-sm btn-outline-danger pull-left"
+            (click)="closeModal('')"
+          >
+            Cancel
+          </button>
+          <app-paystack
+            [isDisabled]=""
+            (paymentDoneCallback)="paymentDone($event)"
+            [amounts]="loanDetails.repaymentAmount"
+          >
+            Pay Now
+          </app-paystack>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="search-close"
+    aria-label="Close search form"
+    (click)="closeModal('Cross click')"
+  >
+    <i class="fi flaticon-close"></i>
+  </button>
+</ng-template>

@@ -205,6 +205,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
         )
         .subscribe(
           (res: any) => {
+            console.log(res);
             if (res.responseCode === '00') {
               this.toastr.success(res.message, undefined, {
                 closeButton: true,
@@ -256,8 +257,8 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
 
   paymentDone(ref: any) {
     const title = 'Payment successfull';
-    console.log(this.title, ref);
-    this.paystackResponse = ref.tRef;
+    console.log(title, ref);
+    this.paystackResponse = ref;
     console.log('this.paystackResponse', this.paystackResponse);
     this.toastr.success(title, '', {
       closeButton: true,

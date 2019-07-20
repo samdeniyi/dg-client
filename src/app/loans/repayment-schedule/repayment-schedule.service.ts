@@ -16,10 +16,10 @@ export class RepaymentScheduleService extends BaseService<any> {
     super(http);
   }
 
-  loanRepayment(loanId: any): Observable<any> {
+  loanRepayment(loanId: any, repaymentScheduleId: any): Observable<any> {
     const data = {
       loanId: loanId,
-      repaymentScheduleId: 2,
+      repaymentScheduleId: repaymentScheduleId,
       repaymentType: 1
     };
     return this.sendPost(this.baseUrl(routes.loanrepayment), data);

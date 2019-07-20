@@ -376,11 +376,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  onLiquidate() {
+  onLiquidate(trans: any) {
     this.isLoading = true;
 
+    console.log('this.loanDetails', this.loanDetails);
+    const data = {
+      loanId: this.loanDetails.id,
+      authorisationTransaction: {
+        message: trans.message,
+        reference: trans.reference,
+        status: trans.status,
+        trans: trans.trans,
+        transaction: trans.transaction,
+        trxref: trans.trxref,
+        amount: this.loanDetails.loanAmount
+      }
+    };
+
+    console.log('data', data);
     this.loanService
-      .liquidateLoan(this.loanDetails.id)
+      .liquidateLoan(data)
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -402,6 +417,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       );
   }
+
   liquidateNow(view: any) {
     this.isLoading = true;
 
@@ -430,6 +446,18 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.toastr.error(error.message, 'ERROR!');
         }
       );
+  }
+
+  paymentDone(event: any) {
+    const title = 'Payment successfull';
+    console.log('paymentDone', event);
+    // this.paystackResponse = ref.tRef;
+    // console.log('this.paystackResponse', this.paystackResponse);
+    this.toastr.success(title, '', {
+      closeButton: true,
+      positionClass: 'toast-top-right'
+    });
+    this.onLiquidate(event);
   }
 
   closeModal(t: any) {

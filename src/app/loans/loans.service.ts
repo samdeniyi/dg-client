@@ -13,7 +13,8 @@ const routes = {
   accountLookup: 'Loan/accountlookup',
   bvnLookup: 'Loan/bvnlookup',
   liquidateloan: 'Loan/liquidateloan/',
-  getuserloans: 'Loan/getuserloans'
+  getuserloans: 'Loan/getuserloans',
+  liquidationrequest: 'Loan/liquidationrequest/'
 };
 
 export interface ILoanFormFields {
@@ -118,17 +119,14 @@ export class LoansService extends BaseService<any> {
     );
   }
 
-  liquidateLoan(loanId: any): Observable<any> {
-    const data = {
-      loanId: loanId,
-      repaymentScheduleId: 0,
-      repaymentType: 2
-    };
+  liquidateLoan(data: any): Observable<any> {
     return this.sendPost(this.baseUrl(routes.liquidateloan), data);
   }
 
   getUserLoans() {
-    //getuserloans
     return this.sendGet(this.baseUrl(routes.getuserloans), true);
+  }
+  getLiquidationrequest(id: Number) {
+    return this.sendGet(this.baseUrl(routes.liquidationrequest + id), true);
   }
 }
