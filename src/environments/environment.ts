@@ -19,9 +19,9 @@ export const environment = {
   supportedLanguages: ['en-US', 'fr-FR'],
   showLogo: false,
   payStackBaseUrl: 'https://api.paystack.co/',
-  // publicKey: 'pk_live_2342b6e05e7a95f7edf9d0a37ccf6238c9366645',
-  publicKey: 'pk_test_e338dfb13a1bc3e711759520fb73202a5491b0ba',
-  initailDebt: '5000',
+  publicKey: 'pk_live_2342b6e05e7a95f7edf9d0a37ccf6238c9366645',
+  // publicKey: 'pk_test_e338dfb13a1bc3e711759520fb73202a5491b0ba',
+  initailDebt: '50',
   featureLoan: 4
 };
 
