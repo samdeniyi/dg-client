@@ -27,6 +27,7 @@ export class PaystackComponent implements OnInit {
     this.publicKey = environment.publicKey;
     this.initailDebt = environment.initailDebt;
     this.userEmail = this.credentialService.credentials.email;
+    this.amounts = Math.ceil(this.amounts * 100);
   }
 
   setRandomPaymentRef() {
@@ -42,8 +43,7 @@ export class PaystackComponent implements OnInit {
   }
 
   onPaymentDone(ref: any) {
-    console.log('onPaymentDone', this.tRef);
-    this.paymentDoneCallback.emit({ tRef: ref });
+    this.paymentDoneCallback.emit({ ...ref });
     // this.paymentDoneCallback.emit({ tRef: this.tRef });
   }
 }

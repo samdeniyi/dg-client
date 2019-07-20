@@ -234,9 +234,7 @@
         <h2 class="title text-center">
           Confirm
         </h2>
-        <h3 class="sub-title">
-          Are you sure you want to liquidate {{ loanDetails.productName }}
-        </h3>
+        <p>Are you sure you want to liquidate {{ loanDetails.productName }}</p>
 
         <div class="content">
           <button
@@ -245,12 +243,13 @@
           >
             Cancel
           </button>
-          <button
-            class="btn btn-sm btn-success pull-right"
-            (click)="onLiquidate()"
+          <app-paystack
+            [isDisabled]=""
+            (paymentDoneCallback)="paymentDone($event)"
+            [amounts]="loanDetails.loanAmount"
           >
-            Yes Liquidate
-          </button>
+            Pay Now
+          </app-paystack>
         </div>
       </div>
     </div>

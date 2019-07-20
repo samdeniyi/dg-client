@@ -1,5 +1,5 @@
 <button
-  class="btn btn-info mt-3 mb-3"
+  class="btn btn-sm btn-success pull-right"
   angular4-paystack
   [channels]="['card']"
   [key]="publicKey"
@@ -11,5 +11,5 @@
   [class]="'btn btn-primary btn-lg'"
   [disabled]="isDisabled"
 >
-  Validate your card With Paystack
+  <ng-content></ng-content>
 </button>

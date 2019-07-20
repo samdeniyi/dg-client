@@ -362,7 +362,8 @@
                   [isDisabled]="!accountForm.valid"
                   (paymentDoneCallback)="paymentDone($event)"
                   [amounts]="initailDebt"
-                ></app-paystack>
+                  >Validate your card With Paystack</app-paystack
+                >
               </div>
               <div *ngIf="!isValidAcc">
                 {{ accValidationErr }}

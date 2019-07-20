@@ -6,6 +6,7 @@
   <div class="row clearfix">
     <div class="col-lg-10 col-md-12">
       <div class="card">
+        <app-loader [isLoading]="isLoading"></app-loader>
         <div class="header">
           <h2>Loan List</h2>
         </div>
@@ -79,7 +80,8 @@
                     <button
                       class="btn btn-sm btn-outline-primary"
                       *ngIf="l.isLiquidated == false"
-                      (click)="onLiquidated(l.id)"
+                      (click)="liquidateNow(paymentModal, l)"
+                      [disabled]="isLoading"
                     >
                       <i class="fa fa-check"></i> Liquidate Loan
                     </button>
@@ -180,7 +182,45 @@
     type="button"
     class="search-close"
     aria-label="Close search form"
-    (click)="closeModel('Cross click')"
+    (click)="closeModal('Cross click')"
+  >
+    <i class="fi flaticon-close"></i>
+  </button>
+</ng-template>
+
+<ng-template #paymentModal let-c="close" let-d="dismiss">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="title text-center">
+          Confirm
+        </h2>
+        <p>Are you sure you want to liquidate {{ loanDetails.productName }}</p>
+
+        <div class="content">
+          <button
+            class="btn btn-sm btn-outline-danger pull-left"
+            (click)="closeModal('')"
+          >
+            Cancel
+          </button>
+          <app-paystack
+            [isDisabled]=""
+            (paymentDoneCallback)="paymentDone($event)"
+            [amounts]="this.loanDetails.totalAmount"
+          >
+            Pay Now
+          </app-paystack>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="search-close"
+    aria-label="Close search form"
+    (click)="closeModal('Cross click')"
   >
     <i class="fi flaticon-close"></i>
   </button>

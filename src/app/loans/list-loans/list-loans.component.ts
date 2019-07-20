@@ -74,12 +74,26 @@ export class ListLoansComponent implements OnInit, OnDestroy {
       );
   }
 
-  onLiquidated(id: number) {
-    const liquidateloan$ = this.loanService.liquidateLoan(id);
+  onLiquidate(trans: any) {
+    const data = {
+      loanId: this.loanDetails.loanId,
+      authorisationTransaction: {
+        message: trans.message,
+        reference: trans.reference,
+        status: trans.status,
+        trans: trans.trans,
+        transaction: trans.transaction,
+        trxref: trans.trxref,
+        amount: this.loanDetails.loanAmount
+      }
+    };
+
+    const liquidateloan$ = this.loanService.liquidateLoan(data);
     liquidateloan$
       .pipe(
         finalize(() => {
           this.isLoading = false;
+          this.closeModal('');
         }),
         untilDestroyed(this)
       )
@@ -87,6 +101,7 @@ export class ListLoansComponent implements OnInit, OnDestroy {
         (res: any) => {
           if (res.responseCode === '00') {
             log.info(res.responseData);
+            this.getMyLoans();
             this.toastr.success(res.message, undefined, {
               closeButton: true,
               positionClass: 'toast-top-right'
@@ -108,6 +123,61 @@ export class ListLoansComponent implements OnInit, OnDestroy {
       );
   }
 
+  liquidateNow(view: any, loan: any) {
+    this.isLoading = true;
+    this.loanDetails = loan;
+
+    this.loanService
+      .getLiquidationrequest(loan.id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.responseCode === '00') {
+            this.loanDetails = res.responseData;
+            if (this.loanDetails.totalAmount <= 0) {
+              return this.toastr.error(
+                'Total Amount can not be Zero',
+                undefined,
+                {
+                  positionClass: 'toast-top-right'
+                }
+              );
+            }
+            this.modalRef = this.modalService.open(view, {
+              windowClass: 'search small',
+              backdrop: true
+            });
+          } else {
+            this.toastr.error(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          }
+        },
+        (err: any) => {
+          log.error(err);
+          this.toastr.error(err.message, 'ERROR!', {
+            closeButton: true,
+            positionClass: 'toast-top-right'
+          });
+        }
+      );
+  }
+
+  paymentDone(event: any) {
+    const title = 'Payment successfull';
+    this.toastr.success(title, '', {
+      closeButton: true,
+      positionClass: 'toast-top-right'
+    });
+    this.onLiquidate(event);
+  }
+
   onViewRowDetail(loan: any, view: any) {
     this.loanDetails = loan;
     console.log(this.loanDetails);
@@ -117,7 +187,7 @@ export class ListLoansComponent implements OnInit, OnDestroy {
     });
   }
 
-  closeModel(t: any) {
+  closeModal(t: any) {
     this.loanDetails = null;
     this.modalRef.close();
   }
