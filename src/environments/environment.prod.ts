@@ -17,5 +17,5 @@ export const environment = {
   // publicKey: 'pk_test_e338dfb13a1bc3e711759520fb73202a5491b0ba',
   publicKey: 'pk_live_2342b6e05e7a95f7edf9d0a37ccf6238c9366645',
   initailDebt: '5000',
-  featureLoan: 2
+  featureLoan: 4
 };
