@@ -117,7 +117,7 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
         }
       );
   }
-
+  /* 
   payNow(id: any, repaymentScheduleId: any) {
     this.repaymentScheduleService
       .loanRepayment(id, repaymentScheduleId)
@@ -150,12 +150,13 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
           });
         }
       );
-  }
+  } */
 
   onRepayLoan(trans: any) {
+    this.isLoading = true;
     const data = {
       loanId: this.loanDetails.loanId,
-      repaymentScheduleId: this.loanDetails.Id,
+      repaymentScheduleId: this.loanDetails.id,
       authorisationTransaction: {
         message: trans.message,
         reference: trans.reference,
@@ -168,8 +169,8 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
     };
     console.log(data);
 
-    /* const liquidateloan$ = this.loanService.liquidateLoan(id);
-    liquidateloan$
+    const loanRepayment$ = this.repaymentScheduleService.loanRepayment(data);
+    loanRepayment$
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -199,7 +200,7 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
             positionClass: 'toast-top-right'
           });
         }
-      ); */
+      );
   }
 
   onPayNow(view: any, loan: any) {
