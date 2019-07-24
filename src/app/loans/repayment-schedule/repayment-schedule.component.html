@@ -14,11 +14,12 @@
                 <p>
                   <button
                     class="btn btn-success btn-sm"
+                    (click)="liquidateNow(loanModal)"
                   >
-<!--                  <button-->
-<!--                    class="btn btn-success btn-sm"-->
-<!--                    (click)="liquidateNow(paymentModal)"-->
-<!--                  >-->
+                    <!--                  <button-->
+                    <!--                    class="btn btn-success btn-sm"-->
+                    <!--                    (click)="liquidateNow(paymentModal)"-->
+                    <!--                  >-->
                     Liquidate Now
                   </button>
                 </p>
@@ -139,6 +140,44 @@
             [isDisabled]=""
             (paymentDoneCallback)="paymentDone($event)"
             [amounts]="loanDetails.repaymentAmount"
+          >
+            Pay Now
+          </app-paystack>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="search-close"
+    aria-label="Close search form"
+    (click)="closeModal('Cross click')"
+  >
+    <i class="fi flaticon-close"></i>
+  </button>
+</ng-template>
+
+<ng-template #loanModal let-c="close" let-d="dismiss">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="title text-center">
+          Confirm
+        </h2>
+        <p>Are you sure you want to liquidate {{ loanDetails.productName }}</p>
+
+        <div class="content">
+          <button
+            class="btn btn-sm btn-outline-danger pull-left"
+            (click)="closeModal('')"
+          >
+            Cancel
+          </button>
+          <app-paystack
+            [isDisabled]=""
+            (paymentDoneCallback)="liquidatPaymentDone($event)"
+            [amounts]="loanDetails.totalAmount"
           >
             Pay Now
           </app-paystack>

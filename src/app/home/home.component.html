@@ -46,13 +46,13 @@
                 <h3>₦{{ summary?.repaymentOverdue }}</h3>
               </div>
               <div class="night">
-<!--                <button-->
-<!--                  type="button"-->
-<!--                  class="btn btn-default mr-1"-->
-<!--                  style="border-radius: 30px;"-->
-<!--                >-->
-<!--                  Make payment-->
-<!--                </button>-->
+                <!--                <button-->
+                <!--                  type="button"-->
+                <!--                  class="btn btn-default mr-1"-->
+                <!--                  style="border-radius: 30px;"-->
+                <!--                >-->
+                <!--                  Make payment-->
+                <!--                </button>-->
                 <button
                   type="button"
                   class="btn btn-default mr-1"
@@ -82,13 +82,13 @@
                 <h3>₦{{ summary?.nextPaymentAmount }}</h3>
               </div>
               <div class="night">
-<!--                <button-->
-<!--                  type="button"-->
-<!--                  class="btn btn-default mr-1"-->
-<!--                  style="border-radius: 30px;"-->
-<!--                >-->
-<!--                  Pay Now-->
-<!--                </button>-->
+                <!--                <button-->
+                <!--                  type="button"-->
+                <!--                  class="btn btn-default mr-1"-->
+                <!--                  style="border-radius: 30px;"-->
+                <!--                >-->
+                <!--                  Pay Now-->
+                <!--                </button>-->
                 <button
                   type="button"
                   class="btn btn-default mr-1"
@@ -246,7 +246,7 @@
           <app-paystack
             [isDisabled]=""
             (paymentDoneCallback)="paymentDone($event)"
-            [amounts]="loanDetails.loanAmount"
+            [amounts]="loanDetails.totalAmount"
           >
             Pay Now
           </app-paystack>

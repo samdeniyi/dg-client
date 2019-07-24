@@ -3,7 +3,7 @@ declare var require: any;
 
 import { QuoteService } from './quote.service';
 import EChartOption = echarts.EChartOption;
-
+import { untilDestroyed } from '@app/core/until-destroyed';
 import { ToastrService } from 'ngx-toastr';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isLoading = false;
   summary: any;
   recentTransactions: any;
+  userLoanList: any;
 
   public sidebarVisible = true;
   public title = 'Dashboard';
@@ -131,6 +132,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.chartIntervals();
 
     this.getSummary();
+
+    this.getUserLoan();
   }
 
   ngOnDestroy() {
@@ -376,12 +379,50 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
+  getUserLoan() {
+    this.isLoading = true;
+    const pLoans$ = this.loanService.getUserLoans();
+    pLoans$
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.responseCode === '00') {
+            this.userLoanList = res.responseData[res.responseData.length - 1];
+            //this.loanDetails = res.responseData[0];
+            log.info(this.userLoanList);
+
+            this.toastr.success(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          } else {
+            this.toastr.error(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          }
+        },
+        (err: any) => {
+          log.error(err);
+          this.toastr.error(err.message, 'ERROR!', {
+            closeButton: true,
+            positionClass: 'toast-top-right'
+          });
+        }
+      );
+  }
+
   onLiquidate(trans: any) {
     this.isLoading = true;
 
     console.log('this.loanDetails', this.loanDetails);
     const data = {
-      loanId: this.loanDetails.id,
+      loanId: this.loanDetails.loanId,
       authorisationTransaction: {
         message: trans.message,
         reference: trans.reference,
@@ -389,7 +430,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         trans: trans.trans,
         transaction: trans.transaction,
         trxref: trans.trxref,
-        amount: this.loanDetails.loanAmount
+        amount: this.loanDetails.totalAmount
       }
     };
 
@@ -420,6 +461,52 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   liquidateNow(view: any) {
     this.isLoading = true;
+    this.loanDetails = this.userLoanList;
+
+    this.loanService
+      .getLiquidationrequest(this.userLoanList.id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.responseCode === '00') {
+            this.loanDetails = res.responseData;
+            if (this.loanDetails.totalAmount <= 0) {
+              return this.toastr.error(
+                'Total Amount can not be Zero',
+                undefined,
+                {
+                  positionClass: 'toast-top-right'
+                }
+              );
+            }
+            this.modalRef = this.modalService.open(view, {
+              windowClass: 'search small',
+              backdrop: true
+            });
+          } else {
+            this.toastr.error(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          }
+        },
+        (err: any) => {
+          log.error(err);
+          this.toastr.error(err.message, 'ERROR!', {
+            closeButton: true,
+            positionClass: 'toast-top-right'
+          });
+        }
+      );
+  }
+
+  /*  liquidateNow(view: any) {
+    this.isLoading = true;
 
     this.loanService
       .getUserLoans()
@@ -431,7 +518,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           this.loanDetails = res.responseData[0];
-          console.log(this.loanDetails);
+          console.log('this.loanDetails', res);
           this.toastr.success(res.message, 'Success!');
 
           if (this.loanDetails) {
@@ -439,6 +526,8 @@ export class HomeComponent implements OnInit, OnDestroy {
               windowClass: 'search small',
               backdrop: true
             });
+          } else {
+            this.toastr.success('You Have no Loan', 'Success!');
           }
         },
         error => {
@@ -446,7 +535,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.toastr.error(error.message, 'ERROR!');
         }
       );
-  }
+  } */
 
   paymentDone(event: any) {
     const title = 'Payment successfull';

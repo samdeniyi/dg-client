@@ -92,11 +92,11 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           if (res.responseCode === '00') {
-            this.userLoanList = res.responseData;
-            this.loanDetails = res.responseData[0];
+            this.userLoanList = res.responseData[res.responseData.length - 1];
+            //this.loanDetails = res.responseData[0];
             log.info(this.userLoanList);
-            this.repaymentsSchedule(this.userLoanList[0].id);
-            this.loanAmount = this.userLoanList[0].loanAmount;
+            this.repaymentsSchedule(this.userLoanList.id);
+            this.loanAmount = this.userLoanList.loanAmount;
             this.toastr.success(res.message, undefined, {
               closeButton: true,
               positionClass: 'toast-top-right'
@@ -117,40 +117,6 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
         }
       );
   }
-  /* 
-  payNow(id: any, repaymentScheduleId: any) {
-    this.repaymentScheduleService
-      .loanRepayment(id, repaymentScheduleId)
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe(
-        (res: any) => {
-          if (res.responseCode === '00') {
-            log.info(res.responseData);
-            this.toastr.success(res.message, undefined, {
-              closeButton: true,
-              positionClass: 'toast-top-right'
-            });
-          } else {
-            this.toastr.error(res.message, undefined, {
-              closeButton: true,
-              positionClass: 'toast-top-right'
-            });
-          }
-        },
-        (err: any) => {
-          log.error(err);
-          this.toastr.error(err.message, 'ERROR!', {
-            closeButton: true,
-            positionClass: 'toast-top-right'
-          });
-        }
-      );
-  } */
 
   onRepayLoan(trans: any) {
     this.isLoading = true;
@@ -217,13 +183,111 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
   paymentDone(event: any) {
     const title = 'Payment successfull';
     console.log(this.title, event);
-    // this.paystackResponse = ref.tRef;
-    // console.log('this.paystackResponse', this.paystackResponse);
     this.toastr.success(title, '', {
       closeButton: true,
       positionClass: 'toast-top-right'
     });
     this.onRepayLoan(event);
+  }
+
+  /* Liquidation */
+  onLiquidate(trans: any) {
+    this.isLoading = true;
+
+    console.log('this.loanDetails', this.loanDetails);
+    const data = {
+      loanId: this.loanDetails.loanId,
+      authorisationTransaction: {
+        message: trans.message,
+        reference: trans.reference,
+        status: trans.status,
+        trans: trans.trans,
+        transaction: trans.transaction,
+        trxref: trans.trxref,
+        amount: this.loanDetails.totalAmount
+      }
+    };
+
+    console.log('data', data);
+    this.loanService
+      .liquidateLoan(data)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.closeModal('');
+        })
+      )
+      .subscribe(
+        res => {
+          if (res.responseCode === '00') {
+            console.log(res);
+            this.toastr.success(res.message, 'Success!');
+          } else {
+            this.toastr.error(res.message, 'ERROR!');
+          }
+        },
+        error => {
+          console.log(error);
+          this.toastr.error(error.message, 'ERROR!');
+        }
+      );
+  }
+
+  liquidateNow(view: any) {
+    this.isLoading = true;
+    this.loanDetails = this.userLoanList;
+
+    this.loanService
+      .getLiquidationrequest(this.userLoanList.id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.responseCode === '00') {
+            this.loanDetails = res.responseData;
+            if (this.loanDetails.totalAmount <= 0) {
+              return this.toastr.error(
+                'Total Amount can not be Zero',
+                undefined,
+                {
+                  positionClass: 'toast-top-right'
+                }
+              );
+            }
+            this.modalRef = this.modalService.open(view, {
+              windowClass: 'search small',
+              backdrop: true
+            });
+          } else {
+            this.toastr.error(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          }
+        },
+        (err: any) => {
+          log.error(err);
+          this.toastr.error(err.message, 'ERROR!', {
+            closeButton: true,
+            positionClass: 'toast-top-right'
+          });
+        }
+      );
+  }
+
+  liquidatPaymentDone(event: any) {
+    const title = 'Payment successfull';
+    console.log('paymentDone', event);
+
+    this.toastr.success(title, '', {
+      closeButton: true,
+      positionClass: 'toast-top-right'
+    });
+    this.onLiquidate(event);
   }
 
   closeModal(t: any) {
