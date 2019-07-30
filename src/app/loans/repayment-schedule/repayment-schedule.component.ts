@@ -97,6 +97,7 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
             log.info(this.userLoanList);
             this.repaymentsSchedule(this.userLoanList.id);
             this.loanAmount = this.userLoanList.loanAmount;
+            console.log('this.userLoanList', this.userLoanList);
             this.toastr.success(res.message, undefined, {
               closeButton: true,
               positionClass: 'toast-top-right'
@@ -171,7 +172,7 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
 
   onPayNow(view: any, loan: any) {
     this.loanDetails = loan;
-    console.log(this.loanDetails);
+    console.log('onPayNow', this.loanDetails);
     if (this.loanDetails) {
       this.modalRef = this.modalService.open(view, {
         windowClass: 'search small',

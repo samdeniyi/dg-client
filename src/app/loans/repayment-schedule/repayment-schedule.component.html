@@ -126,7 +126,8 @@
           Confirm
         </h2>
         <p>
-          Are you sure you want to Pay for {{ userLoanList[0].productName }}
+          Are you sure you want to Pay for
+          {{ loanDetails.repaymentAmount | currency: '₦' }}
         </p>
 
         <div class="content">
@@ -165,7 +166,7 @@
         <h2 class="title text-center">
           Confirm
         </h2>
-        <p>Are you sure you want to liquidate {{ loanDetails.productName }}</p>
+        <p>Are you sure you want to liquidate {{ userLoanList.productName }}</p>
 
         <div class="content">
           <button
