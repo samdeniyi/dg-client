@@ -58,6 +58,7 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           if (res.responseCode === '00') {
+            console.log('repaymentsSchedule', res.responseData);
             this.repaymentList = res.responseData;
             this.toastr.success(res.message, undefined, {
               closeButton: true,
