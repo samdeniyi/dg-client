@@ -122,13 +122,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     const that = this;
 
-    setTimeout(
-      function() {
-        that.showToastr();
-      },
-
-      1000
-    );
+    setTimeout(function() {
+      that.showToastr();
+    }, 1000);
     this.chartIntervals();
 
     this.getSummary();
@@ -152,80 +148,76 @@ export class HomeComponent implements OnInit, OnDestroy {
   chartIntervals() {
     const that = this;
 
-    this.interval = setInterval(
-      function() {
-        that.earningOptionsSeries.shift();
-        let rand = Math.floor(Math.random() * 11);
+    this.interval = setInterval(function() {
+      that.earningOptionsSeries.shift();
+      let rand = Math.floor(Math.random() * 11);
 
-        if (!rand) {
-          rand = 1;
-        }
+      if (!rand) {
+        rand = 1;
+      }
 
-        that.earningOptionsSeries.push(rand);
-        that.earningOptions = that.loadLineAreaChartOptions(
-          that.earningOptionsSeries,
-          '#f79647',
-          '#fac091'
-        );
-        that.earnings =
-          '₦' +
-          (
-            that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000
-          ).toLocaleString();
+      that.earningOptionsSeries.push(rand);
+      that.earningOptions = that.loadLineAreaChartOptions(
+        that.earningOptionsSeries,
+        '#f79647',
+        '#fac091'
+      );
+      that.earnings =
+        '₦' +
+        (
+          that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000
+        ).toLocaleString();
 
-        that.salesOptionsSeries.shift();
-        rand = Math.floor(Math.random() * 11);
+      that.salesOptionsSeries.shift();
+      rand = Math.floor(Math.random() * 11);
 
-        if (!rand) {
-          rand = 1;
-        }
+      if (!rand) {
+        rand = 1;
+      }
 
-        that.salesOptionsSeries.push(rand);
-        that.salesOptions = that.loadLineAreaChartOptions(
-          that.salesOptionsSeries,
-          '#604a7b',
-          '#a092b0'
-        );
-        that.sales =
-          '₦' +
-          (
-            that.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000
-          ).toLocaleString();
+      that.salesOptionsSeries.push(rand);
+      that.salesOptions = that.loadLineAreaChartOptions(
+        that.salesOptionsSeries,
+        '#604a7b',
+        '#a092b0'
+      );
+      that.sales =
+        '₦' +
+        (
+          that.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000
+        ).toLocaleString();
 
-        that.visitsAreaOptionsSeries.shift();
-        rand = Math.floor(Math.random() * 11);
+      that.visitsAreaOptionsSeries.shift();
+      rand = Math.floor(Math.random() * 11);
 
-        if (!rand) {
-          rand = 1;
-        }
+      if (!rand) {
+        rand = 1;
+      }
 
-        that.visitsAreaOptionsSeries.push(rand);
-        that.visits += rand;
-        that.visitsAreaOptions = that.loadLineAreaChartOptions(
-          that.visitsAreaOptionsSeries,
-          '#4aacc5',
-          '#92cddc'
-        );
+      that.visitsAreaOptionsSeries.push(rand);
+      that.visits += rand;
+      that.visitsAreaOptions = that.loadLineAreaChartOptions(
+        that.visitsAreaOptionsSeries,
+        '#4aacc5',
+        '#92cddc'
+      );
 
-        that.LikesOptionsSeries.shift();
-        rand = Math.floor(Math.random() * 11);
+      that.LikesOptionsSeries.shift();
+      rand = Math.floor(Math.random() * 11);
 
-        if (!rand) {
-          rand = 1;
-        }
+      if (!rand) {
+        rand = 1;
+      }
 
-        that.LikesOptionsSeries.push(rand);
-        that.likes += rand;
-        that.LikesOptions = that.loadLineAreaChartOptions(
-          that.LikesOptionsSeries,
-          '#4f81bc',
-          '#95b3d7'
-        );
-        that.cdr.markForCheck();
-      },
-
-      3000
-    );
+      that.LikesOptionsSeries.push(rand);
+      that.likes += rand;
+      that.LikesOptions = that.loadLineAreaChartOptions(
+        that.LikesOptionsSeries,
+        '#4f81bc',
+        '#95b3d7'
+      );
+      that.cdr.markForCheck();
+    }, 3000);
   }
 
   loadLineAreaChartOptions(data: any, color: any, areaColor: any) {
@@ -355,7 +347,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log(res);
         }
       },
-
       error => {
         console.log(error);
       }
@@ -366,13 +357,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.homeService.recentTransactions().subscribe(
       res => {
         if (res.responseCode === '00') {
-          console.log(res);
+          console.log('getRecentTransactions', res);
           this.recentTransactions = res.responseData;
         } else {
           console.log(res);
         }
       },
-
       error => {
         console.log(error);
       }
@@ -392,6 +382,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           if (res.responseCode === '00') {
+            console.log('User Loan', res);
+            this.recentTransactions = res.responseData;
             this.userLoanList = res.responseData[res.responseData.length - 1];
             //this.loanDetails = res.responseData[0];
             log.info(this.userLoanList);

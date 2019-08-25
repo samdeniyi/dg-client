@@ -20,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 import { Logger } from '@app/core/logger.service';
 import { untilDestroyed } from '@app/core/until-destroyed';
+import { Router } from '@angular/router';
 
 const log = new Logger('Register');
 
@@ -36,7 +37,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
     private regService: RegisterService,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -71,10 +73,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
               //   type: EAlertMessageType.SUCCESS
               // };
 
-              this.toastr.success(res.message, undefined, {
-                closeButton: true,
-                positionClass: 'toast-top-right'
-              });
+              this.toastr.success(
+                `Please Check your email (${
+                  this.regForm.value.email
+                }) to confirm your email`,
+                res.message,
+                {
+                  closeButton: true,
+                  positionClass: 'toast-top-right'
+                }
+              );
+              this.router.navigateByUrl('/login');
             } else {
               log.error(`userRegistration error: ${res.message}`);
               // this.alertMessage = {

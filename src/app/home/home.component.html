@@ -3,224 +3,243 @@
     [title]="title"
     [breadcrumbItem]="breadcrumbItem"
   ></app-block-header>
-  <div class="row clearfix">
-    <div class="col-lg-4 col-md-6 col-sm-6">
-      <div class="card weather2 l-turquoise">
-        <div class="body city-selected">
-          <div class="row">
-            <div class="col-12">
-              <div class="city">Current Loan Balance</div>
-            </div>
-            <div class="info col-7">
-              <div class="temp mt-4 mb-4">
-                <h3>₦{{ summary?.currentLoanBalance }}</h3>
+  <div class="row">
+    <!--
+      ###########################################
+      |               Left Column               |
+      ###########################################
+    -->
+    <div class="col-lg-9 col-md-10 col-sm-10">
+      <div class="row clearfix">
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="card weather2 l-turquoise">
+            <div class="body city-selected">
+              <div class="row">
+                <div class="col-12">
+                  <div class="city">Current Loan Balance</div>
+                </div>
+                <div class="info col-7">
+                  <div class="temp mt-2 mb-3">
+                    <h3>₦{{ summary?.currentLoanBalance }}</h3>
+                  </div>
+                  <!--              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Apply now</button></div>-->
+                  <div class="night">
+                    <button
+                      type="button"
+                      class="btn btn-default mr-1"
+                      style="border-radius: 30px;"
+                      (click)="liquidateNow(loanModal)"
+                    >
+                      Liquidate now
+                    </button>
+                  </div>
+                </div>
+                <div class="icon col-5 mt-3 text-right">
+                  <i class="fa fa-cart-plus"></i>
+                </div>
               </div>
-              <!--              <div class="night"><button type="button" class="btn btn-default mr-1" style="border-radius: 30px;" (click)="goLoansList()">Apply now</button></div>-->
-              <div class="night">
-                <button
-                  type="button"
-                  class="btn btn-default mr-1"
-                  style="border-radius: 30px;"
-                  (click)="liquidateNow(loanModal)"
-                >
-                  Liquidate now
-                </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="card weather2 l-amber">
+            <div class="body city-selected">
+              <div class="row">
+                <div class="col-12">
+                  <div class="city">Repayment Overdue</div>
+                </div>
+                <div class="info col-7">
+                  <div class="temp mt-2 mb-3">
+                    <h3>₦{{ summary?.repaymentOverdue }}</h3>
+                  </div>
+                  <div class="night">
+                    <!--                <button-->
+                    <!--                  type="button"-->
+                    <!--                  class="btn btn-default mr-1"-->
+                    <!--                  style="border-radius: 30px;"-->
+                    <!--                >-->
+                    <!--                  Make payment-->
+                    <!--                </button>-->
+                    <button
+                      type="button"
+                      class="btn btn-default mr-1"
+                      style="border-radius: 30px;"
+                      [routerLink]="['/loans/schedules/']"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+                <div class="icon col-5 mt-3 text-right">
+                  <i class="fa fa-credit-card"></i>
+                </div>
               </div>
             </div>
-            <div class="icon col-5 mt-5 text-right">
-              <i class="fa fa-cart-plus"></i>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="card weather2 l-blue">
+            <div class="body city-selected">
+              <div class="row">
+                <div class="col-12">
+                  <div class="city">Next payment amount</div>
+                </div>
+                <div class="info col-7">
+                  <div class="temp mt-2 mb-3">
+                    <h3>₦{{ summary?.nextPaymentAmount }}</h3>
+                  </div>
+                  <div class="night">
+                    <!--                <button-->
+                    <!--                  type="button"-->
+                    <!--                  class="btn btn-default mr-1"-->
+                    <!--                  style="border-radius: 30px;"-->
+                    <!--                >-->
+                    <!--                  Pay Now-->
+                    <!--                </button>-->
+                    <button
+                      type="button"
+                      class="btn btn-default mr-1"
+                      style="border-radius: 30px;"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+                <div class="icon col-5 mt-3 text-right">
+                  <i class="fa fa-cart-arrow-down"></i>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
-      <div class="card weather2 l-amber">
-        <div class="body city-selected">
-          <div class="row">
-            <div class="col-12">
-              <div class="city">Repayment Overdue</div>
+      <div class="row recent-transactions">
+        <div class="col-lg-12 col-md-12">
+          <div class="card product_item_list product-order-list">
+            <div class="header" *ngIf="recentTransactions?.length > 0">
+              <h2 class="card-title">Recent Transactions</h2>
             </div>
-            <div class="info col-7">
-              <div class="temp mt-4 mb-4">
-                <h3>₦{{ summary?.repaymentOverdue }}</h3>
-              </div>
-              <div class="night">
-                <!--                <button-->
-                <!--                  type="button"-->
-                <!--                  class="btn btn-default mr-1"-->
-                <!--                  style="border-radius: 30px;"-->
-                <!--                >-->
-                <!--                  Make payment-->
-                <!--                </button>-->
-                <button
-                  type="button"
-                  class="btn btn-default mr-1"
-                  style="border-radius: 30px;"
-                  [routerLink]="['/loans/schedules/']"
-                >
-                  View Details
-                </button>
-              </div>
-            </div>
-            <div class="icon col-5 mt-5 text-right">
-              <i class="fa fa-credit-card"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
-      <div class="card weather2 l-blue">
-        <div class="body city-selected">
-          <div class="row">
-            <div class="col-12">
-              <div class="city">Next payment amount</div>
-            </div>
-            <div class="info col-7">
-              <div class="temp mt-4 mb-4">
-                <h3>₦{{ summary?.nextPaymentAmount }}</h3>
-              </div>
-              <div class="night">
-                <!--                <button-->
-                <!--                  type="button"-->
-                <!--                  class="btn btn-default mr-1"-->
-                <!--                  style="border-radius: 30px;"-->
-                <!--                >-->
-                <!--                  Pay Now-->
-                <!--                </button>-->
-                <button
-                  type="button"
-                  class="btn btn-default mr-1"
-                  style="border-radius: 30px;"
-                >
-                  View
-                </button>
-              </div>
-            </div>
-            <div class="icon col-5 mt-5 text-right">
-              <i class="fa fa-cart-arrow-down"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div class="col-lg-8 col-md-12">
-      <div class="card product_item_list product-order-list">
-        <div class="header">
-          <h2>Recent Transaction</h2>
-        </div>
-        <div class="body">
-          <div class="table-responsive" *ngIf="recentTransactions?.length > 0">
-            <table class="table table-hover m-b-0">
-              <thead class="thead-light">
-                <tr>
-                  <th>Date</th>
-                  <th data-breakpoints="sm xs">Transaction ID</th>
-                  <th>Transaction Type</th>
-                  <th data-breakpoints="xs">Amount</th>
-                  <th data-breakpoints="xs md">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>28-05-2019</td>
-                  <td>291ER67UY989</td>
-                  <td>Loan Disbursement</td>
-                  <td>₦16,000.00</td>
-                  <td>
-                    <span class="badge badge-success bg-success text-white"
-                      >Paid</span
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>28-05-2019</td>
-                  <td>291ER67UY989</td>
-                  <td>Loan Disbursement</td>
-                  <td>₦16,000.00</td>
-                  <td>
-                    <span class="badge badge-success bg-success text-white"
-                      >Paid</span
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>28-05-2019</td>
-                  <td>291ER67UY989</td>
-                  <td>Loan Repayment</td>
-                  <td>₦16,000.00</td>
-                  <td>
-                    <span class="badge badge-danger bg-danger text-white"
-                      >Failed</span
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td>28-05-2019</td>
-                  <td>291ER67UY989</td>
-                  <td>Loan Disbursement</td>
-                  <td>₦16,000.00</td>
-                  <td>
-                    <span class="badge badge-success bg-success text-white"
-                      >Paid</span
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <h2 class="sub-title" *ngIf="recentTransactions?.length === 0">
-            No Recent Transactions
-          </h2>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6">
-      <div class="card weather4">
-        <div class="body">
-          <div class="row">
-            <div class="col-2">
-              <i class="fa fa-link text-primary"></i>
-            </div>
-            <div class="col-10 text-right">
-              <h3 class="">Refer a friend</h3>
-              <span>And earn commissions</span>
-              <p></p>
-              <a href="#"
-                ><i class="fa fa-copy" style="font-size: 12px"></i> Copy link</a
+            <div class="body">
+              <div
+                class="table-responsive"
+                *ngIf="recentTransactions?.length > 0"
               >
+                <table class="table table-hover m-b-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Date</th>
+                      <th data-breakpoints="sm xs">Transaction ID</th>
+                      <th>Transaction Type</th>
+                      <th data-breakpoints="xs">Amount</th>
+                      <th data-breakpoints="xs md">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>28-05-2019</td>
+                      <td>291ER67UY989</td>
+                      <td>Loan Disbursement</td>
+                      <td>₦16,000.00</td>
+                      <td>
+                        <span class="badge badge-success bg-success text-white"
+                          >Paid</span
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>28-05-2019</td>
+                      <td>291ER67UY989</td>
+                      <td>Loan Disbursement</td>
+                      <td>₦16,000.00</td>
+                      <td>
+                        <span class="badge badge-success bg-success text-white"
+                          >Paid</span
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>28-05-2019</td>
+                      <td>291ER67UY989</td>
+                      <td>Loan Repayment</td>
+                      <td>₦16,000.00</td>
+                      <td>
+                        <span class="badge badge-danger bg-danger text-white"
+                          >Failed</span
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>28-05-2019</td>
+                      <td>291ER67UY989</td>
+                      <td>Loan Disbursement</td>
+                      <td>₦16,000.00</td>
+                      <td>
+                        <span class="badge badge-success bg-success text-white"
+                          >Paid</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="body d-flex justify-content-center align-items-center flex-column"
+                *ngIf="recentTransactions?.length === 0"
+              >
+                <i class="fa fa-link text-primary"></i>
+                <h3 class="mt-3">Lets Get Started</h3>
+
+                <p>
+                  Click the <strong>Apply Now</strong> button below to apply for
+                  a Loan <br />It is as simple as that
+                </p>
+                <a href="#" class="btn btn-outline-primary btn-sm">Apply Now</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="card">
-        <div class="header">
-          <h2>My Loan Stats</h2>
-        </div>
-        <div class="body">
-          <ul class=" list-unstyled basic-list">
-            <li>
-              <i class="icon-book-open m-r-5"></i> Total loan granted
-              <span class="badge badge-primary">{{ summary?.totalLoan }}</span>
-            </li>
-            <li>
-              <i class="icon-list m-r-5"></i> Total repayment
-              <span class="badge-purple badge">{{
-                summary?.totalRepayment
-              }}</span>
-            </li>
-          </ul>
+      <div class="row clearfix d-none">
+        <div class="col-lg-12">
+          <app-activities></app-activities>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row clearfix">
-    <div class="col-lg-12">
-      <app-activities></app-activities>
+
+    <!--
+      ###########################################
+      |               Right Column              |
+      ###########################################
+    -->
+    <div class="col-lg-3 col-md-2 col-sm-2 call-to-action">
+      <div class="card weather4">
+        <div
+          class="body d-flex justify-content-center align-items-center flex-column"
+        >
+          <i class="fa fa-link text-primary"></i>
+          <h3 class="">Featured Loans</h3>
+
+          <p>
+            Get the best of the best loans in the country at low interest rate
+          </p>
+          <a href="#" class="btn btn-outline-primary btn-sm">Apply Now</a>
+        </div>
+      </div>
+      <div class="card weather4">
+        <div
+          class="body d-flex justify-content-center align-items-center flex-column"
+        >
+          <i class="fa fa-link text-primary"></i>
+          <h3 class="">Secured Loans</h3>
+
+          <p>
+            Get the best of the best loans in the country at low interest rate
+          </p>
+          <a href="#" class="btn btn-outline-primary btn-sm btn-secure"
+            >Apply Now</a
+          >
+        </div>
+      </div>
     </div>
   </div>
 </div>

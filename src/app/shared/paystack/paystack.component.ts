@@ -43,6 +43,7 @@ export class PaystackComponent implements OnInit {
   }
 
   onPaymentDone(ref: any) {
+    console.log('onPaymentDone', ref);
     this.paymentDoneCallback.emit({ ...ref });
     // this.paymentDoneCallback.emit({ tRef: this.tRef });
   }
