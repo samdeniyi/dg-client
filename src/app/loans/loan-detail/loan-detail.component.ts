@@ -111,6 +111,9 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
         (res: any) => {
           if (res.responseCode === '00') {
             this.loanDetails = res.responseData;
+
+            console.info('this.loanDetails', this.loanDetails);
+
             this.initRequiredFieldForm();
             log.info(this.loanDetails);
             this.title = `Apply for Loans (${
@@ -167,6 +170,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
     const group = {};
     this.loanDetails.productFormFields.map((m: any) => {
       group[m.formFieldName] = new FormControl('', Validators.required);
+      console.log('initRequiredFieldForm', m);
     });
     this.requiredFieldForm = new FormGroup(group);
   }

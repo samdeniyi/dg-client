@@ -30,53 +30,6 @@ q {
   }
 }
 
-.call-to-action,
-.recent-transactions {
-  text-align: center;
-  color: #707070;
-
-  .card .body {
-    padding: 50px 20px;
-  }
-
-  i {
-    font-size: 50px;
-    color: #868e96 !important;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-    color: #707070;
-  }
-
-  p {
-    font-size: 0.7rem;
-    color: #707070;
-  }
-
-  .btn {
-    margin-top: 1rem;
-    color: #fff;
-    background-color: #ff9e02;
-    border-color: #ff9e02;
-    box-shadow: none !important;
-
-    &:hover {
-      background: transparent;
-      color: #ff9e02;
-    }
-  }
-
-  .btn-secure {
-    background-color: #1322dc;
-    border-color: #1322dc;
-
-    &:hover {
-      color: #1322dc;
-    }
-  }
-}
-
 .recent-transactions .card .body {
   padding: 0px 20px;
 }

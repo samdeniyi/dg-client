@@ -116,6 +116,7 @@
       <div class="row recent-transactions">
         <div class="col-lg-12 col-md-12">
           <div class="card product_item_list product-order-list">
+            <app-loader [isLoading]="isLoading"></app-loader>
             <div class="header" *ngIf="recentTransactions?.length > 0">
               <h2 class="card-title">Recent Transactions</h2>
             </div>
@@ -135,41 +136,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>28-05-2019</td>
-                      <td>291ER67UY989</td>
-                      <td>Loan Disbursement</td>
-                      <td>₦16,000.00</td>
-                      <td>
-                        <span class="badge badge-success bg-success text-white"
-                          >Paid</span
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>28-05-2019</td>
-                      <td>291ER67UY989</td>
-                      <td>Loan Disbursement</td>
-                      <td>₦16,000.00</td>
-                      <td>
-                        <span class="badge badge-success bg-success text-white"
-                          >Paid</span
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>28-05-2019</td>
-                      <td>291ER67UY989</td>
-                      <td>Loan Repayment</td>
-                      <td>₦16,000.00</td>
-                      <td>
-                        <span class="badge badge-danger bg-danger text-white"
-                          >Failed</span
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>28-05-2019</td>
+                    <tr
+                      [@fadeIn]
+                      *ngFor="let item of [1, 2, 3, 4, 5, 6]; let i = index"
+                    >
+                      <td>28-0{{ i + 1 }}-2019</td>
                       <td>291ER67UY989</td>
                       <td>Loan Disbursement</td>
                       <td>₦16,000.00</td>
@@ -193,7 +164,9 @@
                   Click the <strong>Apply Now</strong> button below to apply for
                   a Loan <br />It is as simple as that
                 </p>
-                <a href="#" class="btn btn-outline-primary btn-sm">Apply Now</a>
+                <button class="btn btn-outline-primary btn-sm">
+                  Apply Now
+                </button>
               </div>
             </div>
           </div>
@@ -212,7 +185,7 @@
       ###########################################
     -->
     <div class="col-lg-3 col-md-2 col-sm-2 call-to-action">
-      <div class="card weather4">
+      <div class="card weather4" [@fadeIn]>
         <div
           class="body d-flex justify-content-center align-items-center flex-column"
         >
@@ -222,10 +195,10 @@
           <p>
             Get the best of the best loans in the country at low interest rate
           </p>
-          <a href="#" class="btn btn-outline-primary btn-sm">Apply Now</a>
+          <button class="btn btn-outline-primary btn-sm">Apply Now</button>
         </div>
       </div>
-      <div class="card weather4">
+      <div class="card weather4" [@fadeIn]>
         <div
           class="body d-flex justify-content-center align-items-center flex-column"
         >
@@ -235,16 +208,17 @@
           <p>
             Get the best of the best loans in the country at low interest rate
           </p>
-          <a href="#" class="btn btn-outline-primary btn-sm btn-secure"
-            >Apply Now</a
+          <button
+            class="btn btn-outline-primary btn-sm btn-secure"
+            (click)="onAnimate()"
           >
+            Apply Now
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<app-loader [isLoading]="isLoading"></app-loader>
 
 <ng-template #loanModal let-c="close" let-d="dismiss">
   <div class="container-fluid">

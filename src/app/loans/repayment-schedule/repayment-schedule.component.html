@@ -4,118 +4,108 @@
     [breadcrumbItem]="breadcrumbItem"
   ></app-block-header>
   <div class="row clearfix">
-    <div class="col-lg-10 col-md-12">
-      <div class="col-lg-6 col-md-6">
-        <div class="card weather4">
-          <div class="body">
-            <div class="row">
-              <div class="col-6">
-                <i class="fa fa-cart-plus"></i>
-                <p>
-                  <button
-                    class="btn btn-success btn-sm"
-                    (click)="liquidateNow(loanModal)"
-                  >
-                    <!--                  <button-->
-                    <!--                    class="btn btn-success btn-sm"-->
-                    <!--                    (click)="liquidateNow(paymentModal)"-->
-                    <!--                  >-->
-                    Liquidate Now
-                  </button>
-                </p>
-              </div>
-              <div class="col-6 text-right">
-                <h3 class="">
-                  ₦ <span>{{ loanAmount }}</span>
-                </h3>
-                <span>Current loan balance</span>
-              </div>
+    <div class="col-lg-9 col-md-12">
+      <div class="card weather2">
+        <app-loader [isLoading]="isLoading"></app-loader>
+        <div class="body city-selected">
+          <div class="row">
+            <div class="col-12">
+              <div class="night">Payment breakdown</div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-8 col-md-8">
-        <div class="card weather2">
-          <app-loader [isLoading]="isLoading"></app-loader>
-          <div class="body city-selected">
-            <div class="row">
+        <!--          "loanId": 48,-->
+        <!--          "repaymentAmount": 1696.80,-->
+        <!--          "repaymentDate": "2019-07-13T02:17:28.310416",-->
+        <!--          "isPaymentRecieved": false,-->
+        <!--          "loanTransactionId": null,-->
+        <!--          "id": 0,-->
+        <!--          "tenantId": "51aab199-1482-4f0d-8ff1-5ca0e7bc525a"-->
+        <table class="table table-striped m-b-0 text-center">
+          <thead>
+            <tr class="text-capitalize">
+              <td class="font-medium">Date</td>
+              <td class="font-medium">Amount</td>
+              <td class="font-medium">Liquidation Status</td>
+              <td class="font-medium">Penalty Amount</td>
+              <td class="font-medium">Action</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of repaymentList; let i = index">
+              <td class="font-medium">{{ p.repaymentDate | date }}</td>
+              <td class="font-medium">
+                {{ p.repaymentAmount | currency: '₦' }}
+              </td>
+              <td class="font-medium">
+                <span
+                  class="badge badge-success bg-success text-white"
+                  *ngIf="p.isPaymentRecieved == true"
+                  ><i class="fa fa-check-circle"></i
+                ></span>
+                <span
+                  class="badge badge-danger bg-danger text-white"
+                  *ngIf="p.isPaymentRecieved == false"
+                  ><i class="fa fa-times-circle"></i
+                ></span>
+              </td>
+              <td class="font-medium">
+                {{ p.penaltyAmount | currency: '₦' }}
+              </td>
+              <td class="font-medium">
+                <button
+                  class="btn btn-sm btn-outline-success"
+                  (click)="onPayNow(paymentModal, p)"
+                  [disabled]="p.isPaymentRecieved"
+                >
+                  Pay now
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item text-center">
               <div class="col-12">
-                <div class="night">Payment breakdown</div>
+                <ul class="row days-list list-unstyled">
+                  <li class="day col-4">
+                    <p>Monday</p>
+                    <i class="wi wi-day-hail"></i>
+                  </li>
+                  <li class="day col-4">
+                    <p>Tuesday</p>
+                    <i class="wi wi-day-lightning"></i>
+                  </li>
+                  <li class="day col-4">
+                    <p>Wednesday</p>
+                    <i class="wi wi-day-storm-showers"></i>
+                  </li>
+                </ul>
               </div>
             </div>
+            <div class="carousel-item text-center active"></div>
           </div>
-          <!--          "loanId": 48,-->
-          <!--          "repaymentAmount": 1696.80,-->
-          <!--          "repaymentDate": "2019-07-13T02:17:28.310416",-->
-          <!--          "isPaymentRecieved": false,-->
-          <!--          "loanTransactionId": null,-->
-          <!--          "id": 0,-->
-          <!--          "tenantId": "51aab199-1482-4f0d-8ff1-5ca0e7bc525a"-->
-          <table class="table table-striped m-b-0">
-            <thead>
-              <tr>
-                <td class="font-medium">Date</td>
-                <td class="font-medium">Amount</td>
-                <td class="font-medium">status</td>
-                <td class="font-medium">Penalty Amount</td>
-                <td class="font-medium">action</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let p of repaymentList; let i = index">
-                <td class="font-medium">{{ p.repaymentDate | date }}</td>
-                <td class="font-medium">
-                  {{ p.repaymentAmount | currency: '₦' }}
-                </td>
-                <td class="font-medium">
-                  <span
-                    class="badge badge-success bg-success text-white"
-                    *ngIf="p.isPaymentRecieved == true"
-                    ><i class="fa fa-check-circle"></i
-                  ></span>
-                  <span
-                    class="badge badge-danger bg-danger text-white"
-                    *ngIf="p.isPaymentRecieved == false"
-                    ><i class="fa fa-times-circle"></i
-                  ></span>
-                </td>
-                <td class="font-medium">
-                  {{ p.penaltyAmount | currency: '₦' }}
-                </td>
-                <td class="font-medium">
-                  <button
-                    class="btn btn-sm btn-outline-success"
-                    (click)="onPayNow(paymentModal, p)"
-                  >
-                    Pay now
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner" role="listbox">
-              <div class="carousel-item text-center">
-                <div class="col-12">
-                  <ul class="row days-list list-unstyled">
-                    <li class="day col-4">
-                      <p>Monday</p>
-                      <i class="wi wi-day-hail"></i>
-                    </li>
-                    <li class="day col-4">
-                      <p>Tuesday</p>
-                      <i class="wi wi-day-lightning"></i>
-                    </li>
-                    <li class="day col-4">
-                      <p>Wednesday</p>
-                      <i class="wi wi-day-storm-showers"></i>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-item text-center active"></div>
-            </div>
-          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-12 call-to-action">
+      <div class="card weather4">
+        <div
+          class="body d-flex justify-content-center align-items-center flex-column"
+        >
+          <i class="fa fa-cart-plus text-primary"></i>
+          <h3 class="">₦{{ loanAmount }}</h3>
+
+          <p>
+            Current loan balance
+          </p>
+          <button
+            class="btn btn-outline-primary btn-sm"
+            (click)="liquidateNow(loanModal)"
+          >
+            Liquidate Now
+          </button>
         </div>
       </div>
     </div>

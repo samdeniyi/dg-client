@@ -94,7 +94,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-6 col-md-12">
+    <div class="col-lg-12 col-md-12">
       <div class="card">
         <div class="header">
           <h2>Fill the form below to apply</h2>
@@ -146,13 +146,13 @@
             *ngIf="activeTab === 'loanDetails' || activeTab == ''"
           >
             <div
-              class="tab-pane"
+              class="tab-pane row"
               [ngClass]="{
                 'active show': 'loanDetails' == activeTab || activeTab == ''
               }"
             >
               <form
-                class="form-auth-small"
+                class="form-auth-small col-lg-6"
                 [formGroup]="loanDetailForm"
                 (ngSubmit)="onSubmit()"
               >
@@ -214,11 +214,11 @@
           </div>
           <div class="tab-content" *ngIf="activeTab === 'requiredFields'">
             <div
-              class="tab-pane"
+              class="tab-pane row"
               [ngClass]="{ 'active show': 'requiredFields' == activeTab }"
             >
               <form
-                class="form-auth-small"
+                class="form-auth-small col-lg-6"
                 [formGroup]="requiredFieldForm"
                 (ngSubmit)="onSubmitRequiredField()"
               >
@@ -246,7 +246,7 @@
 
                 <button
                   type="submit"
-                  class="btn btn-success btn-sm text-right"
+                  class="btn btn-success btn-sm text-right float-right"
                   [disabled]="!requiredFieldForm.valid"
                 >
                   Next
@@ -256,12 +256,12 @@
           </div>
           <div class="tab-content" *ngIf="activeTab === 'accountDetail'">
             <div
-              class="tab-pane"
+              class="tab-pane row"
               [ngClass]="{ 'active show': 'accountDetail' == activeTab }"
             >
               <div>
                 <form
-                  class="form-auth-small"
+                  class="form-auth-small col-lg-6"
                   [formGroup]="accountForm"
                   (ngSubmit)="onSubmitAccountForm()"
                 >

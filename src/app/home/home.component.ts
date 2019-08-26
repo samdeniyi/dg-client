@@ -14,15 +14,58 @@ import { HomeService } from './home.service';
 import { LoansService } from '@app/loans/loans.service';
 import { finalize } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from '@angular/animations';
 
 const log = new Logger('home');
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [
+    trigger('fadeIn', [
+      state(
+        'in',
+        style({
+          opacity: 1
+          //transform: 'scale(1)'
+        })
+      ),
+      transition('void <=> *', [
+        style({
+          opacity: 0
+          //transform: 'scale(.99)'
+        }),
+        animate(700)
+      ])
+    ]),
+    trigger('loadIn', [
+      state(
+        'in',
+        style({
+          opacity: 1,
+          transform: 'translate(0)'
+        })
+      ),
+      transition('void => *', [
+        style({
+          opacity: 0,
+          transform: 'translateY(-1rem)'
+        }),
+        animate(500)
+      ])
+    ])
+  ]
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  state = 'normal';
+
   quote: string | undefined;
   isLoading = false;
   summary: any;
@@ -130,6 +173,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getSummary();
 
     this.getUserLoan();
+  }
+
+  onAnimate() {
+    this.state == 'normal' ? (this.state = 'in') : (this.state = 'normal');
   }
 
   ngOnDestroy() {
