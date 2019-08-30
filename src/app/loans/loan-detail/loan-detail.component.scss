@@ -1,3 +1,21 @@
 .card {
   position: relative;
 }
+
+.validation-message {
+  .card-title {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #555;
+    text-transform: capitalize;
+    padding: 0 3rem;
+  }
+
+  p {
+    background: #6a5bf3;
+    color: #fff;
+    margin: 0rem 3rem 2rem;
+    padding: 1rem;
+    border-radius: 3px;
+  }
+}

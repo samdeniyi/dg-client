@@ -122,6 +122,12 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
 
   onRepayLoan(trans: any) {
     this.isLoading = true;
+
+    if (trans.penaltyAmount > 0) {
+      console.log('trans.penaltyAmount', trans);
+      this.loanDetails.loanAmount + trans.penaltyAmount;
+    }
+
     const data = {
       loanId: this.loanDetails.loanId,
       repaymentScheduleId: this.loanDetails.id,

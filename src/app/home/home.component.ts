@@ -21,6 +21,7 @@ import {
   transition,
   animate
 } from '@angular/animations';
+import { fadeInTrigger } from '@app/animations';
 
 const log = new Logger('home');
 
@@ -28,40 +29,7 @@ const log = new Logger('home');
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  animations: [
-    trigger('fadeIn', [
-      state(
-        'in',
-        style({
-          opacity: 1
-          //transform: 'scale(1)'
-        })
-      ),
-      transition('void <=> *', [
-        style({
-          opacity: 0
-          //transform: 'scale(.99)'
-        }),
-        animate(700)
-      ])
-    ]),
-    trigger('loadIn', [
-      state(
-        'in',
-        style({
-          opacity: 1,
-          transform: 'translate(0)'
-        })
-      ),
-      transition('void => *', [
-        style({
-          opacity: 0,
-          transform: 'translateY(-1rem)'
-        }),
-        animate(500)
-      ])
-    ])
-  ]
+  animations: [fadeInTrigger]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   state = 'normal';

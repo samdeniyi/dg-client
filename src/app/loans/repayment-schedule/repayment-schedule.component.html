@@ -5,65 +5,80 @@
   ></app-block-header>
   <div class="row clearfix">
     <div class="col-lg-9 col-md-12">
-      <div class="card weather2">
+      <div class="card" *ngIf="repaymentList?.length > 0">
         <app-loader [isLoading]="isLoading"></app-loader>
         <div class="body city-selected">
-          <div class="row">
-            <div class="col-12">
-              <div class="night">Payment breakdown</div>
-            </div>
+          <div class="header pt-0">
+            Payment breakdown
           </div>
+          <table class="table table-striped m-b-0 text-center">
+            <thead>
+              <tr class="text-capitalize">
+                <td class="font-medium">Date</td>
+                <td class="font-medium">Amount</td>
+                <td class="font-medium">Liquidation Status</td>
+                <td class="font-medium">Penalty Amount</td>
+                <td class="font-medium">Action</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of repaymentList; let i = index">
+                <td class="font-medium">{{ p.repaymentDate | date }}</td>
+                <td class="font-medium">
+                  {{ p.repaymentAmount | currency: '₦' }}
+                </td>
+                <td class="font-medium">
+                  <span
+                    class="badge badge-success bg-success text-white"
+                    *ngIf="p.isPaymentRecieved == true"
+                    ><i class="fa fa-check-circle"></i
+                  ></span>
+                  <span
+                    class="badge badge-danger bg-danger text-white"
+                    *ngIf="p.isPaymentRecieved == false"
+                    ><i class="fa fa-times-circle"></i
+                  ></span>
+                </td>
+                <td class="font-medium">
+                  {{ p.penaltyAmount | currency: '₦' }}
+                </td>
+                <td class="font-medium">
+                  <button
+                    class="btn btn-sm btn-outline-success"
+                    (click)="onPayNow(paymentModal, p)"
+                    [disabled]="p.isPaymentRecieved"
+                  >
+                    Pay now
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <!--          "loanId": 48,-->
-        <!--          "repaymentAmount": 1696.80,-->
-        <!--          "repaymentDate": "2019-07-13T02:17:28.310416",-->
-        <!--          "isPaymentRecieved": false,-->
-        <!--          "loanTransactionId": null,-->
-        <!--          "id": 0,-->
-        <!--          "tenantId": "51aab199-1482-4f0d-8ff1-5ca0e7bc525a"-->
-        <table class="table table-striped m-b-0 text-center">
-          <thead>
-            <tr class="text-capitalize">
-              <td class="font-medium">Date</td>
-              <td class="font-medium">Amount</td>
-              <td class="font-medium">Liquidation Status</td>
-              <td class="font-medium">Penalty Amount</td>
-              <td class="font-medium">Action</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let p of repaymentList; let i = index">
-              <td class="font-medium">{{ p.repaymentDate | date }}</td>
-              <td class="font-medium">
-                {{ p.repaymentAmount | currency: '₦' }}
-              </td>
-              <td class="font-medium">
-                <span
-                  class="badge badge-success bg-success text-white"
-                  *ngIf="p.isPaymentRecieved == true"
-                  ><i class="fa fa-check-circle"></i
-                ></span>
-                <span
-                  class="badge badge-danger bg-danger text-white"
-                  *ngIf="p.isPaymentRecieved == false"
-                  ><i class="fa fa-times-circle"></i
-                ></span>
-              </td>
-              <td class="font-medium">
-                {{ p.penaltyAmount | currency: '₦' }}
-              </td>
-              <td class="font-medium">
-                <button
-                  class="btn btn-sm btn-outline-success"
-                  (click)="onPayNow(paymentModal, p)"
-                  [disabled]="p.isPaymentRecieved"
-                >
-                  Pay now
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      </div>
+
+      <div class="card recent-transactions" *ngIf="repaymentList?.length === 0">
+        <div
+          class="body d-flex justify-content-center align-items-center flex-column py-4"
+        >
+          <div class="icon">
+            <img src="assets/images/loan.png" alt="" class="img-fluid" />
+          </div>
+          <h3 class="mt-3">You Have No Repayment Scheduled Loan</h3>
+
+          <p>
+            Click the <strong>Apply Now</strong> button below to apply for a
+            Loan <br />It is as simple as that
+          </p>
+          <button
+            class="btn btn-outline-primary btn-sm"
+            [routerLink]="['/', 'loans', 'details', 4]"
+            routerLinkActive="router-link-active"
+          >
+            Apply Now
+          </button>
+        </div>
+
         <div class="carousel slide" data-ride="carousel">
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item text-center">
