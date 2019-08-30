@@ -28,7 +28,7 @@ export class RepaymentScheduleComponent implements OnInit, OnDestroy {
     }
   ];
   userLoanList: any;
-  repaymentList: any;
+  repaymentList: any[] = [];
   loanAmount: any;
   loanDetails: any;
   private modalRef: NgbModalRef;
