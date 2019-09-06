@@ -38,6 +38,8 @@ $green: #28a745;
 $teal: #20c997;
 $cyan: #17a2b8;
 $yego-green: #0f5211;
+$yego-green-60: #229a22;
+$yego-green-40: #1e791e;
 
 $theme-colors: (
   primary: $blue,
@@ -48,7 +50,9 @@ $theme-colors: (
   danger: $red,
   light: $gray-100,
   dark: $gray-800,
-  yego: $yego-green
+  yego: $yego-green,
+  yego-60: $yego-green-60,
+  yego-40: $yego-green-40
 );
 
 // Use Bootstrap defaults for other variables, imported here so we can access all app variables in one place when used

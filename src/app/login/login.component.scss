@@ -27,7 +27,13 @@ body {
   width: 400px;
   height: 100%;
   z-index: -1;
-  background: $yego-green;
+  background: linear-gradient(
+    180deg,
+    $yego-green,
+    $yego-green,
+    $yego-green-40
+  ) !important;
+  //background: $yego-green;
 }
 
 .img-wraaper {
