@@ -154,7 +154,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   showToastr() {
-    this.toastr.info('Hello, welcome to DGPay.', undefined, {
+    this.toastr.info('Hello, welcome to Yego.', undefined, {
       closeButton: true,
       positionClass: 'toast-top-right'
     });
