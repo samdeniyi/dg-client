@@ -14,7 +14,7 @@ import 'rxjs/add/operator/mergeMap';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent implements OnInit, AfterViewInit {
-  public title = 'DGPay';
+  public title = 'Yego';
   public isStopLoading = false;
   public showNotifMenu = false;
   public showToggleMenu = false;

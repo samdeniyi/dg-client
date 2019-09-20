@@ -43,16 +43,22 @@
       <hr />
       <ul class="row list-unstyled">
         <li class="col-4">
-          <small>Customers</small>
-          <h6 class="customer-color">456</h6>
+          <small>Balance</small>
+          <h6 class="customer-color">
+            {{ summary?.currentLoanBalance | currency: '₦' }}
+          </h6>
         </li>
         <li class="col-4">
-          <small>Loans</small>
-          <h6 class="loan-color">1350</h6>
+          <small>Overdue</small>
+          <h6 class="loan-color">
+            {{ summary?.repaymentOverdue | currency: '₦' }}
+          </h6>
         </li>
         <li class="col-4">
-          <small>Revenue</small>
-          <h6 class="revenue-color">₦2.3B</h6>
+          <small>Next</small>
+          <h6 class="revenue-color">
+            {{ summary?.repaymentOverdue | currency: '₦' }}
+          </h6>
         </li>
       </ul>
     </div>
@@ -66,10 +72,6 @@
           >Menu</a
         >
       </li>
-      <!--      <li class="nav-item"><a class="nav-link" [ngClass]="{'active':navTab == 'chat'}" (click)="changeNavTab('chat')"><i-->
-      <!--        class="icon-book-open"></i></a></li>-->
-      <!--      <li class="nav-item"><a class="nav-link" [ngClass]="{'active':navTab == 'setting'}" (click)="changeNavTab('setting')"><i-->
-      <!--        class="icon-settings"></i></a></li>-->
       <li class="nav-item d-none">
         <a
           class="nav-link"
@@ -89,38 +91,12 @@
       >
         <nav id="left-sidebar-nav" class="sidebar-nav">
           <ul id="main-menu" class="metismenu">
-            <!--            <li-->
-            <!--              routerLinkActive="active"-->
-            <!--              [routerLinkActiveOptions]="{ exact: true }"-->
-            <!--              [ngClass]="{ active: currentActiveMenu == 'admin' }"-->
-            <!--            >-->
-            <!--              <a class="" (click)="activeInactiveMenu('admin')" [routerLink]="['/']"-->
-            <!--                ><i class="icon-home"></i> <span>Dashboard</span></a-->
-            <!--              >-->
-            <!--            </li>-->
-            <!--            <li-->
-            <!--              routerLinkActive="active"-->
-            <!--              [routerLinkActiveOptions]="{ exact: true }"-->
-            <!--              [ngClass]="{ active: currentActiveMenu == 'product' }"-->
-            <!--            >-->
-            <!--              <a class="has-arrow" (click)="activeInactiveMenu('product')"-->
-            <!--                ><i class="icon-grid"></i> <span>Manage Loan</span></a-->
-            <!--              >-->
-            <!--              <ul *ngIf="currentActiveMenu == 'product'">-->
-            <!--                <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >-->
-            <!--                  <a [routerLink]="['/loans/view']">Apply for loan</a>-->
-            <!--                </li>-->
-            <!--                <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
-            <!--                  <a [routerLink]="['/loans/myloans']">My Loans</a>-->
-            <!--                </li>-->
-            <!--              </ul>-->
-            <!--            </li>-->
             <li
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
             >
               <a [routerLink]="['/']"
-                ><i class="icon-home"></i> <span>Dashboard</span></a
+                ><i class="icon-home text-yego"></i> <span>Dashboard</span></a
               >
             </li>
             <li
@@ -128,7 +104,8 @@
               [routerLinkActiveOptions]="{ exact: true }"
             >
               <a [routerLink]="['/loans/details/' + featureLoan]">
-                <i class="icon-graph"></i> <span>Apply for loan</span></a
+                <i class="icon-graph text-yego"></i>
+                <span>Apply for loan</span></a
               >
             </li>
             <li
@@ -136,7 +113,7 @@
               [routerLinkActiveOptions]="{ exact: true }"
             >
               <a [routerLink]="['/loans/myloans']">
-                <i class="icon-grid"></i> <span>My Loans</span></a
+                <i class="icon-grid text-yego"></i> <span>My Loans</span></a
               >
             </li>
             <li
@@ -144,7 +121,7 @@
               [routerLinkActiveOptions]="{ exact: true }"
             >
               <a [routerLink]="['/loans/schedules']">
-                <i class="icon-pie-chart"></i>
+                <i class="icon-pie-chart text-yego"></i>
                 <span>Repayment Schedule</span></a
               >
             </li>

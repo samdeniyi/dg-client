@@ -11,7 +11,9 @@ const HttpsProxyAgent = require('https-proxy-agent');
 const proxyConfig = [
   {
     context: '/api/',
-    pathRewrite: { '^/api/': '' },
+    pathRewrite: {
+      '^/api/': ''
+    },
     target: 'http://mbappeloan2.us-east-1.elasticbeanstalk.com',
     changeOrigin: true,
     secure: false

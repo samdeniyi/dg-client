@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="loanDetails">
+<div class="container-fluid">
   <app-block-header
     [title]="title"
     [breadcrumbItem]="breadcrumbItem"
@@ -78,24 +78,13 @@
                 <div class="progress-bar" [ngStyle]="{ 'width.%': 7 }"></div>
               </div>
             </li>
-            <!--            <li>-->
-            <!--              <p><span class="text-muted">interestRate</span><span class="value float-right">{{loanDetails.product['interestRate']}}% <small style="font-size: 12px">( per month )</small></span></p>-->
-            <!--              <div class="progress progress-xs progress-transparent custom-color-blue">-->
-            <!--                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>-->
-            <!--              </div>-->
-            <!--            </li>-->
-            <!--            <li>-->
-            <!--              <p><span class="text-muted">rateType</span><span class="value float-right">{{loanDetails.product['rateType']}}</span></p>-->
-            <!--              <div class="progress progress-xs progress-transparent custom-color-blue">-->
-            <!--                <div class="progress-bar" [ngStyle]="{'width.%': 7}"></div>-->
-            <!--              </div>-->
-            <!--            </li>-->
           </ul>
         </div>
       </div>
     </div>
     <div class="col-lg-12 col-md-12">
       <div class="card">
+        <app-loader [isLoading]="isLoading"></app-loader>
         <div class="header">
           <h2>Fill the form below to apply</h2>
         </div>
@@ -371,5 +360,4 @@
       </div>
     </div>
   </div>
-  <app-loader [isLoading]="isLoading"></app-loader>
 </div>

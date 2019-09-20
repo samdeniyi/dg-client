@@ -70,6 +70,9 @@ export class LoginComponent implements OnInit, OnDestroy {
               { ...res.responseData, email: this.loginForm.value.username },
               true
             );
+
+            this.showToastr();
+
             this.router.navigate(
               [this.route.snapshot.queryParams.redirect || '/'],
               { replaceUrl: true }
@@ -84,6 +87,13 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.error = error;
         }
       );
+  }
+
+  showToastr() {
+    this.toastr.success('Hello, welcome to Yego.', undefined, {
+      closeButton: true,
+      positionClass: 'toast-top-right'
+    });
   }
 
   setLanguage(language: string) {

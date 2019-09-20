@@ -3,23 +3,41 @@
     <div class="vertical-align-middle auth-main">
       <div class="auth-box">
         <div class="top">
-          <img src="assets/images/logo-light.png" alt="DGPay" />
+          <img src="assets/images/yego-logo.png" alt="yego-logo" />
         </div>
         <div class="card">
           <div class="header">
             <p class="lead">Verifying User Account</p>
           </div>
           <div class="body">
-            <p>... verifying email address <i class="fa fa-spinner"></i></p>
+            <p *ngIf="isLoading">
+              ... verifying email address <i class="fa fa-spinner fa-spin"></i>
+            </p>
             <button
               type="submit"
-              class="btn btn-primary btn-lg btn-block"
-              *ngIf="resendVerificationLink"
+              class="btn btn-yego btn-lg btn-block"
+              *ngIf="!isLoading"
+              (click)="verifyUserEmail()"
             >
               Resend Verification Link
             </button>
+            <button
+              class="btn btn-yego btn-lg btn-block"
+              [disabled]="true"
+              *ngIf="isLoading"
+            >
+              <i class="fa fa-spinner fa-spin" style="margin-right: 5px"></i>
+              Verifying you, please wait
+            </button>
+            <div class="bottom mt-4 text-center">
+              <span>Go back to <a [routerLink]="['/login']">Login</a></span>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="img-wraaper">
+        <img src="assets/svgs/login-img2.svg" alt="" class="img-fluid" />
       </div>
     </div>
   </div>
