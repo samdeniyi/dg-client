@@ -19,6 +19,23 @@ body {
   background-size: contain;
 }
 
+.auth-main::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 400px;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    $yego-green,
+    $yego-green,
+    $yego-green-40
+  ) !important;
+  //background: $yego-green;
+}
+
 .img-wraaper {
   position: absolute;
   right: 10%;
