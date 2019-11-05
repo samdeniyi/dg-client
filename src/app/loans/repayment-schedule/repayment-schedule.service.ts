@@ -16,12 +16,7 @@ export class RepaymentScheduleService extends BaseService<any> {
     super(http);
   }
 
-  loanRepayment(loanId: any, repaymentScheduleId: any): Observable<any> {
-    const data = {
-      loanId: loanId,
-      repaymentScheduleId: repaymentScheduleId,
-      repaymentType: 1
-    };
+  loanRepayment(data: any): Observable<any> {
     return this.sendPost(this.baseUrl(routes.loanrepayment), data);
   }
 }

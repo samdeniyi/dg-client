@@ -94,7 +94,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-6 col-md-12">
+    <div class="col-lg-12 col-md-12">
       <div class="card">
         <div class="header">
           <h2>Fill the form below to apply</h2>
@@ -146,13 +146,13 @@
             *ngIf="activeTab === 'loanDetails' || activeTab == ''"
           >
             <div
-              class="tab-pane"
+              class="tab-pane row"
               [ngClass]="{
                 'active show': 'loanDetails' == activeTab || activeTab == ''
               }"
             >
               <form
-                class="form-auth-small"
+                class="form-auth-small col-lg-6"
                 [formGroup]="loanDetailForm"
                 (ngSubmit)="onSubmit()"
               >
@@ -214,11 +214,11 @@
           </div>
           <div class="tab-content" *ngIf="activeTab === 'requiredFields'">
             <div
-              class="tab-pane"
+              class="tab-pane row"
               [ngClass]="{ 'active show': 'requiredFields' == activeTab }"
             >
               <form
-                class="form-auth-small"
+                class="form-auth-small col-lg-6"
                 [formGroup]="requiredFieldForm"
                 (ngSubmit)="onSubmitRequiredField()"
               >
@@ -246,7 +246,7 @@
 
                 <button
                   type="submit"
-                  class="btn btn-success btn-sm text-right"
+                  class="btn btn-success btn-sm text-right float-right"
                   [disabled]="!requiredFieldForm.valid"
                 >
                   Next
@@ -256,12 +256,12 @@
           </div>
           <div class="tab-content" *ngIf="activeTab === 'accountDetail'">
             <div
-              class="tab-pane"
+              class="tab-pane row"
               [ngClass]="{ 'active show': 'accountDetail' == activeTab }"
             >
-              <div>
+              <div class="row">
                 <form
-                  class="form-auth-small"
+                  class="form-auth-small col-lg-6"
                   [formGroup]="accountForm"
                   (ngSubmit)="onSubmitAccountForm()"
                 >
@@ -332,41 +332,30 @@
                   </div>
                 </form>
                 <hr />
-              </div>
-              <div *ngIf="isValidAcc && isValidBvn">
-                <p>
-                  To complete you loan application, you have to validate your
-                  debt card,
-                  <span class="text-danger"
-                    >Please note a debt of 50 Naira will be deducted on the
+                <div
+                  *ngIf="isValidAcc && isValidBvn"
+                  class="col-lg-6 text-center d-flex flex-column justify-content-center p-4 validation-message"
+                >
+                  <h2 class="card-title">
+                    To complete you loan application, you have to validate your
+                    debt card,
+                  </h2>
+                  <p>
+                    Please note a debt of 50 Naira will be deducted on the
                     card,<br />
-                    This charge will be reversed after 5 working days</span
+                    This charge will be reversed after 5 working days
+                  </p>
+                  <app-paystack
+                    [isDisabled]="!accountForm.valid"
+                    (paymentDoneCallback)="paymentDone($event)"
+                    [amounts]="initailDebt"
+                    >Validate your card With Paystack</app-paystack
                   >
-                </p>
-                <!-- <button
-                  class="btn btn-info mt-3 mb-3"
-                  angular4-paystack
-                  [channels]="['card']"
-                  [key]="publicKey"
-                  [email]="userEmail"
-                  [amount]="initailDebt"
-                  [ref]="tRef"
-                  (close)="paymentCancel()"
-                  (callback)="paymentDone($event)"
-                  [class]="'btn btn-primary btn-lg'"
-                  [disabled]="!accountForm.valid"
-                >
-                  Validate your card With Paystack
-                </button> -->
-                <app-paystack
-                  [isDisabled]="!accountForm.valid"
-                  (paymentDoneCallback)="paymentDone($event)"
-                  [amounts]="initailDebt"
-                  >Validate your card With Paystack</app-paystack
-                >
-              </div>
-              <div *ngIf="!isValidAcc">
-                {{ accValidationErr }}
+
+                  <div *ngIf="!isValidAcc">
+                    {{ accValidationErr }}
+                  </div>
+                </div>
               </div>
               <button
                 type="submit"

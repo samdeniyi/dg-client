@@ -3,7 +3,7 @@ declare var require: any;
 
 import { QuoteService } from './quote.service';
 import EChartOption = echarts.EChartOption;
-
+import { untilDestroyed } from '@app/core/until-destroyed';
 import { ToastrService } from 'ngx-toastr';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,19 +14,31 @@ import { HomeService } from './home.service';
 import { LoansService } from '@app/loans/loans.service';
 import { finalize } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from '@angular/animations';
+import { fadeInTrigger } from '@app/animations';
 
 const log = new Logger('home');
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [fadeInTrigger]
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  state = 'normal';
+
   quote: string | undefined;
   isLoading = false;
   summary: any;
   recentTransactions: any;
+  userLoanList: any;
 
   public sidebarVisible = true;
   public title = 'Dashboard';
@@ -121,16 +133,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     const that = this;
 
-    setTimeout(
-      function() {
-        that.showToastr();
-      },
-
-      1000
-    );
+    setTimeout(function() {
+      that.showToastr();
+    }, 1000);
     this.chartIntervals();
 
     this.getSummary();
+
+    this.getUserLoan();
+  }
+
+  onAnimate() {
+    this.state == 'normal' ? (this.state = 'in') : (this.state = 'normal');
   }
 
   ngOnDestroy() {
@@ -149,80 +163,76 @@ export class HomeComponent implements OnInit, OnDestroy {
   chartIntervals() {
     const that = this;
 
-    this.interval = setInterval(
-      function() {
-        that.earningOptionsSeries.shift();
-        let rand = Math.floor(Math.random() * 11);
+    this.interval = setInterval(function() {
+      that.earningOptionsSeries.shift();
+      let rand = Math.floor(Math.random() * 11);
 
-        if (!rand) {
-          rand = 1;
-        }
+      if (!rand) {
+        rand = 1;
+      }
 
-        that.earningOptionsSeries.push(rand);
-        that.earningOptions = that.loadLineAreaChartOptions(
-          that.earningOptionsSeries,
-          '#f79647',
-          '#fac091'
-        );
-        that.earnings =
-          '₦' +
-          (
-            that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000
-          ).toLocaleString();
+      that.earningOptionsSeries.push(rand);
+      that.earningOptions = that.loadLineAreaChartOptions(
+        that.earningOptionsSeries,
+        '#f79647',
+        '#fac091'
+      );
+      that.earnings =
+        '₦' +
+        (
+          that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000
+        ).toLocaleString();
 
-        that.salesOptionsSeries.shift();
-        rand = Math.floor(Math.random() * 11);
+      that.salesOptionsSeries.shift();
+      rand = Math.floor(Math.random() * 11);
 
-        if (!rand) {
-          rand = 1;
-        }
+      if (!rand) {
+        rand = 1;
+      }
 
-        that.salesOptionsSeries.push(rand);
-        that.salesOptions = that.loadLineAreaChartOptions(
-          that.salesOptionsSeries,
-          '#604a7b',
-          '#a092b0'
-        );
-        that.sales =
-          '₦' +
-          (
-            that.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000
-          ).toLocaleString();
+      that.salesOptionsSeries.push(rand);
+      that.salesOptions = that.loadLineAreaChartOptions(
+        that.salesOptionsSeries,
+        '#604a7b',
+        '#a092b0'
+      );
+      that.sales =
+        '₦' +
+        (
+          that.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000
+        ).toLocaleString();
 
-        that.visitsAreaOptionsSeries.shift();
-        rand = Math.floor(Math.random() * 11);
+      that.visitsAreaOptionsSeries.shift();
+      rand = Math.floor(Math.random() * 11);
 
-        if (!rand) {
-          rand = 1;
-        }
+      if (!rand) {
+        rand = 1;
+      }
 
-        that.visitsAreaOptionsSeries.push(rand);
-        that.visits += rand;
-        that.visitsAreaOptions = that.loadLineAreaChartOptions(
-          that.visitsAreaOptionsSeries,
-          '#4aacc5',
-          '#92cddc'
-        );
+      that.visitsAreaOptionsSeries.push(rand);
+      that.visits += rand;
+      that.visitsAreaOptions = that.loadLineAreaChartOptions(
+        that.visitsAreaOptionsSeries,
+        '#4aacc5',
+        '#92cddc'
+      );
 
-        that.LikesOptionsSeries.shift();
-        rand = Math.floor(Math.random() * 11);
+      that.LikesOptionsSeries.shift();
+      rand = Math.floor(Math.random() * 11);
 
-        if (!rand) {
-          rand = 1;
-        }
+      if (!rand) {
+        rand = 1;
+      }
 
-        that.LikesOptionsSeries.push(rand);
-        that.likes += rand;
-        that.LikesOptions = that.loadLineAreaChartOptions(
-          that.LikesOptionsSeries,
-          '#4f81bc',
-          '#95b3d7'
-        );
-        that.cdr.markForCheck();
-      },
-
-      3000
-    );
+      that.LikesOptionsSeries.push(rand);
+      that.likes += rand;
+      that.LikesOptions = that.loadLineAreaChartOptions(
+        that.LikesOptionsSeries,
+        '#4f81bc',
+        '#95b3d7'
+      );
+      that.cdr.markForCheck();
+    }, 3000);
   }
 
   loadLineAreaChartOptions(data: any, color: any, areaColor: any) {
@@ -352,7 +362,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log(res);
         }
       },
-
       error => {
         console.log(error);
       }
@@ -363,17 +372,56 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.homeService.recentTransactions().subscribe(
       res => {
         if (res.responseCode === '00') {
-          console.log(res);
+          console.log('getRecentTransactions', res);
           this.recentTransactions = res.responseData;
         } else {
           console.log(res);
         }
       },
-
       error => {
         console.log(error);
       }
     );
+  }
+
+  getUserLoan() {
+    this.isLoading = true;
+    const pLoans$ = this.loanService.getUserLoans();
+    pLoans$
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.responseCode === '00') {
+            console.log('User Loan', res);
+            this.recentTransactions = res.responseData;
+            this.userLoanList = res.responseData[res.responseData.length - 1];
+            //this.loanDetails = res.responseData[0];
+            log.info(this.userLoanList);
+
+            this.toastr.success(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          } else {
+            this.toastr.error(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          }
+        },
+        (err: any) => {
+          log.error(err);
+          this.toastr.error(err.message, 'ERROR!', {
+            closeButton: true,
+            positionClass: 'toast-top-right'
+          });
+        }
+      );
   }
 
   onLiquidate(trans: any) {
@@ -381,7 +429,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     console.log('this.loanDetails', this.loanDetails);
     const data = {
-      loanId: this.loanDetails.id,
+      loanId: this.loanDetails.loanId,
       authorisationTransaction: {
         message: trans.message,
         reference: trans.reference,
@@ -389,7 +437,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         trans: trans.trans,
         transaction: trans.transaction,
         trxref: trans.trxref,
-        amount: this.loanDetails.loanAmount
+        amount: this.loanDetails.totalAmount
       }
     };
 
@@ -420,6 +468,52 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   liquidateNow(view: any) {
     this.isLoading = true;
+    this.loanDetails = this.userLoanList;
+
+    this.loanService
+      .getLiquidationrequest(this.userLoanList.id)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.responseCode === '00') {
+            this.loanDetails = res.responseData;
+            if (this.loanDetails.totalAmount <= 0) {
+              return this.toastr.error(
+                'Total Amount can not be Zero',
+                undefined,
+                {
+                  positionClass: 'toast-top-right'
+                }
+              );
+            }
+            this.modalRef = this.modalService.open(view, {
+              windowClass: 'search small',
+              backdrop: true
+            });
+          } else {
+            this.toastr.error(res.message, undefined, {
+              closeButton: true,
+              positionClass: 'toast-top-right'
+            });
+          }
+        },
+        (err: any) => {
+          log.error(err);
+          this.toastr.error(err.message, 'ERROR!', {
+            closeButton: true,
+            positionClass: 'toast-top-right'
+          });
+        }
+      );
+  }
+
+  /*  liquidateNow(view: any) {
+    this.isLoading = true;
 
     this.loanService
       .getUserLoans()
@@ -431,7 +525,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           this.loanDetails = res.responseData[0];
-          console.log(this.loanDetails);
+          console.log('this.loanDetails', res);
           this.toastr.success(res.message, 'Success!');
 
           if (this.loanDetails) {
@@ -439,6 +533,8 @@ export class HomeComponent implements OnInit, OnDestroy {
               windowClass: 'search small',
               backdrop: true
             });
+          } else {
+            this.toastr.success('You Have no Loan', 'Success!');
           }
         },
         error => {
@@ -446,7 +542,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.toastr.error(error.message, 'ERROR!');
         }
       );
-  }
+  } */
 
   paymentDone(event: any) {
     const title = 'Payment successfull';
