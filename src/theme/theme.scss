@@ -1,3 +1,5 @@
+@import "src/theme/theme-variables";
+
 /*
  * Global application theme.
  * Framework overrides and customization goes here.
@@ -114,13 +116,17 @@ button:focus {
   }
 
   .btn-secure {
-    background-color: #1322dc;
-    border-color: #1322dc;
+    background-color: $yego-green-40;
+    border-color: $yego-green-40;
 
     &:hover {
-      color: #1322dc;
+      color: $yego-green-40;
     }
   }
+}
+
+a {
+  color: $yego-green-40;
 }
 
 .auth-main:after {

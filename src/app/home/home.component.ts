@@ -87,7 +87,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   loanDetails: any;
 
   constructor(
-    private quoteService: QuoteService,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
     private router: Router,
@@ -119,23 +118,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.isLoading = true;
-    // this.quoteService
-    //   .getRandomQuote({ category: 'dev' })
-    //   .pipe(
-    //     finalize(() => {
-    //       this.isLoading = false;
-    //     })
-    //   )
-    //   .subscribe((quote: string) => {
-    //     this.quote = quote;
-    //   });
-
     const that = this;
 
-    setTimeout(function() {
-      that.showToastr();
-    }, 1000);
     this.chartIntervals();
 
     this.getSummary();
@@ -151,13 +135,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.interval) {
       clearInterval(this.interval);
     }
-  }
-
-  showToastr() {
-    this.toastr.info('Hello, welcome to DGPay.', undefined, {
-      closeButton: true,
-      positionClass: 'toast-top-right'
-    });
   }
 
   chartIntervals() {
@@ -356,7 +333,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.homeService.summary().subscribe(
       res => {
         if (res.responseCode === '00') {
-          console.log(res);
           this.summary = res.responseData;
         } else {
           console.log(res);
@@ -375,7 +351,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log('getRecentTransactions', res);
           this.recentTransactions = res.responseData;
         } else {
-          console.log(res);
         }
       },
       error => {
@@ -402,11 +377,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.userLoanList = res.responseData[res.responseData.length - 1];
             //this.loanDetails = res.responseData[0];
             log.info(this.userLoanList);
-
-            this.toastr.success(res.message, undefined, {
-              closeButton: true,
-              positionClass: 'toast-top-right'
-            });
           } else {
             this.toastr.error(res.message, undefined, {
               closeButton: true,
@@ -453,7 +423,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           if (res.responseCode === '00') {
-            console.log(res);
             this.toastr.success(res.message, 'Success!');
           } else {
             this.toastr.error(res.message, 'ERROR!');
@@ -512,43 +481,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       );
   }
 
-  /*  liquidateNow(view: any) {
-    this.isLoading = true;
-
-    this.loanService
-      .getUserLoans()
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe(
-        res => {
-          this.loanDetails = res.responseData[0];
-          console.log('this.loanDetails', res);
-          this.toastr.success(res.message, 'Success!');
-
-          if (this.loanDetails) {
-            this.modalRef = this.modalService.open(view, {
-              windowClass: 'search small',
-              backdrop: true
-            });
-          } else {
-            this.toastr.success('You Have no Loan', 'Success!');
-          }
-        },
-        error => {
-          console.log(error);
-          this.toastr.error(error.message, 'ERROR!');
-        }
-      );
-  } */
-
   paymentDone(event: any) {
     const title = 'Payment successfull';
     console.log('paymentDone', event);
-    // this.paystackResponse = ref.tRef;
-    // console.log('this.paystackResponse', this.paystackResponse);
     this.toastr.success(title, '', {
       closeButton: true,
       positionClass: 'toast-top-right'
