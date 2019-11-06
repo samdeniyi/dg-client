@@ -12,7 +12,7 @@ const proxyConfig = [
   {
     context: '/api/',
     pathRewrite: { '^/api/': '' },
-    target: 'http://mbappeloan2.us-east-1.elasticbeanstalk.com',
+    target: 'http://35.176.111.150/',
     changeOrigin: true,
     secure: false
   }
